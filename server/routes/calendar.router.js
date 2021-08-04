@@ -3,6 +3,44 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
+/**
+ * NO CURRENT GET ROUTES FOR CALENDAR. NEED TO THINK ABOUT HOW THIS CALENDAR IS
+ * GOING TO BE DISPLAYED.
+ * WILL NEED A GET ROUTE FOR ALL MEAL_PLAN.
+ * MAY NEED A GET ROUTE FOR ALL CALENDARS AT SOME POINT
+ */
+ router.get('/', rejectUnauthenticated, (req, res) => {
+  
+});
+
+
+/**
+ * GET all input meal_plan for DEFAULT = true calendars.  This will be used to display
+ * the main calendar (Can be further modified to only grab certain days)
+ */
+router.get('/mealPlanCalendar', rejectUnauthenticated, (req, res) => {
+  const userId = req.user.id;
+  const queryText = `
+  SELECT date, recipes.id, recipes.name, recipes.picture, recipes.api_id FROM meal_plan
+    JOIN calendars ON calendars.id = meal_plan.calendar_id
+    JOIN calendar_shared_users ON calendar_shared_users.calendar_id = calendars.id
+    JOIN recipes ON meal_plan.recipe_id = recipes.id
+    WHERE calendar_shared_users.shared_user_id = $1 AND calendar_shared_users.default_calendar = TRUE;`
+  ;
+  pool.query(queryText, [userId])
+  .then(result => {
+    console.log(result.rows);
+    res.send(result.rows);
+  }).catch(error => {
+    console.log('error GETting mealPlanCalendar', error);
+    res.sendStatus(500);
+  });
+});
+
+
+
+
 /**
  * DELETE allows calendar owner to remove a shared_user from the calendar
  * OR a shared user to leave a calendar
@@ -29,14 +67,6 @@ router.delete('/:calendarId', rejectUnauthenticated, (req,res) => {
 
 
 /**
- * GET route template
- */
-router.get('/', rejectUnauthenticated, (req, res) => {
-  
-});
-
-
-/**
  * POST creates a new calendar and adds the owner to calendar_shared_users
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
@@ -53,7 +83,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       FROM newPost
     ;`
   ;
-
   pool.query(queryText, [owner, calendarName])
   .then(() => {
     console.log('New Calendar created');
