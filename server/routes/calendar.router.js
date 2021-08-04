@@ -29,15 +29,45 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   });
 });
 
+router.post('/:calendarId', rejectUnauthenticated, (req, res) => {
+  const calendarId = req.params.calendarId;
+  const requesterId = req.user.id;
+  const addedUser = req.body.username;
+
+  const calendarOwner = 'SELECT owner_id FROM calendars WHERE id = $1';
+  const selectQuery = 'SELECT id FROM "user" WHERE username=$1;';
+  const postQuery = `INSERT INTO calendar_shared_users (calendar_id, shared_user_id)
+                      VALUES ($1, $2);`
+  pool.query(calendarOwner, [calendarId])
+  .then(result => {
+    console.log(result.rows[0].owner_id);
+    if (result.rows[0].owner_id == requesterId){
+      pool.query(selectQuery, [addedUser])
+      .then(result => {
+        const addedUserId = result.rows[0].id;
+        pool.query(postQuery, [calendarId, addedUserId])
+        .then(response => {
+          res.sendStatus(201);
+        })
+      })
+    } else {
+      res.sendStatus(403);
+    }
+  }).catch(error => {
+    console.log('error POSTing shared user', error);
+    res.sendStatus(500);
+  });
+})
+
 /**
- * PUT routes to update calendar shared_users or calendar name
+ * PUT routes to update calendar name
  */
 router.put('/:calendarId', rejectUnauthenticated, (req, res) => {
   const calendarId = req.params.calendarId;
   const requesterId = req.user.id;
-
-
-    
+  const newName = req.body.calendarName;
+  console.log(newName);
+      
     const queryText = `UPDATE calendars SET name = $1 WHERE owner_id = $2 AND id =$3;`;
     pool.query(queryText, [newName, requesterId, calendarId])
     .then(() => {
