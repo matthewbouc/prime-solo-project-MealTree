@@ -14,6 +14,10 @@ const router = express.Router();
   
 });
 
+
+
+// #########  CALENDAR_SHARED_USERS  ROUTES ############   //
+
 /**
  * GET all calendars for the user
  */
@@ -32,7 +36,7 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
 });
 
 /**
- * PUT updates which calendar is "default" and displayed as main calendar
+ * PUT updates which calendar is "default" and displayed as main calendar.  SETs all other calendars to not default, then sets default.
  */
 router.put('/default', rejectUnauthenticated, (req, res) => {
   const newDefaultCalendar = req.body.default;
@@ -52,6 +56,71 @@ router.put('/default', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   });
 });
+
+/**
+ * DELETE allows calendar owner to remove a shared_user from the calendar
+ * OR a shared user to leave a calendar
+ */
+ router.delete('/:calendarId', rejectUnauthenticated, (req,res) => {
+  const calendarId = req.params.calendarId;
+  const removeUser = req.query.userId;
+
+  const deleteQuery = `
+    DELETE FROM calendar_shared_users USING calendars
+    WHERE (calendars.owner_id = $1 OR shared_user_id = $2)
+      AND calendar_id = $3 AND shared_user_id = $4
+    ;`
+  ;
+  pool.query(deleteQuery, [req.user.id, removeUser, calendarId, removeUser])
+  .then((response) => {
+    console.log('Success DELETing user from calendar', response);
+    res.sendStatus(200);
+  }).catch(error => {
+    console.log('Error DELETing user from calendar', error);
+    res.sendStatus(500);
+  });
+});
+
+
+
+/**
+ * POST to allow the calendar owner to add another user to their calendar by adding
+ * that user to calendar_shared_users table.
+ */
+ router.post('/:calendarId', rejectUnauthenticated, (req, res) => {
+  const calendarId = req.params.calendarId;
+  const requesterId = req.user.id;
+  const addedUser = req.body.userId;
+
+  const calendarOwner = 'SELECT owner_id FROM calendars WHERE id = $1';
+  const postQuery = `INSERT INTO calendar_shared_users (calendar_id, shared_user_id)
+                      VALUES ($1, $2);`
+  pool.query(calendarOwner, [calendarId])
+  .then(result => {
+    console.log(result.rows[0].owner_id);
+    if (result.rows[0].owner_id == requesterId){
+      pool.query(postQuery, [calendarId, addedUser])
+      .then(() => {
+        res.sendStatus(201);
+      })
+    } else {
+      res.sendStatus(403);
+    }
+  }).catch(error => {
+    console.log('error POSTing shared user', error);
+    res.sendStatus(500);
+  });
+})
+
+
+
+
+
+//   ##############   MEAL_PLAN CALENDAR  ################## //
+
+
+
+
 
 /**
  * GET all input meal_plan for DEFAULT = true calendar.  This will be used to display
@@ -77,37 +146,63 @@ router.get('/mealPlanCalendar', rejectUnauthenticated, (req, res) => {
 });
 
 
+/** 
+ * POST adding a meal_plan to calendar with date, category, recipe.  Verifies user is a shared_user of calendar.
+*/
+router.post('/meal/calendar', rejectUnauthenticated, async (req, res) => {
 
+  const userId = req.user.id;
+  const calendarId = req.body.calendarId;
+  const mealDate = req.body.date;
+  const mealCategory = req.body.category;
+  const recipeId = req.body.recipeId;
+  let isVerified;
 
-/**
- * DELETE allows calendar owner to remove a shared_user from the calendar
- * OR a shared user to leave a calendar
- */
-router.delete('/:calendarId', rejectUnauthenticated, (req,res) => {
-  const calendarId = req.params.calendarId;
-  const removeUser = req.query.userId;
-
-  const deleteQuery = `
-    DELETE FROM calendar_shared_users USING calendars
-    WHERE (calendars.owner_id = $1 OR shared_user_id = $2)
-      AND calendar_id = $3 AND shared_user_id = $4
-    ;`
-  ;
-  pool.query(deleteQuery, [req.user.id, removeUser, calendarId, removeUser])
-  .then((response) => {
-    console.log('Success DELETing user from calendar', response);
-    res.sendStatus(200);
+  console.log('what is body', req.body);
+ 
+  const verifyUserQuery = `SELECT calendar_id FROM calendar_shared_users WHERE shared_user_id = $1;`;
+  const postNewMeal = `INSERT INTO "meal_plan" ("calendar_id", "date", "category_id", "recipe_id") VALUES ($1, $2, $3, $4);`;
+  await pool.query(verifyUserQuery, [userId])
+  .then(result => {
+    console.log('result rows:', result.rows);
+    for (calendar of result.rows){
+      if (calendar.calendar_id == calendarId){
+        isVerified = true;
+      }
+    }
   }).catch(error => {
-    console.log('Error DELETing user from calendar', error);
+    console.log('Error POSTing', error);
     res.sendStatus(500);
   });
+
+  if (isVerified){
+    pool.query(postNewMeal, [calendarId, mealDate, mealCategory, recipeId])
+    .then(() => {
+      console.log('Success POSTing meal_plan');
+      res.sendStatus(201);
+    }).catch(error => {
+      console.log('Error POSTing meal_plan', error);
+      res.sendStatus(500);
+    });
+  } else {
+    res.sendStatus(403);
+  }
 });
+
+
+
+
+
+
+
+
+//  ########   CALENDARS ROUTE  ##############   // 
 
 
 /**
  * POST creates a new calendar and adds the owner to calendar_shared_users
  */
-router.post('/', rejectUnauthenticated, (req, res) => {
+ router.post('/', rejectUnauthenticated, (req, res) => {
   const owner = req.user.id;
   const calendarName = req.body.name;
   console.log('req.user.id', owner);
@@ -130,36 +225,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     res.sendStatus(500);
   });
 });
-
-
-/**
- * POST to allow the calendar owner to add another user to their calendar by adding
- * that user to calendar_shared_users table.
- */
-router.post('/:calendarId', rejectUnauthenticated, (req, res) => {
-  const calendarId = req.params.calendarId;
-  const requesterId = req.user.id;
-  const addedUser = req.body.userId;
-
-  const calendarOwner = 'SELECT owner_id FROM calendars WHERE id = $1';
-  const postQuery = `INSERT INTO calendar_shared_users (calendar_id, shared_user_id)
-                      VALUES ($1, $2);`
-  pool.query(calendarOwner, [calendarId])
-  .then(result => {
-    console.log(result.rows[0].owner_id);
-    if (result.rows[0].owner_id == requesterId){
-      pool.query(postQuery, [calendarId, addedUser])
-      .then(() => {
-        res.sendStatus(201);
-      })
-    } else {
-      res.sendStatus(403);
-    }
-  }).catch(error => {
-    console.log('error POSTing shared user', error);
-    res.sendStatus(500);
-  });
-})
 
 
 /**
