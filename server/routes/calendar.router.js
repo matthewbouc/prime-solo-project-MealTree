@@ -27,21 +27,32 @@ router.delete('/:calendarId', rejectUnauthenticated, (req,res) => {
   });
 });
 
+
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-  // GET route code here
+router.get('/', rejectUnauthenticated, (req, res) => {
+  
 });
 
+
 /**
- * POST to create a new calendar
+ * POST creates a new calendar and adds the owner to calendar_shared_users
  */
 router.post('/', rejectUnauthenticated, (req, res) => {
   const owner = req.user.id;
   const calendarName = req.body.name;
   console.log('req.user.id', owner);
-  const queryText = `INSERT INTO calendars (owner_id, name, shared_users) VALUES ($1,$2);`;
+  const queryText = `
+    WITH newPost as (
+      INSERT INTO calendars (owner_id, name)
+      VALUES ($1, $2) RETURNING id, owner_id
+    )
+    INSERT INTO calendar_shared_users (calendar_id, shared_user_id)
+      SELECT id, owner_id
+      FROM newPost
+    ;`
+  ;
 
   pool.query(queryText, [owner, calendarName])
   .then(() => {
@@ -83,6 +94,7 @@ router.post('/:calendarId', rejectUnauthenticated, (req, res) => {
   });
 })
 
+
 /**
  * PUT routes to update calendar name
  */
@@ -105,38 +117,3 @@ router.put('/:calendarId', rejectUnauthenticated, (req, res) => {
 
 
 module.exports = router;
-
-
-
-  // if (req.body.username){
-  //   const addedUser = req.body.username;
-  //   console.log(`requesterId = ${requesterId}, --- addedUser = ${addedUser}
-  //                 ---- calendarId = ${calendarId}`);
-
-  //   const selectQuery = 'SELECT id FROM "user" WHERE username=$1;';
-
-
-  //   const putQuery = `UPDATE calendars SET shared_users = shared_users || $1
-  //                     WHERE owner_id = $2 AND id = $3;`;
-  //   if (req.body.delete){
-  //     putQuery = `UPDATE calendars SET shared_users - $1
-  //                 WHERE owner_id = $2 AND id = $3;`;
-  //   }
-
-  //   pool.query(selectQuery, [addedUser])
-  //   .then(response => {
-  //     const addedUserId = response.rows[0].id;
-  //     console.log('response is:', addedUserId);
-  //     pool.query(putQuery, [addedUserId, requesterId, calendarId])
-  //     .then(()=>{
-  //       console.log('Success PUTting shared_user');
-  //       res.sendStatus(202);
-  //     })
-  //   }).catch(error => {
-  //     console.log('error during overall put', error)
-  //     res.sendStatus(500);
-  //   })
-  // } else if (req.body.calendarName){
-  //   const newName = req.body.calendarName;
-  //   console.log(newName);
-  // }
