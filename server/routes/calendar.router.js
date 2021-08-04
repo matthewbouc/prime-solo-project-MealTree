@@ -15,7 +15,7 @@ const router = express.Router();
 });
 
 /**
- * Get all calendars for a single user
+ * GET all calendars for the user
  */
 router.get('/all', rejectUnauthenticated, (req, res) => {
 
@@ -29,11 +29,32 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     console.log('error GETting all calendars for user', error);
     res.sendStatus(500);
   });
-})
-
+});
 
 /**
- * GET all input meal_plan for DEFAULT = true calendars.  This will be used to display
+ * PUT updates which calendar is "default" and displayed as main calendar
+ */
+router.put('/default', rejectUnauthenticated, (req, res) => {
+  const newDefaultCalendar = req.body.default;
+  const userId = req.user.id;
+  const removeDefaultQuery = `UPDATE calendar_shared_users SET default_calendar = false WHERE shared_user_id = $1;`;
+  const addDefaultQuery = `UPDATE calendar_shared_users SET default_calendar = true WHERE shared_user_id = $1 AND calendar_id = $2;`;
+
+  pool.query(removeDefaultQuery, [userId])
+  .then(() => {
+    pool.query(addDefaultQuery, [userId, newDefaultCalendar])
+    .then(() => {
+      console.log('Success PUTting new Default Calendar');
+      res.sendStatus(202);
+    })
+  }).catch(error => {
+    console.log('Error PUTting new Default calendar', error);
+    res.sendStatus(500);
+  });
+});
+
+/**
+ * GET all input meal_plan for DEFAULT = true calendar.  This will be used to display
  * the main calendar (Can be further modified to only grab certain days)
  */
 router.get('/mealPlanCalendar', rejectUnauthenticated, (req, res) => {
