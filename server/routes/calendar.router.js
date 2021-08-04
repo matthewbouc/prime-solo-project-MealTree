@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 /**
- * NO CURRENT GET ROUTES FOR CALENDAR. NEED TO THINK ABOUT HOW THIS CALENDAR IS
+ * NEED MORE GET ROUTES. NEED TO THINK ABOUT HOW THIS CALENDAR IS
  * GOING TO BE DISPLAYED.
  * WILL NEED A GET ROUTE FOR ALL MEAL_PLAN.
  * MAY NEED A GET ROUTE FOR ALL CALENDARS AT SOME POINT
@@ -13,6 +13,23 @@ const router = express.Router();
  router.get('/', rejectUnauthenticated, (req, res) => {
   
 });
+
+/**
+ * Get all calendars for a single user
+ */
+router.get('/all', rejectUnauthenticated, (req, res) => {
+
+  const queryText = `SELECT * FROM calendar_shared_users WHERE shared_user_id = $1 ORDER BY default_calendar DESC, id;`
+  pool.query(queryText, [req.user.id])
+  .then(result => {
+    console.log('Success GETting all calendars for user', result.rows);
+    res.send(result.rows);
+  })
+  .catch(error => {
+    console.log('error GETting all calendars for user', error);
+    res.sendStatus(500);
+  });
+})
 
 
 /**
