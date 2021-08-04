@@ -4,6 +4,30 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
+ * DELETE allows calendar owner to remove a shared_user from the calendar
+ * OR a shared user to leave a calendar
+ */
+router.delete('/:calendarId', rejectUnauthenticated, (req,res) => {
+  const calendarId = req.params.calendarId;
+  const removeUser = req.query.userId;
+
+  const deleteQuery = `
+    DELETE FROM calendar_shared_users USING calendars
+    WHERE (calendars.owner_id = $1 OR shared_user_id = $2)
+      AND calendar_id = $3 AND shared_user_id = $4
+    ;`
+  ;
+  pool.query(deleteQuery, [req.user.id, removeUser, calendarId, removeUser])
+  .then((response) => {
+    console.log('Success DELETing user from calendar', response);
+    res.sendStatus(200);
+  }).catch(error => {
+    console.log('Error DELETing user from calendar', error);
+    res.sendStatus(500);
+  });
+});
+
+/**
  * GET route template
  */
 router.get('/', (req, res) => {
@@ -29,26 +53,26 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   });
 });
 
+
+/**
+ * POST to allow the calendar owner to add another user to their calendar by adding
+ * that user to calendar_shared_users table.
+ */
 router.post('/:calendarId', rejectUnauthenticated, (req, res) => {
   const calendarId = req.params.calendarId;
   const requesterId = req.user.id;
-  const addedUser = req.body.username;
+  const addedUser = req.body.userId;
 
   const calendarOwner = 'SELECT owner_id FROM calendars WHERE id = $1';
-  const selectQuery = 'SELECT id FROM "user" WHERE username=$1;';
   const postQuery = `INSERT INTO calendar_shared_users (calendar_id, shared_user_id)
                       VALUES ($1, $2);`
   pool.query(calendarOwner, [calendarId])
   .then(result => {
     console.log(result.rows[0].owner_id);
     if (result.rows[0].owner_id == requesterId){
-      pool.query(selectQuery, [addedUser])
-      .then(result => {
-        const addedUserId = result.rows[0].id;
-        pool.query(postQuery, [calendarId, addedUserId])
-        .then(response => {
-          res.sendStatus(201);
-        })
+      pool.query(postQuery, [calendarId, addedUser])
+      .then(() => {
+        res.sendStatus(201);
       })
     } else {
       res.sendStatus(403);
