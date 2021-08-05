@@ -4,16 +4,25 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET favorites recipe list
+ * GET favorites recipe list or specific recipe id based on query of recipeId.
  */
-router.get('/', rejectUnauthenticated, (req, res) => {
-
-    const queryText = `
+router.get('/', rejectUnauthenticated, (req, res) => { //  QUERY!! (recipeId)
+    const queryParameters = [req.user.id];
+    let queryText = `
         SELECT recipes.* FROM users_recipes
         JOIN recipes ON recipe_id = recipes.id
-        WHERE owner_id = $1;`
+        WHERE owner_id = $1`
     ;
-    pool.query(queryText, [req.user.id])
+    if (req.query.recipeId){
+        console.log(queryParameters);
+        console.log(req.query.recipeId);
+        queryText += ` AND recipe_id = $2;`;
+        queryParameters.push(req.query.recipeId);
+    } else {
+        queryText += `;`;
+    }
+
+    pool.query(queryText, queryParameters)
     .then(result => {
         console.log(result.rows);
         res.send(result.rows);
