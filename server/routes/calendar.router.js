@@ -4,19 +4,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
-/**
- * NEED MORE GET ROUTES. NEED TO THINK ABOUT HOW THIS CALENDAR IS
- * GOING TO BE DISPLAYED.
- * WILL NEED A GET ROUTE FOR ALL MEAL_PLAN.
- * MAY NEED A GET ROUTE FOR ALL CALENDARS AT SOME POINT
- */
- router.get('/', rejectUnauthenticated, (req, res) => {
-  
-});
-
-
-
-// #########  CALENDAR_SHARED_USERS  ROUTES ############   //
+// #########  CALENDAR_SHARED_USERS ROUTES ############   //
 
 /**
  * GET all calendars for the user
@@ -113,15 +101,7 @@ router.put('/default', rejectUnauthenticated, (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-
-//  ########   CALENDARS ROUTE  ##############   // 
+//  ########   CALENDARS ROUTES  ##############   // 
 
 
 /**
