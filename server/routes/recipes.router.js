@@ -68,7 +68,8 @@ router.delete('/:recipeId', rejectUnauthenticated, (req, res) => {
     const recipeId = req.params.recipeId;
     console.log(req.user.id);
     const deleteQuery = `
-    DELETE FROM recipes USING users_recipes
+    DELETE FROM recipes 
+        USING users_recipes
 	    WHERE users_recipes.owner_id = $1 AND 
         recipes.id = users_recipes.recipe_id AND users_recipes.recipe_id = $2;`
     ; // EMULATE THIS!  This is a way to perform authentication without needing a multiple queries.  Go back and fix old routes when time permits.
@@ -80,6 +81,30 @@ router.delete('/:recipeId', rejectUnauthenticated, (req, res) => {
         res.sendStatus(200);
     }).catch(error => {
         console.log('Error DELETing recipe', error);
+        res.sendStatus(500);
+    });
+});
+
+
+/**
+ * PUT update recipe details.  // Similar to DELETE above, query gives success response even if user is not authorized and UPDATe doesn't occur.
+ */
+router.put('/:recipeId', rejectUnauthenticated, (req, res) => {
+    const recipeId = req.params.recipeId;
+    const recipe = req.body;
+
+    const updateQuery = `
+    UPDATE recipes SET name = $1, ingredients = $2, procedure = $3, picture = $4 
+        FROM users_recipes 
+        WHERE users_recipes.owner_id = $5 AND
+        recipes.id = users_recipes.recipe_id AND users_recipes.recipe_id = $6;`
+    ;
+    pool.query(updateQuery, [recipe.name, recipe.ingredients, recipe.procedure, recipe.picture, req.user.id, recipeId])
+    .then(() => {
+        console.log('Success PUTting recipe update');
+        res.sendStatus(202);
+    }).catch(error => {
+        console.log('error PUTting recipe updates', error);
         res.sendStatus(500);
     });
 });
