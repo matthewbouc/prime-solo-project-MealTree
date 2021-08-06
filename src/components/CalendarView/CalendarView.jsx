@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
@@ -7,20 +7,20 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+
 function CalendarView() {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
-  const store = useSelector((store) => store);
+
+  const dispatch = useDispatch();
+  const weekPlan = useSelector((store) => store.weekPlan);
   const currentTime= new Date();
   const [nextDays, setNextDays] = useState([]);
   const [nextDates, setNextDates] = useState([]);
   const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+
   useEffect(()=>{
     createWeek();
+    dispatch({type: 'GET_WEEK_PLAN'})
   },[])
 
   const createWeek = () => {
@@ -31,29 +31,45 @@ function CalendarView() {
       // console.log(dateOfDay.getDate());
       // console.log(dateOfDay.getDay());
       dayArray.push(dateOfDay.getDay());
-      dateArray.push(dateOfDay.getDate());
+      dateArray.push(dateOfDay);
     }
+    console.log(dayArray, dateArray);
     setNextDays(dayArray);
     setNextDates(dateArray);
-    console.log(nextDays, nextDates);
   }
 
   const handleAddClick = (event) => {
     event.stopPropagation()
   }
 
+  const recipeDisplay = (accordionDate) => {
+    console.log('recipe display accordion date', accordionDate);
+    for (const meal of weekPlan){
+      let newFormat = new Date(meal.date);
+      // console.log('meal.date', newFormat, accordionDate);
+      if (newFormat.valueOf() == accordionDate.valueOf()){
+        return (
+          <div key={meal.id}>
+          <p>{meal.name}</p>
+          <img src={meal.picture} width="150px"/>
+          </div>
+        )
+      }
+    }
+  }
+
   return (
     <div>
       {nextDates && nextDates.map((date, i) => {     
         return(
-          <Accordion key={i} expanded={true}>
+          <Accordion key={i}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-label="Expand"
               aria-controls="additional-actions1-content"
               id="additional-actions1-header"
             >
-              <Typography>{date} {weekDays[nextDays[i]]}</Typography>
+              <Typography>{date.getDate()} {weekDays[nextDays[i]]}</Typography>
               <Button
                 aria-label="Add"
                 onClick={handleAddClick}
@@ -61,10 +77,8 @@ function CalendarView() {
               > Add Recipe </Button>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography color="textSecondary">
-                The click event of the nested action will propagate up and expand the accordion unless
-                you explicitly stop it.
-              </Typography>
+              <p>Recipes go Here</p>
+              {weekPlan && recipeDisplay(date)}
             </AccordionDetails>
           </Accordion>
         )

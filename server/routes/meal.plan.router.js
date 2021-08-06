@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
     const queryText = `
-    SELECT meal_plan.id, meal_plan.calendar_id, date, recipes.id, recipes.name, recipes.picture, recipes.api_id FROM meal_plan
+    SELECT meal_plan.id AS id, meal_plan.calendar_id, meal_plan.date, recipes.id AS recipe_id, recipes.name, recipes.picture, recipes.api_id FROM meal_plan
         JOIN calendars ON calendars.id = meal_plan.calendar_id
         JOIN calendar_shared_users ON calendar_shared_users.calendar_id = calendars.id
         JOIN recipes ON meal_plan.recipe_id = recipes.id
