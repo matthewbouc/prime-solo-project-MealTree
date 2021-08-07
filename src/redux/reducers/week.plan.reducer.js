@@ -5,6 +5,7 @@ const weekPlanReducer = (state = [], action) => {
       default:
         return state;
     }
-  };
-  
-  export default weekPlanReducer;
+};
+
+
+export default weekPlanReducer;

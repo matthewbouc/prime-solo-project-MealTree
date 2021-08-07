@@ -33,21 +33,21 @@ function CalendarView() {
       dayArray.push(dateOfDay.getDay());
       dateArray.push(dateOfDay);
     }
-    console.log(dayArray, dateArray);
+    // console.log(dayArray, dateArray);
     setNextDays(dayArray);
     setNextDates(dateArray);
   }
 
-  const handleAddClick = (event) => {
-    event.stopPropagation()
-  }
+  // const handleAddClick = (event,date) => {
+  //   event.stopPropagation()
+  // }
 
   const handleDeleteRecipe = (mealPlanId, calendarId) => {
     dispatch({type: 'DELETE_MEAL_PLAN', payload: {mealPlanId, calendarId}})
   }
 
   const recipeDisplay = (accordionDate) => {
-    console.log('recipe display accordion date', accordionDate);
+    // console.log('recipe display accordion date', accordionDate);
     for (const meal of weekPlan){
       let newFormat = new Date(meal.date);
       // console.log('meal.date', newFormat, accordionDate);
@@ -57,7 +57,7 @@ function CalendarView() {
           <p>{meal.category}</p>
           <p>{meal.name}</p>
           <img src={meal.picture} width="150px"/>
-          <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete</Button>
+          <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
           </div>
         )
       }
@@ -76,11 +76,12 @@ function CalendarView() {
               id="additional-actions1-header"
             >
               <Typography>{date.getDate()} {weekDays[nextDays[i]]}</Typography>
-              <Button
+                {/* Changing add button to footer, accessible from any screen 
+                <Button
                 aria-label="Add"
-                onClick={handleAddClick}
+                onClick={() => handleAddClick(date)}
                 onFocus={(event) => event.stopPropagation()}
-              > Add Recipe </Button>
+              > Plus Icon </Button> */}
             </AccordionSummary>
             <AccordionDetails>
               {weekPlan && recipeDisplay(date)}

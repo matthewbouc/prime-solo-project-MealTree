@@ -78,7 +78,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 /**
  * DELETE row from meal_plan - must be shared_user
  */
-router.delete('/', rejectUnauthenticated, async (req,res) => { // QUERY
+router.delete('/', rejectUnauthenticated, async (req,res) => { // QUERY (calendarId, mealPlan) // Come back and fix this to be one query instead of two
     
     let isVerified;
     const calendarId = req.query.calendarId;

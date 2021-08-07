@@ -19,10 +19,14 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Favorites from '../Favorites/Favorites';
+import NewRecipe from '../NewRecipe/NewRecipe';
+import SearchApi from '../Search/SearchAPI';
 import UserPage from '../UserPage/UserPage'; // Took this out for now
 
 
 import './App.css';
+import FooterNav from '../Footer/FooterNav';
 
 function App() {
   const dispatch = useDispatch();
@@ -53,11 +57,27 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // logged in shows Calendar else shows LoginPage
             exact
             path="/calendar"
           >
             <CalendarView />
+            <FooterNav />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = "/favorites">
+            <Favorites />
+            <FooterNav />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = "/newRecipe">
+            <NewRecipe />
+            <FooterNav />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = "/searchApi">
+            <SearchApi />
+            <FooterNav />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -109,7 +129,8 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
+        
       </div>
     </Router>
   );
