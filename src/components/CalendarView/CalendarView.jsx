@@ -42,6 +42,10 @@ function CalendarView() {
     event.stopPropagation()
   }
 
+  const handleDeleteRecipe = (mealPlanId, calendarId) => {
+    dispatch({type: 'DELETE_MEAL_PLAN', payload: {mealPlanId, calendarId}})
+  }
+
   const recipeDisplay = (accordionDate) => {
     console.log('recipe display accordion date', accordionDate);
     for (const meal of weekPlan){
@@ -50,8 +54,10 @@ function CalendarView() {
       if (newFormat.valueOf() == accordionDate.valueOf()){
         return (
           <div key={meal.id}>
+          <p>{meal.category}</p>
           <p>{meal.name}</p>
           <img src={meal.picture} width="150px"/>
+          <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete</Button>
           </div>
         )
       }
@@ -77,7 +83,6 @@ function CalendarView() {
               > Add Recipe </Button>
             </AccordionSummary>
             <AccordionDetails>
-              <p>Recipes go Here</p>
               {weekPlan && recipeDisplay(date)}
             </AccordionDetails>
           </Accordion>

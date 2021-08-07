@@ -1,8 +1,20 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 function* weekPlanSaga() {
     yield takeLatest('GET_WEEK_PLAN', getWeekPlan);
+    yield takeEvery('DELETE_MEAL_PLAN', deleteMealPlan);
+}
+
+function* deleteMealPlan(action) {
+    const mealPlanId = action.payload.mealPlanId;
+    const calendarId = action.payload.calendarId;
+    try{
+        yield call(axios.delete, `/api/mealPlan?mealPlan=${mealPlanId}&calendarId=${calendarId}`)
+        yield put({type: 'GET_WEEK_PLAN'})
+    } catch (error) {
+        console.log('Error DELETing mealPlan',error);
+    }
 }
 
 // worker Saga: will be fired on "FETCH_USER" actions
