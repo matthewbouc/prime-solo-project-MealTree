@@ -22,6 +22,7 @@ function Favorites() {
   const categories = useSelector(store => store.categories);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [categoryState, setCategoryState] = useState(0);
+  const [recipeId, setRecipeId] = useState(0);
   const [open, setOpen] = useState(false);
 
 
@@ -46,9 +47,10 @@ function Favorites() {
     dispatch({type: 'GET_FAVORITES_LIST'})
   },[])
 
-  const handlePlanIt = (event) => {
+  const handlePlanIt = (id) => {
     event.stopPropagation();
     handleClickOpen();
+    setRecipeId(id);
   }
 
   const handleViewRecipe = (event) => {
@@ -61,6 +63,7 @@ function Favorites() {
     dispatch({type: 'SET_NEW_MEAL_PLAN', payload: {
       date: selectedDate,
       category: categoryState,
+      recipeId: recipeId,
     }})
   }
   
@@ -78,7 +81,7 @@ function Favorites() {
             <Typography>{recipe.name}</Typography>
             <img src={recipe.picture} width="100px"/>
             <Button
-            onClick={handlePlanIt}
+            onClick={() => handlePlanIt(recipe.id)}
             onFocus={handleViewRecipe}
             >Plan It</Button>
             <Button
