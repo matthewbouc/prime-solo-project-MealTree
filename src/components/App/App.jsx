@@ -27,6 +27,7 @@ import UserPage from '../UserPage/UserPage'; // Took this out for now
 
 import './App.css';
 import FooterNav from '../Footer/FooterNav';
+import RecipeView from '../RecipeView/RecipeView';
 
 function App() {
   const dispatch = useDispatch();
@@ -79,6 +80,11 @@ function App() {
             <SearchApi />
             <FooterNav />
           </ProtectedRoute>
+          
+
+          <Switch>
+            <ProtectedRoute exact path="/recipe/:id" children={<RecipeView />, <FooterNav />} />
+          </Switch>
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

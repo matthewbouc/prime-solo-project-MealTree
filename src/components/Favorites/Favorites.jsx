@@ -48,7 +48,7 @@ function Favorites() {
   };
 
 
-  const handlePlanIt = (id) => {
+  const handlePlanIt = (event, id) => {
     event.stopPropagation();
     handleClickOpen();
     setRecipeId(id);
@@ -56,10 +56,10 @@ function Favorites() {
 
   const handleViewRecipe = (event) => {
     event.stopPropagation();
+    dispatch({ type: 'SET_MOVIE_DETAILS', payload: {genres: []}})
   }
 
   const handlePlanMeal = () => {
-
     dispatch({type: 'SET_NEW_MEAL_PLAN', payload: {
       date: selectedDate,
       category: categoryState || categories[0].id,
@@ -82,11 +82,11 @@ function Favorites() {
             <Typography>{recipe.name}</Typography>
             <img src={recipe.picture} width="100px"/>
             <Button
-            onClick={() => handlePlanIt(recipe.id)}
-            onFocus={handleViewRecipe}
+            onClick={(event) => handlePlanIt(event, recipe.id)}
+            onFocus={(event) => event.stopPropagation()}
             >Plan It</Button>
             <Button
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => handleViewRecipe(event, recipe.id)}
             onFocus={(event) => event.stopPropagation()}
               >View Recipe</Button>
           </AccordionSummary>
