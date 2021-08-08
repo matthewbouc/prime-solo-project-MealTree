@@ -43,6 +43,7 @@ function DatePicker({open, setOpen, recipeId}) {
       recipeId: recipeId,
       calendarId: calendarId || calendars[0].calendar_id,
     }})
+    setOpen(false);
   }
 
   return(
