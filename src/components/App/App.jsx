@@ -83,7 +83,10 @@ function App() {
           
 
           <Switch>
-            <ProtectedRoute exact path="/recipe/:id" children={<RecipeView />, <FooterNav />} />
+            <ProtectedRoute exact path="/recipe/:recipeId">
+              <RecipeView />
+              <FooterNav />
+            </ProtectedRoute>
           </Switch>
 
           <ProtectedRoute

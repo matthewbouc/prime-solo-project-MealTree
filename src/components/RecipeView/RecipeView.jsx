@@ -5,7 +5,6 @@ import { useHistory, useParams } from "react-router-dom";
 
 function RecipeView() {
 
-    const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
     const {recipeId} = useParams();
@@ -13,7 +12,12 @@ function RecipeView() {
     const store = useSelector((store) => store);
     const [heading, setHeading] = useState('Functional Component');
 
+    useEffect(() => {
+        getRecipeDetails();
+    }, [])
+
     const getRecipeDetails = () => {
+        console.log('recipeId', recipeId);
         dispatch({
             type: 'GET_RECIPE_DETAILS',
             payload: recipeId

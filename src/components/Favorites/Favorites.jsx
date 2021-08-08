@@ -15,10 +15,12 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { useHistory } from 'react-router-dom';
 
 
 function Favorites() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const favorites = useSelector(store => store.favoritesList);
   const categories = useSelector(store => store.categories);
   const calendars = useSelector(store => store.calendars);
@@ -54,9 +56,10 @@ function Favorites() {
     setRecipeId(id);
   }
 
-  const handleViewRecipe = (event) => {
+  const handleViewRecipe = (event, id) => {
     event.stopPropagation();
-    dispatch({ type: 'SET_MOVIE_DETAILS', payload: {genres: []}})
+    dispatch({ type: 'SET_RECIPE_DETAILS', payload: {}});
+    history.push(`/recipe/${id}`);
   }
 
   const handlePlanMeal = () => {
