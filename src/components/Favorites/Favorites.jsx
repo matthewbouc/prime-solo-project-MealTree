@@ -6,10 +6,11 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Dialog from '@material-ui/core/Dialog';
 
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
+import LuxonUtils from '@date-io/luxon';
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
@@ -79,31 +80,25 @@ function Favorites() {
       )
     })}
 
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justifyContent="space-around">
-      <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Date picker dialog"
-              views={['year', 'month', 'date']}
-              value={selectedDate}
-              format="dd/MM/yyyy"
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-      </Grid>
-    </MuiPickersUtilsProvider>
-{/* 
+
+
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DatePicker
+      <MuiPickersUtilsProvider utils={LuxonUtils}>
+        <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+          label="Add Meal To Date"
+          views={['year', 'month', 'date']}
           value={selectedDate}
+          format="MM/dd/yyyy"
           onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
         />
       </MuiPickersUtilsProvider>
-    </Dialog> */}
+      <Button >Plan Meal</Button>
+    </Dialog>
   </div>
   );
 }
