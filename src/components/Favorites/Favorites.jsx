@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DatePicker from '../DatePicker/DatePicker';
 
 import 'date-fns';
 import LuxonUtils from '@date-io/luxon';
@@ -41,13 +42,13 @@ function Favorites() {
   setOpen(true);
   };
 
-  const handleClose = () => {
-  setOpen(false);
-  };
+  // const handleClose = () => {
+  // setOpen(false);
+  // };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+  // const handleDateChange = (date) => {
+  //   setSelectedDate(date);
+  // };
 
 
   const handlePlanIt = (event, id) => {
@@ -62,14 +63,14 @@ function Favorites() {
     history.push(`/recipe/${id}`);
   }
 
-  const handlePlanMeal = () => {
-    dispatch({type: 'SET_NEW_MEAL_PLAN', payload: {
-      date: selectedDate,
-      category: categoryState || categories[0].id,
-      recipeId: recipeId,
-      calendarId: calendarId || calendars[0].calendar_id,
-    }})
-  }
+  // const handlePlanMeal = () => {
+  //   dispatch({type: 'SET_NEW_MEAL_PLAN', payload: {
+  //     date: selectedDate,
+  //     category: categoryState || categories[0].id,
+  //     recipeId: recipeId,
+  //     calendarId: calendarId || calendars[0].calendar_id,
+  //   }})
+  // }
   
   return (
     <div>
@@ -100,42 +101,7 @@ function Favorites() {
       )
     })}
 
-
-
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle>
-        <select onChange={event => setCalendarId(event.target.value)}>
-          {calendars && calendars.map(calendar => {
-            return (
-              <option key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</option>
-            )
-          })}
-        </select></DialogTitle>
-      <MuiPickersUtilsProvider utils={LuxonUtils}>
-        <KeyboardDatePicker
-          margin="normal"
-          id="date-picker-dialog"
-          label="Select Date"
-          views={['year', 'month', 'date']}
-          value={selectedDate}
-          format="MM/dd/yyyy"
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-      </MuiPickersUtilsProvider>
-      <select onChange={event => setCategoryState(event.target.value)}>
-        {categories && categories.map(category => {
-          return (
-            <option key={category.id} value={category.id}>{category.category}</option>
-          )
-        })}
-      </select>
-
-
-      <Button onClick={handlePlanMeal}>Plan Meal</Button>
-    </Dialog>
+    <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
   </div>
   );
 }

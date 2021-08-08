@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from "react-router-dom";
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import DatePicker from '../DatePicker/DatePicker';
+
 
 
 function RecipeView() {
@@ -9,8 +15,7 @@ function RecipeView() {
     const history = useHistory();
     const {recipeId} = useParams();
 
-    const store = useSelector((store) => store);
-    const [heading, setHeading] = useState('Functional Component');
+    const recipe = useSelector(store => store.recipe);
 
     useEffect(() => {
         getRecipeDetails();
@@ -24,9 +29,30 @@ function RecipeView() {
         });
     }
 
+    const [open, setOpen] = useState(false);
+    
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handlePlanIt = (event, id) => {
+        event.stopPropagation();
+        handleClickOpen();
+      }
+
     return (
     <div>
-        <h2>{heading}</h2>
+        <Box>
+            <Typography>{recipe.name}</Typography>
+            <img src={recipe.picture} width="400px"/>
+            <Typography>{recipe.ingredients}</Typography>
+            <Typography>{recipe.procedure}</Typography>
+        </Box>
+        <Button
+            onClick={(event) => handlePlanIt(event, recipe.id)}
+            onFocus={(event) => event.stopPropagation()}
+        >Plan It</Button>
+        <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
     </div>
     );
 }
