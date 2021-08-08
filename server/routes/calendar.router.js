@@ -11,7 +11,10 @@ const router = express.Router();
  */
 router.get('/all', rejectUnauthenticated, (req, res) => {
 
-  const queryText = `SELECT * FROM calendar_shared_users WHERE shared_user_id = $1 ORDER BY default_calendar DESC, id;`
+  const queryText = `
+  SELECT calendar_shared_users.*, calendars.name FROM calendar_shared_users 
+  JOIN calendars ON calendars.id = calendar_shared_users.calendar_id
+  WHERE shared_user_id = $1 ORDER BY default_calendar DESC, id;`
   pool.query(queryText, [req.user.id])
   .then(result => {
     console.log('Success GETting all calendars for user', result.rows);

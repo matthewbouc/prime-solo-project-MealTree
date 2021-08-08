@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import 'date-fns';
 import LuxonUtils from '@date-io/luxon';
@@ -20,14 +21,19 @@ function Favorites() {
   const dispatch = useDispatch();
   const favorites = useSelector((store) => store.favoritesList);
   const categories = useSelector(store => store.categories);
+  const calendars = useSelector(store => store.calendars);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [categoryState, setCategoryState] = useState(0);
-  const [recipeId, setRecipeId] = useState(0);
+  const [categoryState, setCategoryState] = useState(categories[0].id);
+  const [recipeId, setRecipeId] = useState('');
+  const [calendarId, setCalendarId] = useState(calendars[0].calendar_id);
   const [open, setOpen] = useState(false);
 
 
   useEffect(() => {
-    dispatch({type: 'GET_CATEGORIES'})
+    dispatch({type: 'GET_CATEGORIES'});
+    dispatch({type: 'GET_FAVORITES_LIST'});
+    dispatch({type: 'GET_CALENDAR_LIST'});
   }, [])
   
 
@@ -43,9 +49,6 @@ function Favorites() {
     setSelectedDate(date);
   };
 
-  useEffect(()=>{
-    dispatch({type: 'GET_FAVORITES_LIST'})
-  },[])
 
   const handlePlanIt = (id) => {
     event.stopPropagation();
@@ -64,6 +67,7 @@ function Favorites() {
       date: selectedDate,
       category: categoryState,
       recipeId: recipeId,
+      calendarId: calendarId,
     }})
   }
   
@@ -99,11 +103,19 @@ function Favorites() {
 
 
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+      <DialogTitle>
+        <select onChange={event => setCalendarId(event.target.value)}>
+          {calendars && calendars.map(calendar => {
+            return (
+              <option key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</option>
+            )
+          })}
+        </select></DialogTitle>
       <MuiPickersUtilsProvider utils={LuxonUtils}>
         <KeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
-          label="Add Meal To Date"
+          label="Select Date"
           views={['year', 'month', 'date']}
           value={selectedDate}
           format="MM/dd/yyyy"
@@ -120,6 +132,8 @@ function Favorites() {
           )
         })}
       </select>
+
+
       <Button onClick={handlePlanMeal}>Plan Meal</Button>
     </Dialog>
   </div>
