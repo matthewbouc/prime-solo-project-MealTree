@@ -19,23 +19,21 @@ import {
 
 function Favorites() {
   const dispatch = useDispatch();
-  const favorites = useSelector((store) => store.favoritesList);
+  const favorites = useSelector(store => store.favoritesList);
   const categories = useSelector(store => store.categories);
   const calendars = useSelector(store => store.calendars);
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [categoryState, setCategoryState] = useState(categories[0].id);
-  const [recipeId, setRecipeId] = useState('');
-  const [calendarId, setCalendarId] = useState(calendars[0].calendar_id);
-  const [open, setOpen] = useState(false);
-
 
   useEffect(() => {
     dispatch({type: 'GET_CATEGORIES'});
     dispatch({type: 'GET_FAVORITES_LIST'});
     dispatch({type: 'GET_CALENDAR_LIST'});
   }, [])
-  
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [categoryState, setCategoryState] = useState('');
+  const [recipeId, setRecipeId] = useState('');
+  const [calendarId, setCalendarId] = useState('');
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
   setOpen(true);
@@ -61,13 +59,12 @@ function Favorites() {
   }
 
   const handlePlanMeal = () => {
-    console.log('selectedDate', selectedDate);
-    console.log('categoryState', categoryState);
+
     dispatch({type: 'SET_NEW_MEAL_PLAN', payload: {
       date: selectedDate,
-      category: categoryState,
+      category: categoryState || categories[0].id,
       recipeId: recipeId,
-      calendarId: calendarId,
+      calendarId: calendarId || calendars[0].calendar_id,
     }})
   }
   
