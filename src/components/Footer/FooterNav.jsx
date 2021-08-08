@@ -56,53 +56,53 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function FooterNav() {
-    const history = useHistory();
-    const classes = useStyles();
+  const history = useHistory();
+  const classes = useStyles();
 
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
-    setOpen(true);
-    };
+  const handleClickOpen = () => {
+  setOpen(true);
+  };
 
-    const handleClose = () => {
-    setOpen(false);
-    };
+  const handleClose = () => {
+  setOpen(false);
+  };
 
-    return (
-    <>
-        <AppBar position="fixed" color="primary" className={classes.appBar}>
-            <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="open drawer">
-                <MenuIcon />
-            </IconButton>
-            {/* <IconButton edge="start" color="inherit">
-                <AddIcon />
-            </IconButton> */}
-            <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-                <AddIcon onClick={handleClickOpen}/>
-            </Fab>
-            <div className={classes.grow} />
-            <IconButton edge="end" color="inherit">
-                <AccountCircleIcon fontSize="large"/>
-            </IconButton>
-            </Toolbar>
-        </AppBar>
+  return (
+  <>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
+          <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="open drawer">
+              <MenuIcon />
+          </IconButton>
+          {/* <IconButton edge="start" color="inherit">
+              <AddIcon />
+          </IconButton> */}
+          <Fab color="secondary" aria-label="add" className={classes.fabButton}>
+              <AddIcon onClick={handleClickOpen}/>
+          </Fab>
+          <div className={classes.grow} />
+          <IconButton edge="end" color="inherit">
+              <AccountCircleIcon fontSize="large"/>
+          </IconButton>
+          </Toolbar>
+      </AppBar>
 
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-            {/* <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle> */}
-            <List>
-                <ListItem button onClick={()=>history.push("/favorites")}>
-                    <ListItemText primary="Favorites" />
-                </ListItem>
-                <ListItem button onClick={()=> history.push("/newRecipe")}>
-                    <ListItemText primary="Add Recipe" />
-                </ListItem>
-                <ListItem button onClick={ () => history.push("/searchApi")}>
-                    <ListItemText primary="Search New" />
-                </ListItem>
-            </List>
-        </Dialog>
+      <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+          {/* <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle> */}
+          <List>
+              <ListItem button onClick={()=>history.push("/favorites")}>
+                  <ListItemText primary="Favorites" />
+              </ListItem>
+              <ListItem button onClick={()=> history.push("/newRecipe")}>
+                  <ListItemText primary="Add Recipe" />
+              </ListItem>
+              <ListItem button onClick={ () => history.push("/searchApi")}>
+                  <ListItemText primary="Search New" />
+              </ListItem>
+          </List>
+      </Dialog>
     </>
   );
 }

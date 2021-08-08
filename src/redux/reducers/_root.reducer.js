@@ -4,6 +4,7 @@ import user from './user.reducer';
 import weekPlan from './week.plan.reducer';
 import newMealPlan from './meal.plan.reducer';
 import favoritesList from './favorites.reducer';
+import categories from './categories.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   weekPlan, // holds users entire meal_plan calendar
   newMealPlan, // holds user selections for new meal plan
   favoritesList, // holds users favorite recipes
+  categories, // holds category list from db
 });
 
 export default rootReducer;

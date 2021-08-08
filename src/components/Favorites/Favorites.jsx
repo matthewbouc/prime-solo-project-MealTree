@@ -9,11 +9,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Dialog from '@material-ui/core/Dialog';
 
 import 'date-fns';
-import Grid from '@material-ui/core/Grid';
 import LuxonUtils from '@date-io/luxon';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
@@ -21,9 +19,16 @@ import {
 function Favorites() {
   const dispatch = useDispatch();
   const favorites = useSelector((store) => store.favoritesList);
+  const categories = useSelector(store => store.categories);
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const [categoryState, setCategoryState] = useState(0);
   const [open, setOpen] = useState(false);
+
+
+  useEffect(() => {
+    dispatch({type: 'GET_CATEGORIES'})
+  }, [])
+  
 
   const handleClickOpen = () => {
   setOpen(true);
@@ -48,7 +53,15 @@ function Favorites() {
 
   const handleViewRecipe = (event) => {
     event.stopPropagation();
-   
+  }
+
+  const handlePlanMeal = () => {
+    console.log('selectedDate', selectedDate);
+    console.log('categoryState', categoryState);
+    dispatch({type: 'SET_NEW_MEAL_PLAN', payload: {
+      date: selectedDate,
+      category: categoryState,
+    }})
   }
   
   return (
@@ -97,7 +110,14 @@ function Favorites() {
           }}
         />
       </MuiPickersUtilsProvider>
-      <Button >Plan Meal</Button>
+      <select onChange={event => setCategoryState(event.target.value)}>
+        {categories && categories.map(category => {
+          return (
+            <option key={category.id} value={category.id}>{category.category}</option>
+          )
+        })}
+      </select>
+      <Button onClick={handlePlanMeal}>Plan Meal</Button>
     </Dialog>
   </div>
   );
