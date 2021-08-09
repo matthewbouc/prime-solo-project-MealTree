@@ -28,22 +28,17 @@ function CalendarView() {
     const dateArray = [];
     for (let i=0; i<8; i++){
       const dateOfDay = new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate()+i);
-      // console.log(dateOfDay.getDate());
-      // console.log(dateOfDay.getDay());
       dayArray.push(dateOfDay.getDay());
       dateArray.push(dateOfDay);
     }
-    // console.log(dayArray, dateArray);
     setNextDays(dayArray);
     setNextDates(dateArray);
   }
 
-  // const handleAddClick = (event,date) => {
-  //   event.stopPropagation()
-  // }
 
   const handleDeleteRecipe = (mealPlanId, calendarId) => {
     dispatch({type: 'DELETE_MEAL_PLAN', payload: {mealPlanId, calendarId}})
+    window.location.reload();
   }
 
   const recipeDisplay = (accordionDate) => {
@@ -71,12 +66,6 @@ function CalendarView() {
               id="additional-actions1-header"
             >
               <Typography>{date.getDate()} {weekDays[nextDays[i]]}</Typography>
-                {/* Changing add button to footer, accessible from any screen 
-                <Button
-                aria-label="Add"
-                onClick={() => handleAddClick(date)}
-                onFocus={(event) => event.stopPropagation()}
-              > Plus Icon </Button> */}
             </AccordionSummary>
             <AccordionDetails>
               {weekPlan && recipeDisplay(date).map(meal=>{
