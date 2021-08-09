@@ -31,12 +31,19 @@ function RecipeView() {
         setEditView(!editView)
     }
 
+    const handleDelete = () => {
+        dispatch({type: 'DELETE_RECIPE', payload: recipe.id})
+        history.push('/favorites');
+    }
+
 
     const getRecipeDetails = () => {
         console.log('recipeId', recipeId);
         dispatch({
             type: 'GET_RECIPE_DETAILS',
-            payload: recipeId
+            payload: recipeId,
+            push: history.push,
+            isFavorites: false,
         });
     }
 
@@ -77,6 +84,7 @@ function RecipeView() {
                 <TextareaAutosize required value={newRecipe.ingredients} aria-label="minimum height" minRows={8} placeholder="Ingredients" onChange={(event)=> setNewRecipe({...newRecipe, ingredients: event.target.value})} />
                 <TextareaAutosize required value={newRecipe.procedure} aria-label="minimum height" minRows={15} placeholder="Procedure" onChange={(event)=> setNewRecipe({...newRecipe, procedure: event.target.value})} />
                 <Button variant="contained" type="submit" >Confirm</Button>
+                <Button variant="contained" onClick={()=>handleDelete()}>Delete Recipe</Button>
             </form>
         </Box> 
         </>
