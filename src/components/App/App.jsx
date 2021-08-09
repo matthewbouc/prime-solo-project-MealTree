@@ -82,12 +82,12 @@ function App() {
           </ProtectedRoute>
           
 
-          <Switch>
+          {/* <Switch> */}
             <ProtectedRoute exact path="/recipe/:recipeId">
               <RecipeView />
               <FooterNav />
             </ProtectedRoute>
-          </Switch>
+          {/* </Switch> */}
 
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage

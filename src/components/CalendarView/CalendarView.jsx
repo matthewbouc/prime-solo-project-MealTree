@@ -38,7 +38,6 @@ function CalendarView() {
 
   const handleDeleteRecipe = (mealPlanId, calendarId) => {
     dispatch({type: 'DELETE_MEAL_PLAN', payload: {mealPlanId, calendarId}})
-    window.location.reload();
   }
 
   const recipeDisplay = (accordionDate) => {
