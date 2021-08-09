@@ -14,12 +14,12 @@ router.get('/', rejectUnauthenticated, (req, res) => { //  QUERY!! (recipeId)
         WHERE owner_id = $1`
     ;
     if (req.query.recipeId){
-        console.log(queryParameters);
-        console.log(req.query.recipeId);
-        queryText += ` AND recipe_id = $2;`;
+        console.log('queryParams', queryParameters);
+        console.log('recipeId req.query', req.query.recipeId);
+        queryText += ` AND recipe_id = $2 ORDER BY name;`;
         queryParameters.push(req.query.recipeId);
     } else {
-        queryText += `;`;
+        queryText += ` ORDER BY name;`;
     }
 
     pool.query(queryText, queryParameters)
@@ -90,17 +90,17 @@ router.delete('/:recipeId', rejectUnauthenticated, (req, res) => {
 /**
  * PUT update recipe details.  // Similar to DELETE above, query gives success response even if user is not authorized and UPDATe doesn't occur.
  */
-router.put('/:recipeId', rejectUnauthenticated, (req, res) => {
-    const recipeId = req.params.recipeId;
+router.put('/', rejectUnauthenticated, (req, res) => {
     const recipe = req.body;
+    console.log('recipe', recipe);
 
     const updateQuery = `
     UPDATE recipes SET name = $1, ingredients = $2, procedure = $3, picture = $4 
-        FROM users_recipes 
+        FROM users_recipes
         WHERE users_recipes.owner_id = $5 AND
         recipes.id = users_recipes.recipe_id AND users_recipes.recipe_id = $6;`
     ;
-    pool.query(updateQuery, [recipe.name, recipe.ingredients, recipe.procedure, recipe.picture, req.user.id, recipeId])
+    pool.query(updateQuery, [recipe.name, recipe.ingredients, recipe.procedure, recipe.picture, req.user.id, recipe.id])
     .then(() => {
         console.log('Success PUTting recipe update');
         res.sendStatus(202);
