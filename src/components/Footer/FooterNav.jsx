@@ -19,13 +19,28 @@ import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router-dom';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import FolderIcon from '@material-ui/icons/Folder';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import SearchIcon from '@material-ui/icons/Search';
+import TodayIcon from '@material-ui/icons/Today';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 
 const useStyles = makeStyles((theme) => ({
+    bottomNav: {
+      width: '100%',
+      position: 'fixed',
+      bottom: 0,
+      backgroundColor: 'green'
+    },
     avatar: {
-        backgroundColor: blue[100],
-        color: blue[600],
-      },
+      backgroundColor: blue[100],
+      color: blue[600],
+    },
     text: {
       padding: theme.spacing(2, 2, 0),
     },
@@ -71,14 +86,11 @@ function FooterNav() {
 
   return (
   <>
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
+      {/* <AppBar position="absolute" color="primary" className={classes.appBar}>
           <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="open drawer">
               <MenuIcon />
           </IconButton>
-          {/* <IconButton edge="start" color="inherit">
-              <AddIcon />
-          </IconButton> */}
           <Fab color="secondary" aria-label="add" className={classes.fabButton}>
               <AddIcon onClick={handleClickOpen}/>
           </Fab>
@@ -87,7 +99,14 @@ function FooterNav() {
               <AccountCircleIcon fontSize="large"/>
           </IconButton>
           </Toolbar>
-      </AppBar>
+      </AppBar> */}
+
+      <BottomNavigation position="absolute" className={classes.bottomNav}>
+        <BottomNavigationAction label="Recents" value="recents" icon={<MenuIcon fontSize="large" />} />
+        <BottomNavigationAction label="Favorites" value="favorites" onClick={handleClickOpen} icon={<AddCircleOutlineIcon fontSize="large" />} />
+        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
+        <BottomNavigationAction label="Folder" value="folder" icon={<AccountCircleIcon fontSize="large" />} />
+      </BottomNavigation>
 
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
           {/* <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle> */}

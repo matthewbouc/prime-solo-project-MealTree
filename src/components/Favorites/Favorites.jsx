@@ -43,6 +43,7 @@ function Favorites() {
   
   return (
     <div>
+    <Button onClick={() => history.goBack()}>Back</Button>
     {favorites && favorites.map((recipe, i) => {     
       return(
         <Accordion key={i}>
