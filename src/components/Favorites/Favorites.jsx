@@ -37,7 +37,10 @@ function Favorites() {
 
   const handleViewRecipe = (event, id) => {
     event.stopPropagation();
-    dispatch({ type: 'SET_RECIPE_DETAILS', payload: {}});
+    dispatch({
+      type: 'GET_RECIPE_DETAILS',
+      payload: id,
+    });
     history.push(`/recipe/${id}`);
   }
   
