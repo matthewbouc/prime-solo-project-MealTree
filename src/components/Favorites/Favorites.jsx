@@ -40,8 +40,10 @@ function Favorites() {
     dispatch({
       type: 'GET_RECIPE_DETAILS',
       payload: id,
+      push: history.push,
+      isFavorites: true,
     });
-    history.push(`/recipe/${id}`);
+    // history.push(`/recipe/${id}`);
   }
   
   return (
