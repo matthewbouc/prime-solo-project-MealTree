@@ -37,6 +37,7 @@ router.get('/', rejectUnauthenticated, (req, res) => { //  QUERY!! (recipeId)
  * POST add new recipe to database
  */
 router.post('/new', rejectUnauthenticated, (req, res) => {
+    console.log('req.body', req.body);
     const name = req.body.name;
     const ingredients = req.body.ingredients;
     const procedure = req.body.procedure;

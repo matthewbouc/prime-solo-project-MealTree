@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       position: 'fixed',
       bottom: 0,
-      backgroundColor: 'green'
+      backgroundColor: 'green',
     },
     avatar: {
       backgroundColor: blue[100],
@@ -103,9 +103,11 @@ function FooterNav() {
 
       <BottomNavigation position="absolute" className={classes.bottomNav}>
         <BottomNavigationAction label="Recents" value="recents" icon={<MenuIcon fontSize="large" />} />
+        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
+        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/favorites")} icon={<FavoriteIcon fontSize="large" />} />
         <BottomNavigationAction label="Favorites" value="favorites" onClick={handleClickOpen} icon={<AddCircleOutlineIcon fontSize="large" />} />
         <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
-        <BottomNavigationAction label="Folder" value="folder" icon={<AccountCircleIcon fontSize="large" />} />
+        {/* <BottomNavigationAction label="Folder" value="folder" icon={<AccountCircleIcon fontSize="large" />} /> */}
       </BottomNavigation>
 
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
