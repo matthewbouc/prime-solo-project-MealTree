@@ -6,10 +6,11 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useHistory } from 'react-router-dom';
 
 
 function CalendarView() {
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const weekPlan = useSelector((store) => store.weekPlan);
   const currentTime= new Date();
@@ -72,7 +73,7 @@ function CalendarView() {
                   <div key={meal.id}>
                   <p>{meal.category}</p>
                   <p>{meal.name}</p>
-                  <img src={meal.picture} width="150px"/>
+                  <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>
                   <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
                   </div>
                 )
