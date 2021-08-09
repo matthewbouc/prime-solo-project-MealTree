@@ -47,21 +47,16 @@ function CalendarView() {
   }
 
   const recipeDisplay = (accordionDate) => {
+    const dateMealArray = []
     // console.log('recipe display accordion date', accordionDate);
     for (const meal of weekPlan){
       let newFormat = new Date(meal.date);
       // console.log('meal.date', newFormat, accordionDate);
       if (newFormat.valueOf() == accordionDate.valueOf()){
-        return (
-          <div key={meal.id}>
-          <p>{meal.category}</p>
-          <p>{meal.name}</p>
-          <img src={meal.picture} width="150px"/>
-          <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
-          </div>
-        )
+        dateMealArray.push(meal);
       }
     }
+    return dateMealArray
   }
 
   return (
@@ -84,7 +79,16 @@ function CalendarView() {
               > Plus Icon </Button> */}
             </AccordionSummary>
             <AccordionDetails>
-              {weekPlan && recipeDisplay(date)}
+              {weekPlan && recipeDisplay(date).map(meal=>{
+                return (
+                  <div key={meal.id}>
+                  <p>{meal.category}</p>
+                  <p>{meal.name}</p>
+                  <img src={meal.picture} width="150px"/>
+                  <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
+                  </div>
+                )
+              })}
             </AccordionDetails>
           </Accordion>
         )
