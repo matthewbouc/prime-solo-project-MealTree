@@ -1,53 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-import 'date-fns';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DatePicker from '../DatePicker/DatePicker';
 
 
 function Favorites() {
   const dispatch = useDispatch();
-  const favorites = useSelector((store) => store.favoritesList);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const history = useHistory();
+  const favorites = useSelector(store => store.favoritesList);
 
+  useEffect(() => {
+    dispatch({type: 'GET_FAVORITES_LIST'});
+  }, [])
+
+  const [recipeId, setRecipeId] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
   setOpen(true);
   };
 
-  const handleClose = () => {
-  setOpen(false);
-  };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
-  useEffect(()=>{
-    dispatch({type: 'GET_FAVORITES_LIST'})
-  },[])
-
-  const handlePlanIt = (event) => {
+  const handlePlanIt = (event, id) => {
     event.stopPropagation();
     handleClickOpen();
+    setRecipeId(id);
   }
 
-  const handleViewRecipe = (event) => {
+  const handleViewRecipe = (event, id) => {
     event.stopPropagation();
-   
+    dispatch({ type: 'SET_RECIPE_DETAILS', payload: {}});
+    history.push(`/recipe/${id}`);
   }
   
   return (
@@ -64,11 +55,11 @@ function Favorites() {
             <Typography>{recipe.name}</Typography>
             <img src={recipe.picture} width="100px"/>
             <Button
-            onClick={handlePlanIt}
-            onFocus={handleViewRecipe}
+            onClick={(event) => handlePlanIt(event, recipe.id)}
+            onFocus={(event) => event.stopPropagation()}
             >Plan It</Button>
             <Button
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => handleViewRecipe(event, recipe.id)}
             onFocus={(event) => event.stopPropagation()}
               >View Recipe</Button>
           </AccordionSummary>
@@ -79,31 +70,7 @@ function Favorites() {
       )
     })}
 
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justifyContent="space-around">
-      <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Date picker dialog"
-              views={['year', 'month', 'date']}
-              value={selectedDate}
-              format="dd/MM/yyyy"
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-      </Grid>
-    </MuiPickersUtilsProvider>
-{/* 
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <DatePicker
-          value={selectedDate}
-          onChange={handleDateChange}
-        />
-      </MuiPickersUtilsProvider>
-    </Dialog> */}
+    <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
   </div>
   );
 }

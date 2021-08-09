@@ -30,6 +30,21 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+/**
+ * GET categories, from which user can select
+ */
+router.get('/categories', rejectUnauthenticated, (req, res) => {
+    const queryText = `SELECT * FROM categories;`;
+    pool.query(queryText)
+    .then(result => {
+        console.log(result.rows);
+        res.send(result.rows);
+    }).catch(error => {
+        console.log('error GETting categories', error);
+        res.sendStatus(500);
+    });
+});
+
 
 /** 
  * POST adding a meal_plan to calendar with date, category, recipe.  Verifies user is a shared_user of calendar.

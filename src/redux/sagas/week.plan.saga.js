@@ -4,6 +4,7 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 function* weekPlanSaga() {
     yield takeLatest('GET_WEEK_PLAN', getWeekPlan);
     yield takeEvery('DELETE_MEAL_PLAN', deleteMealPlan);
+    yield takeLatest('SET_NEW_MEAL_PLAN', postMealPlan);
 }
 
 function* deleteMealPlan(action) {
@@ -28,5 +29,13 @@ function* getWeekPlan() {
 }
 
 
+// POST new meal plan
+function* postMealPlan(action) {
+    try{
+        yield call(axios.post, `/api/mealPlan`, action.payload);
+    } catch (error) {
+        console.log('Error POSTing new meal plan', error );
+    }
+}
 
 export default weekPlanSaga;
