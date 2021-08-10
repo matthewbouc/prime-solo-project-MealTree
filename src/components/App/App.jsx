@@ -29,7 +29,10 @@ import './App.css';
 import FooterNav from '../Footer/FooterNav';
 import RecipeView from '../RecipeView/RecipeView';
 
+
+
 function App() {
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,9 +40,9 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Router>
+    <Router >
       <div>
-        <Nav />
+        {/* <Nav />           REFERENCE THIS FOR THE MENU BUTTON ON WHICH PAGES TO USE*/}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
@@ -129,6 +132,7 @@ function App() {
             exact
             path="/home"
             authRedirect="/calendar"
+            
           >
             <LandingPage />
           </ProtectedRoute>
