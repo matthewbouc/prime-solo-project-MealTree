@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
+import DatePicker from '../DatePicker/DatePicker';
 
 
 function CalendarView() {
@@ -39,6 +40,23 @@ function CalendarView() {
 
   const handleDeleteRecipe = (mealPlanId, calendarId) => {
     dispatch({type: 'DELETE_MEAL_PLAN', payload: {mealPlanId, calendarId}})
+  }
+
+
+  const [mealPlanId, setMealPlanId] = useState('');
+  const [calendar_id, setCalendar_id] = useState('');
+  const [mealCategory, setMealCategory] = useState('');
+  const [open, setOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const handleClickOpen = () => {
+  setOpen(true);
+  };
+  const handleEdit = (mealId, calendarId, category) => {
+    setIsEdit(true);
+    setMealPlanId(mealId);
+    setCalendar_id(calendarId);
+    setMealCategory(category)
+    handleClickOpen();
   }
 
   const recipeDisplay = (accordionDate) => {
@@ -74,6 +92,7 @@ function CalendarView() {
                   <p>{meal.category}</p>
                   <p>{meal.name}</p>
                   <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>
+                  <Button variant="contained" onClick={() => handleEdit(meal.id, meal.calendar_id, meal.category)}>Edit</Button>
                   <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
                   </div>
                 )
@@ -82,8 +101,14 @@ function CalendarView() {
           </Accordion>
         )
       })}
+
+      <DatePicker open={open} setOpen={setOpen} calendar_id={calendar_id} mealPlanId={mealPlanId} isEdit={isEdit}/>
     </div>
   );
 }
 
 export default CalendarView;
+
+// pass down calendarId from calendar view for Edit
+// reference calendarId prop in Date picker as the value that gets
+// sent to server, then checked against server.
