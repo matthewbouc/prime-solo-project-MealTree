@@ -134,16 +134,13 @@ router.delete('/', rejectUnauthenticated, async (req,res) => { // QUERY (calenda
 /**
  * PUT to update meal_plan row
  */
-router.put('/', rejectUnauthenticated, async (req, res) => { // BODY
-    let queryText;
-    if (req.body.category){
-        queryText = `UPDATE meal_plan SET category_id = $1 WHERE id = $2 AND calendar_id = $3;`; // verifies both are true to avoid malicious activity
-    } else if (req.body.date){
-        queryText = `UPDATE meal_plan SET date = $1 WHERE id = $2 AND calendar_id = $3;`; // verifies both are true to avoid malicious activity
-    }
+router.put('/', rejectUnauthenticated, async (req, res) => { // BODY  /// This can be updated to be a single query
+    console.log('In router.put for mealplan')
+    const queryText = `UPDATE meal_plan SET date=$1, category_id=$2 WHERE id = $3 AND calendar_id = $4`
     const verifyUserQuery = `SELECT calendar_id FROM calendar_shared_users WHERE shared_user_id = $1;`;
 
-    const valueToChange = req.body.category || req.body.date;
+    const date = req.body.date;
+    const category = req.body.category;
     const calendarId = req.body.calendarId;
     const mealPlanId = req.body.mealPlanId;
     let isVerified;
@@ -162,12 +159,12 @@ router.put('/', rejectUnauthenticated, async (req, res) => { // BODY
     });
 
     if (isVerified){
-        pool.query(queryText, [valueToChange, mealPlanId, calendarId])
+        pool.query(queryText, [date, category, mealPlanId, calendarId])
         .then(() => {
-            console.log('Success DELETing');
+            console.log('Success PUTting');
             res.sendStatus(202);
         }).catch(error => {
-            console.log('Error DELETing', error)
+            console.log('Error PUTting', error)
             res.sendStatus(500);
         });
     }else {

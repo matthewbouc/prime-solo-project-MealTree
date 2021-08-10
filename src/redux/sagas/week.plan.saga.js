@@ -5,6 +5,7 @@ function* weekPlanSaga() {
     yield takeLatest('GET_WEEK_PLAN', getWeekPlan);
     yield takeEvery('DELETE_MEAL_PLAN', deleteMealPlan);
     yield takeLatest('SET_NEW_MEAL_PLAN', postMealPlan);
+    yield takeLatest('EDIT_MEAL_PLAN', editMealPlan);
 }
 
 function* deleteMealPlan(action) {
@@ -35,6 +36,16 @@ function* postMealPlan(action) {
         yield call(axios.post, `/api/mealPlan`, action.payload);
     } catch (error) {
         console.log('Error POSTing new meal plan', error );
+    }
+}
+
+
+function* editMealPlan(action){
+    try{
+        yield call(axios.put, '/api/mealPlan', action.payload);
+        yield put({type: 'GET_WEEK_PLAN'});
+    } catch(error) {
+        console.log('Error PUTting edits to meal plan', error);
     }
 }
 

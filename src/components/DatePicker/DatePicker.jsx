@@ -11,10 +11,11 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
+import { FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 
-function DatePicker({open, setOpen, recipeId}) {
+function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCategory, isEdit}) {
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const categories = useSelector(store => store.categories);
   const calendars = useSelector(store => store.calendars);
@@ -46,17 +47,30 @@ function DatePicker({open, setOpen, recipeId}) {
     setOpen(false);
   }
 
+  const handleEditMeal = () => {
+    dispatch({type:'EDIT_MEAL_PLAN', payload: {
+      date: selectedDate,
+      category: categoryState || mealCategory,
+      calendarId: calendar_id,
+      mealPlanId: mealPlanId
+    }});
+    setOpen(false);
+  }
+
   return(
 
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-        <DialogTitle>
-        <select onChange={event => setCalendarId(event.target.value)}>
+        {calendars[0] && <FormControl>
+          <Select 
+          value={calendarId || calendars[0].name}
+          onChange={event => setCalendarId(event.target.value)}>
             {calendars && calendars.map(calendar => {
             return (
-                <option key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</option>
+                <MenuItem key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</MenuItem>
             )
             })}
-        </select></DialogTitle>
+        </Select>
+        </FormControl>}
         <MuiPickersUtilsProvider utils={LuxonUtils}>
         <KeyboardDatePicker
             margin="normal"
@@ -71,14 +85,22 @@ function DatePicker({open, setOpen, recipeId}) {
             }}
         />
         </MuiPickersUtilsProvider>
-        <select onChange={event => setCategoryState(event.target.value)}>
+        <FormControl>
+        <InputLabel>Select Category</InputLabel>
+        <Select 
+        displayEmpty
+        inputProps={{ 'aria-label': 'Without label' }} 
+        onChange={event => setCategoryState(event.target.value)}>
+            <MenuItem value="" disabled>Category</MenuItem>
         {categories && categories.map(category => {
             return (
-            <option key={category.id} value={category.id}>{category.category}</option>
+            <MenuItem key={category.id} value={category.id}>{category.category}</MenuItem>
             )
         })}
-        </select>
-        <Button onClick={handlePlanMeal}>Plan Meal</Button>
+        </Select>
+        </FormControl>
+        {isEdit ? <Button onClick={handleEditMeal}>Edit Meal</Button> : <Button onClick={handlePlanMeal}>Plan Meal</Button>}
+
     </Dialog>
   )
 }
