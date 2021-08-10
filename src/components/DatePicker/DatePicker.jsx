@@ -11,7 +11,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
-import { FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, NativeSelect, Select } from '@material-ui/core';
 
 function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCategory, isEdit}) {
 
@@ -60,16 +60,17 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
   return(
 
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+  {/* MAYBE GO BACK TO NATIVE SELECT  */}
         {calendars[0] && <FormControl>
-          <Select 
+          <NativeSelect 
           value={calendarId || calendars[0].name}
           onChange={event => setCalendarId(event.target.value)}>
             {calendars && calendars.map(calendar => {
             return (
-                <MenuItem key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</MenuItem>
+                <option key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</option>
             )
             })}
-        </Select>
+        </NativeSelect>
         </FormControl>}
         <MuiPickersUtilsProvider utils={LuxonUtils}>
         <KeyboardDatePicker
@@ -87,17 +88,18 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
         </MuiPickersUtilsProvider>
         <FormControl>
         <InputLabel>Select Category</InputLabel>
-        <Select 
-        displayEmpty
+{/* FIX THIS SELECT DOWN HERE.. NOT DISPLAYING PROPERLY */}
+        <NativeSelect 
+        value="Category"
         inputProps={{ 'aria-label': 'Without label' }} 
         onChange={event => setCategoryState(event.target.value)}>
-            <MenuItem value="" disabled>Category</MenuItem>
+            <option value="" disabled>Category</option>
         {categories && categories.map(category => {
             return (
-            <MenuItem key={category.id} value={category.id}>{category.category}</MenuItem>
+            <option key={category.id} value={category.id}>{category.category}</option>
             )
         })}
-        </Select>
+        </NativeSelect>
         </FormControl>
         {isEdit ? <Button onClick={handleEditMeal}>Edit Meal</Button> : <Button onClick={handlePlanMeal}>Plan Meal</Button>}
 
