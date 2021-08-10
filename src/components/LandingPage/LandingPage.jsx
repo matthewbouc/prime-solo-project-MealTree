@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 import background from '../../images/blurLandingPage.jpeg';
-import { Container, Grid, makeStyles } from '@material-ui/core';
+import mealTree from '../../images/mealTree.png';
+import { Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
 
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
 import LoginForm from '../LoginForm/LoginForm';
-
+import Nav from '../Nav/Nav';
+import Footer from '../Footer/Footer';
 
 const useStyles = makeStyles((theme) => ({
   backgroundImage: {
@@ -34,33 +36,35 @@ function LandingPage() {
 
   return (
     <>
-    <Grid className={classes.backgroundImage}>
+    <Nav />
 
-      <div >
-        <div >
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
-            ut ex molestie blandit. Etiam et turpis sit amet risus mollis
-            interdum. Suspendisse et justo vitae metus bibendum fringilla sed
-            sed justo. Aliquam sollicitudin dapibus lectus, vitae consequat odio
-            elementum eget. Praesent efficitur eros vitae nunc interdum, eu
-            interdum justo facilisis. Sed pulvinar nulla ac dignissim efficitur.
-            Quisque eget eros metus. Vestibulum bibendum fringilla nibh a
-            luctus. Duis a sapien metus.
-          </p>
-        </div>
-        <div >
-          {isRegistered ? <LoginForm /> : <RegisterForm />}          
-          <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
-              Login
-            </button>
-          </center>
-        </div>
-      </div>
+    <Container className={classes.backgroundImage}>
+
+
+    <Grid container justifyContent="center">
+    <Grid item xs={12}>
+        
     </Grid>
+      </Grid>
+      <Grid container justifyContent="center" alignContent="center" spacing={8}>
+      <Grid item xs={9} >
+        <Typography color="default">Create and share meal plans</Typography>
+      </Grid>
+      <Grid item xs={11}>
+        {isRegistered ? <LoginForm /> : <RegisterForm />}     
+      </Grid>     
+      <Grid item xs={9} >
+          <h4>Already a Member?</h4>
+          <Button color="primary" variant="contained" onClick={onLogin}>
+            Login
+          </Button>
+      </Grid>
+      <Grid item alignItems="baseline">
+      <Footer />
+      </Grid>
+      </Grid>
+
+      </Container>
       </>
   );
 }
