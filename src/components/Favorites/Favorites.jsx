@@ -23,7 +23,6 @@ function Favorites() {
 
   const [recipeId, setRecipeId] = useState('');
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
   setOpen(true);
   };

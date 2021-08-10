@@ -3,11 +3,13 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// '/api/calendar'
+
 
 // #########  CALENDAR_SHARED_USERS ROUTES ############   //
 
 /**
- * GET all calendars for the user
+ * GET all calendars for the user, default first
  */
 router.get('/all', rejectUnauthenticated, (req, res) => {
 
