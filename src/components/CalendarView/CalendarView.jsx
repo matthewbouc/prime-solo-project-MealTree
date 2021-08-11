@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
 import DatePicker from '../DatePicker/DatePicker';
-import { Grid } from '@material-ui/core';
+import { Card, Grid, ThemeProvider } from '@material-ui/core';
 
 
 function CalendarView() {
@@ -78,7 +78,7 @@ function CalendarView() {
       {nextDates && nextDates.map((date, i) => {     
         return(
           <Grid key={i} item xs={11} >
-          <Accordion key={i}>
+          <Accordion elevation={8} style={{backgroundColor: "#ACC8AB"}}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-label="Expand"
@@ -91,11 +91,13 @@ function CalendarView() {
               {weekPlan && recipeDisplay(date).map(meal=>{
                 return (
                   <div key={meal.id}>
+                  <Card style={{backgroundColor: "#ACC8AB"}}>
                   <p>{meal.category}</p>
                   <p>{meal.name}</p>
                   <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>
-                  <Button variant="contained" onClick={() => handleEdit(meal.id, meal.calendar_id, meal.category)}>Edit</Button>
-                  <Button variant="contained" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
+                  <Button variant="contained" color="secondary" onClick={() => handleEdit(meal.id, meal.calendar_id, meal.category)}>Edit</Button>
+                  <Button variant="contained" color="secondary" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
+                  </Card>
                   </div>
                 )
               })}

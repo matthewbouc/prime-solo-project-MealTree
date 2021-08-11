@@ -35,13 +35,17 @@ function Nav() {
       <Grid item xs={6} container justifyContent="center">
       <img src={mealTree} height="45px" onClick={()=> history.push('/home')}/>
       </Grid>
-      <Grid item xs={6} container justifyContent="center">
-      <Button color="primary" variant="contained" onClick={onLogin}>
+      <Grid item xs={6} container justifyContent="center" alignContent="space-between">
+      <Grid item xs={3}>
+      <Button color="primary"  onClick={onLogin}>
                 Sign in
       </Button>
-      <Button color="primary" variant="contained" onClick={onSignUp}>
+      </Grid>
+      <Grid item xs={3}>
+      <Button color="primary" variant="outlined" onClick={onSignUp}>
                 Sign up
       </Button>
+      </Grid>
       </Grid>
 
     </Grid>

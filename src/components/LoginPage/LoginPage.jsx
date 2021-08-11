@@ -36,7 +36,7 @@ function LoginPage() {
         <Grid item xs={12} container justifyContent="center">
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={() => {
             history.push('/registration');
           }}

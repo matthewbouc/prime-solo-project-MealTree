@@ -52,7 +52,7 @@ function Favorites() {
     {favorites && favorites.map((recipe, i) => {     
       return(
         <Grid key={i} item xs={11}>
-        <Accordion key={i}>
+        <Accordion style={{backgroundColor: "#ACC8AB"}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-label="Expand"

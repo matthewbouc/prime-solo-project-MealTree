@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       position: 'fixed',
       bottom: 0,
-      backgroundColor: 'green',
+      backgroundColor: '#4B6F44',
     },
     avatar: {
       backgroundColor: blue[100],

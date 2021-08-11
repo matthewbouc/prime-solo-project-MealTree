@@ -79,14 +79,15 @@ function RecipeView() {
         <Button variant="contained" onClick={() => setEditView(!editView)}>Cancel</Button>
         <Box>
             <form autoComplete="off" onSubmit={(event)=> handleConfirmEdit(event)}>
-                <TextField required value={newRecipe.name} label="Recipe Name" variant="outlined" onChange={(event)=> setNewRecipe({...newRecipe, name: event.target.value})}/>
-                <TextField value={newRecipe.picture} label="Picture URL - change to dropzone" variant="outlined" onChange={(event)=> setNewRecipe({...newRecipe, picture: event.target.value})}/>
-                <TextareaAutosize required value={newRecipe.ingredients} aria-label="minimum height" minRows={8} placeholder="Ingredients" onChange={(event)=> setNewRecipe({...newRecipe, ingredients: event.target.value})} />
-                <TextareaAutosize required value={newRecipe.procedure} aria-label="minimum height" minRows={15} placeholder="Procedure" onChange={(event)=> setNewRecipe({...newRecipe, procedure: event.target.value})} />
+                <TextField required value={newRecipe.name || recipe.name} label="Recipe Name" variant="outlined" onChange={(event)=> setNewRecipe({...newRecipe, name: event.target.value})}/>
+                <TextField value={newRecipe.picture || recipe.picture} label="Picture URL - change to dropzone" variant="outlined" onChange={(event)=> setNewRecipe({...newRecipe, picture: event.target.value})}/>
+                <TextareaAutosize required value={newRecipe.ingredients || recipe.ingredients} aria-label="minimum height" minRows={8} placeholder="Ingredients" onChange={(event)=> setNewRecipe({...newRecipe, ingredients: event.target.value})} />
+                <TextareaAutosize required value={newRecipe.procedure || recipe.procedure} aria-label="minimum height" minRows={15} placeholder="Procedure" onChange={(event)=> setNewRecipe({...newRecipe, procedure: event.target.value})} />
                 <Button variant="contained" type="submit" >Confirm</Button>
                 <Button variant="contained" onClick={()=>handleDelete()}>Delete Recipe</Button>
             </form>
-        </Box> 
+        </Box>
+        
         </>
         }
         <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
