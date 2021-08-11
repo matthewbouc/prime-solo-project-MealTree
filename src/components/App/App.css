@@ -14,6 +14,16 @@ img {
   max-width: 100%;
 }
 
+.standardBackground {
+  background-image: url('../../images/standardBackground.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  /* width: 100vw; */
+}
+
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */

@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
 import DatePicker from '../DatePicker/DatePicker';
+import { Grid } from '@material-ui/core';
 
 
 function CalendarView() {
@@ -73,9 +74,10 @@ function CalendarView() {
   }
 
   return (
-    <div>
+    <Grid container justifyContent="center" spacing={1}>
       {nextDates && nextDates.map((date, i) => {     
         return(
+          <Grid key={i} item xs={11} >
           <Accordion key={i}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -99,11 +101,12 @@ function CalendarView() {
               })}
             </AccordionDetails>
           </Accordion>
+          </Grid>
         )
       })}
-
+      
       <DatePicker open={open} setOpen={setOpen} calendar_id={calendar_id} mealPlanId={mealPlanId} isEdit={isEdit}/>
-    </div>
+    </Grid>
   );
 }
 
