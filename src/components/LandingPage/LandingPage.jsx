@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
-import background from '../../images/blurLandingPage.jpeg';
-import { Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import background from '../../images/landingPage.jpeg';
+import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
 
 
 // CUSTOM COMPONENTS

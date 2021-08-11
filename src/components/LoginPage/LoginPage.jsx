@@ -31,17 +31,20 @@ function LoginPage() {
     <Grid item xs={9} container justifyContent="center">
     <LoginForm />
     </Grid>
-    <Grid item xs={9} container justifyContent="center">
-        <button
-          type="button"
-          className="btn btn_asLink"
+        <Grid item xs={12} container justifyContent="center">
+        <Typography>Don't have a MealTree account?</Typography>
+        </Grid>
+        <Grid item xs={12} container justifyContent="center">
+        <Button
+          variant="contained"
+          color="primary"
           onClick={() => {
             history.push('/registration');
           }}
         >
-          Register
-        </button>
-      </Grid>
+          Join Now
+        </Button>
+        </Grid>
       </Grid>
       </>
   );

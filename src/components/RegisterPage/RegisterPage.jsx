@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import background from '../../images/login-register.jpeg';
-import { Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import Nav from '../Nav/Nav';
 
 const useStyles = makeStyles((theme) => ({
@@ -30,16 +30,17 @@ function RegisterPage() {
     <Grid item xs={9} container justifyContent="center">
       <RegisterForm />
       </Grid>
-    <Grid item xs={9} container justifyContent="center">
-        <button
-          type="button"
-          className="btn btn_asLink"
-          onClick={() => {
-            history.push('/login');
-          }}
+        <Grid item xs={12} container justifyContent="center">
+        <Typography>Already have a MealTree account?</Typography>
+        </Grid>
+        <Grid item xs={12} container justifyContent="center">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {history.push('/login')}}
         >
-          Login
-        </button>
+          Sign in
+        </Button>
         </Grid>
       </Grid>
       </>

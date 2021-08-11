@@ -32,10 +32,10 @@ function Nav() {
   return (
 
     <Grid container className="background" justifyContent="center">
-      <Grid item xs={12} container justifyContent="center">
-      <img src={mealTree} height="45px" />
+      <Grid item xs={6} container justifyContent="center">
+      <img src={mealTree} height="45px" onClick={()=> history.push('/home')}/>
       </Grid>
-      <Grid item xs={12} container justifyContent="center">
+      <Grid item xs={6} container justifyContent="center">
       <Button color="primary" variant="contained" onClick={onLogin}>
                 Sign in
       </Button>

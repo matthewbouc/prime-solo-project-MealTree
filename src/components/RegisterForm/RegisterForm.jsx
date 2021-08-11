@@ -1,6 +1,8 @@
 import { TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button, Grid } from '@material-ui/core';
+
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
@@ -34,33 +36,61 @@ function RegisterForm() {
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
+      <Grid container spacing={1}>
+        <Grid item>
           <TextField
-            type="text"
-            name="username"
+            label="First Name"
+            variant="outlined"
+            value={firstName}
+            required
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </Grid>
+        <Grid item>
+
+                    <TextField
+            label="Last Name"
+            variant="outlined"
+            value={lastName}
+            required
+            onChange={(event) => setLastName(event.target.value)}
+          />
+          </Grid>
+          <Grid item>
+
+                    <TextField
+            label="Email"
+            variant="outlined"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          </Grid>
+          <Grid item>
+
+          <TextField
+            label="Username"
+            variant="outlined"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
+          </Grid>
+          <Grid item>
+
           <TextField
-            type="password"
-            name="password"
+            label="Password"
+            variant="outlined"
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
+        </Grid>
+      <Grid item>
+        <Button type="submit" color="primary" variant="contained">Sign up</Button>
+      </Grid>
+      </Grid>
+
     </form>
   );
 }
