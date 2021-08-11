@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DatePicker from '../DatePicker/DatePicker';
+import { Grid } from '@material-ui/core';
 
 
 function Favorites() {
@@ -46,10 +47,11 @@ function Favorites() {
   }
   
   return (
-    <div>
+    <Grid container justifyContent="center">
     <Button onClick={() => history.goBack()}>Back</Button>
     {favorites && favorites.map((recipe, i) => {     
       return(
+        <Grid key={i} item xs={11}>
         <Accordion key={i}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -72,11 +74,12 @@ function Favorites() {
               {recipe.ingredients}
           </AccordionDetails>
         </Accordion>
+        </Grid>
       )
     })}
 
     <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
-  </div>
+  </Grid>
   );
 }
 

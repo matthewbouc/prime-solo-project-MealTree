@@ -17,9 +17,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover', 
     backgroundRepeat: 'no-repeat',
     backgroundAttachment: 'fixed',
-    // width: '100vw',
-    height: '100vh',
-    paddingTop: '50px',
+    minHeight: '100vh',
   }
 }));
 

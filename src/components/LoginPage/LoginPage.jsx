@@ -10,11 +10,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${background})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover', 
-    backgroundRepeat: 'no-repeat',
+    backgroundRepeat: 'repeat',
     backgroundAttachment: 'fixed',
     // width: '100vw',
     height: '100vh',
-    paddingTop: '50px',
   }
 }));
 
