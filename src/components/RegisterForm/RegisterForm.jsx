@@ -1,9 +1,13 @@
+import { TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -13,6 +17,9 @@ function RegisterForm() {
     dispatch({
       type: 'REGISTER',
       payload: {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
         username: username,
         password: password,
       },
@@ -30,7 +37,7 @@ function RegisterForm() {
       <div>
         <label htmlFor="username">
           Username:
-          <input
+          <TextField
             type="text"
             name="username"
             value={username}
@@ -42,7 +49,7 @@ function RegisterForm() {
       <div>
         <label htmlFor="password">
           Password:
-          <input
+          <TextField
             type="password"
             name="password"
             value={password}

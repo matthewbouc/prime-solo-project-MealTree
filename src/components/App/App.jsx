@@ -28,6 +28,7 @@ import UserPage from '../UserPage/UserPage'; // Took this out for now
 import './App.css';
 import FooterNav from '../Footer/FooterNav';
 import RecipeView from '../RecipeView/RecipeView';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 
 
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <Router >
+      <LogOutButton />
       <div>
         {/* <Nav />           REFERENCE THIS FOR THE MENU BUTTON ON WHICH PAGES TO USE*/}
         <Switch>

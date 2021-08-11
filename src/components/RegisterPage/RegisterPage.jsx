@@ -1,16 +1,36 @@
 import React from 'react';
-
 import { useHistory } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
+import background from '../../images/login-register.jpeg';
+import { Button, Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import Nav from '../Nav/Nav';
+
+const useStyles = makeStyles((theme) => ({
+  backgroundImage: {
+    backgroundImage: `url(${background})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover', 
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    height: '100vh',
+    paddingTop: '50px',
+  }
+}));
+
 
 function RegisterPage() {
+  const classes = useStyles();
   const history = useHistory();
 
   return (
-    <div>
-      <RegisterForm />
+    <>
+    <Nav />
 
-      <center>
+    <Grid container className={classes.backgroundImage} alignContent="center" justifyContent="center">
+    <Grid item xs={9} container justifyContent="center">
+      <RegisterForm />
+      </Grid>
+    <Grid item xs={9} container justifyContent="center">
         <button
           type="button"
           className="btn btn_asLink"
@@ -20,8 +40,9 @@ function RegisterPage() {
         >
           Login
         </button>
-      </center>
-    </div>
+        </Grid>
+      </Grid>
+      </>
   );
 }
 

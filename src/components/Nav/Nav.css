@@ -1,20 +1,13 @@
-.front{
-
+.background{
+  /* background-color: #4b6f44; */
   background-color: #2b2620;
-  color: white;
   position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  height: 90px;
+  height: 60px;
   padding: 0;
-  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.back {
-
-
 }
