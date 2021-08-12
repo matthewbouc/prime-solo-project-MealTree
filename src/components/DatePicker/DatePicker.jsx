@@ -12,6 +12,7 @@ import {
 } from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
 import { FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, NativeSelect, Select } from '@material-ui/core';
+import { DialogContent, Grid } from '@material-ui/core';
 
 function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCategory, isEdit}) {
 
@@ -61,8 +62,11 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
 
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
   {/* MAYBE GO BACK TO NATIVE SELECT  */}
+      <DialogContent>
+        <Grid container direction="column">
         {calendars[0] && <FormControl>
           <NativeSelect 
+          variant="filled"
           value={calendarId || calendars[0].name}
           onChange={event => setCalendarId(event.target.value)}>
             {calendars && calendars.map(calendar => {
@@ -90,6 +94,7 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
         <InputLabel>Select Category</InputLabel>
 {/* FIX THIS SELECT DOWN HERE.. NOT DISPLAYING PROPERLY */}
         <NativeSelect 
+        variant="filled"
         value="Category"
         inputProps={{ 'aria-label': 'Without label' }} 
         onChange={event => setCategoryState(event.target.value)}>
@@ -104,8 +109,9 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
         {isEdit ?
           <Button variant="contained" color="secondary" onClick={handleEditMeal}>Save Edit</Button>
         : 
-          <Button onClick={handlePlanMeal}>Plan Meal</Button>}
-
+          <Button variant="contained" color="secondary" onClick={handlePlanMeal}>Plan Meal</Button>}
+          </Grid>
+      </DialogContent>
     </Dialog>
   )
 }
