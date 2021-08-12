@@ -6,15 +6,15 @@ import Button from '@material-ui/core/Button';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
+import { Grid, Typography } from '@material-ui/core';
+import './NewRecipe.css'
 
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
+  textHeader: {
+    textAlign: "center",
+    color: "#442603"
+  }
 }));
 
 
@@ -29,15 +29,59 @@ function NewRecipe() {
   }
 
   return (
-    <Box>
-      <form className={classes.root} autoComplete="off" onSubmit={handleAddRecipe}>
-        <TextField required value={recipe.name} label="Recipe Name" variant="outlined" onChange={(event)=> setRecipe({...recipe, name: event.target.value})}/>
-        <TextareaAutosize required value={recipe.ingredients} aria-label="minimum height" minRows={8} placeholder="Ingredients" onChange={(event)=> setRecipe({...recipe, ingredients: event.target.value})} />
-        <TextareaAutosize required value={recipe.procedure} aria-label="minimum height" minRows={15} placeholder="Procedure" onChange={(event)=> setRecipe({...recipe, procedure: event.target.value})} />
-        <TextField value={recipe.picture} label="Picture URL - change to dropzone" variant="outlined" onChange={(event)=> setRecipe({...recipe, picture: event.target.value})}/>
-        <Button variant="contained" type="submit" >Add Recipe</Button>
+    <>
+    <Typography variant="h3" className={classes.textHeader}>Add New Recipe</Typography>
+      <form className="form" autoComplete="off" onSubmit={handleAddRecipe}>
+      <Grid container spacing={3} justifyContent="center">
+      <Grid item >
+        <TextField required
+          value={recipe.name}
+          label="Recipe Name"
+          variant="filled"
+          color="secondary"
+          style={{backgroundColor: "lightgrey"}}
+          onChange={(event)=> setRecipe({...recipe, name: event.target.value})}
+        />
+      </Grid>
+      <Grid item>
+        {/* <TextareaAutosize required  */}
+        {/* minRows={8}  */}
+        {/* aria-label="minimum height"  */}
+        <TextField
+        value={recipe.ingredients} 
+        label="Ingredients"
+        variant="filled"
+        color="secondary"
+        style={{backgroundColor: "lightgrey"}}
+        onChange={(event)=> setRecipe({...recipe, ingredients: event.target.value})} />
+      </Grid>
+      <Grid item>
+        {/* <TextareaAutosize required 
+        minRows={15} 
+        aria-label="minimum height"  */}
+        <TextField
+        value={recipe.procedure} 
+        label="Procedure"
+        variant="filled"
+        color="secondary"
+        style={{backgroundColor: "lightgrey"}} 
+        onChange={(event)=> setRecipe({...recipe, procedure: event.target.value})} />
+      </Grid>
+      <Grid item >
+        <TextField 
+        value={recipe.picture} 
+        label="Picture URL" 
+        variant="filled" 
+        color="secondary"
+        style={{backgroundColor: "lightgrey"}}
+        onChange={(event)=> setRecipe({...recipe, picture: event.target.value})}/>
+      </Grid>
+      <Grid item container xs={12} justifyContent="center">
+        <Button color="primary" variant="contained" type="submit" >Add Recipe</Button>
+      </Grid>
+      </Grid>
       </form>
-    </Box>
+    </>
   );
 }
 
