@@ -104,9 +104,11 @@ function FooterNav() {
       <BottomNavigation position="absolute" className={classes.bottomNav}>
         <BottomNavigationAction label="Recents" value="recents" icon={<MenuIcon fontSize="large" />} />
         <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
+        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
         <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/favorites")} icon={<FavoriteIcon fontSize="large" />} />
         <BottomNavigationAction label="Favorites" value="favorites" onClick={handleClickOpen} icon={<AddCircleOutlineIcon fontSize="large" />} />
-        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
+
+        <BottomNavigationAction label="Favorites" value="favorites" onClick={handleClickOpen} icon={<AddCircleOutlineIcon fontSize="large" />} />
         {/* <BottomNavigationAction label="Folder" value="folder" icon={<AccountCircleIcon fontSize="large" />} /> */}
       </BottomNavigation>
 
