@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import DatePicker from '../DatePicker/DatePicker';
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import '../App/App.css';
 
 
 function RecipeView() {
@@ -57,7 +58,7 @@ function RecipeView() {
         handleClickOpen();
     }
     return (
-    <div>
+    <div className='standardBackground'>
         
         <Button variant="contained" onClick={() => history.goBack()}>Back</Button>
         

@@ -11,6 +11,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DatePicker from '../DatePicker/DatePicker';
 import { Box, Grid } from '@material-ui/core';
+import '../App/App.css';
 
 
 function Favorites() {
@@ -47,6 +48,7 @@ function Favorites() {
   }
   
   return (
+    <div className='standardBackground'>
     <Grid container justifyContent="center">
     <Grid item xs={11}>
     {/* <Button onClick={() => history.goBack()}>Back</Button> */}
@@ -98,6 +100,7 @@ function Favorites() {
     <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
   </Grid>
   </Grid>
+  </div>
   );
 }
 

@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 import DatePicker from '../DatePicker/DatePicker';
 import { Card, Grid, Box } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import '../App/App.css';
 
 
 function CalendarView() {
@@ -75,6 +76,7 @@ function CalendarView() {
   }
 
   return (
+    <div className='standardBackground'>
     <Grid container justifyContent="center" spacing={1}>
       {nextDates && nextDates.map((date, i) => {     
         return(
@@ -89,7 +91,8 @@ function CalendarView() {
               <Typography>{date.getDate()} {weekDays[nextDays[i]]}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-            <Box display="flex"
+            <Box
+              display="flex"
               flexWrap="wrap"
               p={1}
               m={1}
@@ -121,6 +124,7 @@ function CalendarView() {
       
       <DatePicker open={open} setOpen={setOpen} calendar_id={calendar_id} mealPlanId={mealPlanId} isEdit={isEdit}/>
     </Grid>
+    </div>
   );
 }
 
