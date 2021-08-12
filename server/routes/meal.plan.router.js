@@ -18,7 +18,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         JOIN calendar_shared_users ON calendar_shared_users.calendar_id = calendars.id
         JOIN recipes ON meal_plan.recipe_id = recipes.id
         JOIN categories ON meal_plan.category_id = categories.id
-        WHERE calendar_shared_users.shared_user_id = $1 AND calendar_shared_users.default_calendar = TRUE;`
+        WHERE calendar_shared_users.shared_user_id = $1 AND calendar_shared_users.default_calendar = TRUE
+        ORDER BY categories.id;`
     ;
     pool.query(queryText, [userId])
     .then(result => {
