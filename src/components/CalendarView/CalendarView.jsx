@@ -26,6 +26,7 @@ function CalendarView() {
   useEffect(()=>{
     createWeek();
     dispatch({type: 'GET_WEEK_PLAN'})
+    dispatch({type: 'GET_CALENDAR_LIST'})
   },[])
 
   const createWeek = () => {

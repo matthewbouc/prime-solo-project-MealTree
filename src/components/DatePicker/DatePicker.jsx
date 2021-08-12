@@ -90,7 +90,7 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
             }}
         />
         </MuiPickersUtilsProvider>
-        <FormControl>
+        {categories[0] && <FormControl>
         <InputLabel>Select Category</InputLabel>
         <NativeSelect 
         variant="filled"
@@ -104,6 +104,7 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
         })}
         </NativeSelect>
         </FormControl>
+        }
         {isEdit ?
           <Button variant="contained" color="secondary" onClick={handleEditMeal}>Save Edit</Button>
         : 
