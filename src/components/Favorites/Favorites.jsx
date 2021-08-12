@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DatePicker from '../DatePicker/DatePicker';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 
 
 function Favorites() {
@@ -48,10 +48,10 @@ function Favorites() {
   
   return (
     <Grid container justifyContent="center">
-    <Button onClick={() => history.goBack()}>Back</Button>
+    <Grid item xs={11}>
+    {/* <Button onClick={() => history.goBack()}>Back</Button> */}
     {favorites && favorites.map((recipe, i) => {     
       return(
-        <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
         <Accordion style={{backgroundColor: "#ACC8AB"}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -59,26 +59,44 @@ function Favorites() {
             aria-controls="additional-actions1-content"
             id="additional-actions1-header"
           >
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            p={1}
+            m={1}
+          >
+            <Grid item container justifyContent="center">
             <Typography>{recipe.name}</Typography>
-            <img src={recipe.picture} width="100px"/>
+            </Grid>     
+            <Grid item container justifyContent="center">
+            <img src={recipe.picture} width="150px"/>
+            </Grid>
+            <Grid item container justifyContent="center">
             <Button
             onClick={(event) => handlePlanIt(event, recipe.id)}
             onFocus={(event) => event.stopPropagation()}
+            variant="contained"
+            color="secondary"
             >Plan It</Button>
             <Button
             onClick={(event) => handleViewRecipe(event, recipe.id)}
             onFocus={(event) => event.stopPropagation()}
+            variant="contained"
+            color="secondary"
               >View Recipe</Button>
+            </Grid>
+          </Box>
+
           </AccordionSummary>
           <AccordionDetails>
               {recipe.ingredients}
           </AccordionDetails>
         </Accordion>
-        </Grid>
       )
     })}
 
     <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
+  </Grid>
   </Grid>
   );
 }
