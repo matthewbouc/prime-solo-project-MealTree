@@ -37,8 +37,10 @@ function LoginForm() {
       <Grid container spacing={1}>
         <Grid item>
           <TextField
-             label="Username"
-            variant="outlined"
+            label="Username"
+            variant="filled"
+            color="secondary"
+            style={{backgroundColor: "lightgrey"}}
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
@@ -46,15 +48,18 @@ function LoginForm() {
       </Grid>
       <Grid item>
           <TextField
-            label="First Name"
-            variant="outlined"
+            type="password"
+            label="password"
+            variant="filled"
+            color="secondary"
+            style={{backgroundColor: "lightgrey"}}
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
       </Grid>
       <Grid item>
-        <Button variant="contained" color="primary" type="submit">Sign In</Button>
+        <Button variant="outlined" color="primary" type="submit">Sign In</Button>
       </Grid>
     </Grid>
     </form>
