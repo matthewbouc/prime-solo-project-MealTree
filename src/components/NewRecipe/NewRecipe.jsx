@@ -34,7 +34,7 @@ function NewRecipe() {
   return (
     <div className='standardBackground'>
     <Typography variant="h3" className={classes.textHeader}>Add New Recipe</Typography>
-      <form className="form" autoComplete="off" onSubmit={handleAddRecipe}>
+      <form className="formNew" autoComplete="off" onSubmit={handleAddRecipe}>
       <Grid container spacing={3} justifyContent="center">
       <Grid item >
         <TextField required

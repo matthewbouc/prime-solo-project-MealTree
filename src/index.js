@@ -10,9 +10,8 @@ import rootSaga from './redux/sagas/_root.saga'; // imports ./redux/sagas/index.
 
 import App from './components/App/App';
 
-
-import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import { createTheme } from '@material-ui/core/styles';
 const theme = createTheme({
   palette: {
     primary: {
@@ -49,9 +48,9 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-  <Provider store={store}>
-    <App />
-  </Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ThemeProvider>,
   document.getElementById('react-root')
 );
