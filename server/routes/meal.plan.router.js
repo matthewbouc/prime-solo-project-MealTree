@@ -34,7 +34,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  * GET categories, from which user can select
  */
 router.get('/categories', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT * FROM categories;`;
+    const queryText = `SELECT * FROM categories ORDER BY id;`;
     pool.query(queryText)
     .then(result => {
         console.log(result.rows);
