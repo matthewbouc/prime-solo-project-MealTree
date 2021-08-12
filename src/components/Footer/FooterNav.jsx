@@ -28,6 +28,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SearchIcon from '@material-ui/icons/Search';
 import TodayIcon from '@material-ui/icons/Today';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { CallReceived } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       position: 'fixed',
       bottom: 0,
+      // marginTop: 'calc(5%+60px)',
       backgroundColor: '#4B6F44',
     },
     avatar: {
