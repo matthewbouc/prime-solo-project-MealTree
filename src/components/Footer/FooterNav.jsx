@@ -83,27 +83,15 @@ function FooterNav() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (pushTo) => {
     setAnchorEl(null);
+    if (pushTo) {
+      history.push(`/${pushTo}`);
+    }
   };
 
   return (
   <>
-      {/* <AppBar position="absolute" color="primary" className={classes.appBar}>
-          <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="open drawer">
-              <MenuIcon />
-          </IconButton>
-          <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-              <AddIcon onClick={handleClickOpen}/>
-          </Fab>
-          <div className={classes.grow} />
-          <IconButton edge="end" color="inherit">
-              <AccountCircleIcon fontSize="large"/>
-          </IconButton>
-          </Toolbar>
-      </AppBar> */}
-
       <BottomNavigation position="absolute" className={classes.bottomNav}>
         <BottomNavigationAction label="Menu" value="menu" icon={<MenuIcon fontSize="large" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>} />
         <BottomNavigationAction label="Search" value="search" onClick={()=> history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
@@ -123,13 +111,13 @@ function FooterNav() {
           {/* Switched from Dialog to a menu.. below should all be converted to Menu Items*/}
           <List>
               <LogOutButton />
-              <ListItem button onClick={()=> history.push("/newRecipe")}>
+              <ListItem button onClick={()=> handleClose('newRecipe')}>
                   <ListItemText primary="Profile Page" />
               </ListItem>
-              <ListItem button onClick={()=> history.push("/searchApi")}>
+              <ListItem button onClick={()=> handleClose('searchApi')}>
                   <ListItemText primary="Calendar List" />
               </ListItem>
-              <ListItem button onClick={()=> history.push("/searchApi")}>
+              <ListItem button onClick={()=> handleClose('fullCalendar')}>
                   <ListItemText primary="Planned Meals" />
               </ListItem>
           </List>
