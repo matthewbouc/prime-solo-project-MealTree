@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -30,6 +30,8 @@ import FooterNav from '../Footer/FooterNav';
 import RecipeView from '../RecipeView/RecipeView';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { makeStyles } from '@material-ui/core';
+import FullCalendar from '../FullCalendar/FullCalendar';
+
 
 const useStyles = makeStyles(theme => ({
   innerPages: {
@@ -41,6 +43,8 @@ const useStyles = makeStyles(theme => ({
 function App() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const user = useSelector(store=>store.user);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -72,32 +76,29 @@ function App() {
             exact
             path="/calendar"
           >
-            <CalendarView />
-            <FooterNav />
+          <CalendarView />
           </ProtectedRoute>
 
           <ProtectedRoute exact path = "/favorites">
             <Favorites />
-            <FooterNav />
           </ProtectedRoute>
 
           <ProtectedRoute exact path = "/newRecipe">
             <NewRecipe />
-            <FooterNav />
           </ProtectedRoute>
 
           <ProtectedRoute exact path = "/searchApi">
             <SearchApi />
-            <FooterNav />
           </ProtectedRoute>
-          
 
-          {/* <Switch> */}
-            <ProtectedRoute exact path="/recipe/:recipeId">
-              <RecipeView />
-              <FooterNav />
-            </ProtectedRoute>
-          {/* </Switch> */}
+          <ProtectedRoute exact path="/recipe/:recipeId">
+            <RecipeView />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = "/fullCalendar">
+            <FullCalendar />
+          </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -148,6 +149,7 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
+        {user.id && <FooterNav />}
         {/* <Footer /> */}
         
     </Router>

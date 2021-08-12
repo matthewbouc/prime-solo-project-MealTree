@@ -103,7 +103,7 @@ function CalendarView() {
                   
                   <Grid key={meal.id} container justifyContent="center">
                   <Grid item >
-                  <Typography>{meal.category} : {meal.name}</Typography>
+                  <Typography variant="h6">{meal.category}: {meal.name}</Typography>
                   </Grid>
                   <Grid item xs={12} container justifyContent="center">
                   <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>

@@ -12,6 +12,8 @@ const router = express.Router();
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
+    const now = new Date();
+
     const queryText = `
     SELECT meal_plan.id AS id, meal_plan.calendar_id, meal_plan.date, recipes.id AS recipe_id, recipes.name, recipes.picture, recipes.api_id, categories.category FROM meal_plan
         JOIN calendars ON calendars.id = meal_plan.calendar_id
@@ -19,7 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         JOIN recipes ON meal_plan.recipe_id = recipes.id
         JOIN categories ON meal_plan.category_id = categories.id
         WHERE calendar_shared_users.shared_user_id = $1 AND calendar_shared_users.default_calendar = TRUE
-        ORDER BY categories.id;`
+        ORDER BY meal_plan.date DESC, categories.id;`
     ;
     pool.query(queryText, [userId])
     .then(result => {
