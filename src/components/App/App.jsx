@@ -42,7 +42,6 @@ function App() {
 
   return (
     <Router >
-      <LogOutButton />
       <div className='standardBackground'>
         {/* <Nav />           REFERENCE THIS FOR THE MENU BUTTON ON WHICH PAGES TO USE*/}
         <Switch>
