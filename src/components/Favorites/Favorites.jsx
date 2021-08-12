@@ -49,7 +49,10 @@ function Favorites() {
   
   return (
     <div className='standardBackground'>
-    <Grid container justifyContent="center">
+    <Grid container spacing={1} justifyContent="center">
+    <Grid item>
+      <Typography style={{color: "#442603"}} variant="h4">Favorite Recipes</Typography>
+    </Grid>
     <Grid item xs={11}>
     {/* <Button onClick={() => history.goBack()}>Back</Button> */}
     {favorites && favorites.map((recipe, i) => {     
@@ -67,31 +70,36 @@ function Favorites() {
             p={1}
             m={1}
           >
-            <Grid item container justifyContent="center">
+            <Grid item container spacing={2}>
+            <Grid item xs={12} container justifyContent="center">
             <Typography>{recipe.name}</Typography>
             </Grid>     
-            <Grid item container justifyContent="center">
-            <img src={recipe.picture} width="150px"/>
+            <Grid item xs={12} container justifyContent="center">
+            <img
+            src={recipe.picture}
+            width="150px"
+            onClick={(event) => handleViewRecipe(event, recipe.id)}
+            />
             </Grid>
-            <Grid item container justifyContent="center">
+            <Grid item xs={12} container justifyContent="center">
             <Button
             onClick={(event) => handlePlanIt(event, recipe.id)}
             onFocus={(event) => event.stopPropagation()}
             variant="contained"
             color="secondary"
             >Plan It</Button>
-            <Button
-            onClick={(event) => handleViewRecipe(event, recipe.id)}
+            {/* <Button
             onFocus={(event) => event.stopPropagation()}
             variant="contained"
             color="secondary"
-              >View Recipe</Button>
+              >View Recipe</Button> */}
+            </Grid>
             </Grid>
           </Box>
 
           </AccordionSummary>
           <AccordionDetails>
-              {recipe.ingredients}
+              <Typography>Ingredients: {recipe.ingredients}</Typography>
           </AccordionDetails>
         </Accordion>
       )
