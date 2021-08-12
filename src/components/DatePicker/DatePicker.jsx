@@ -92,13 +92,11 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
         </MuiPickersUtilsProvider>
         <FormControl>
         <InputLabel>Select Category</InputLabel>
-{/* FIX THIS SELECT DOWN HERE.. NOT DISPLAYING PROPERLY */}
         <NativeSelect 
         variant="filled"
-        value="Category"
+        value={categoryState || categories[0].id}
         inputProps={{ 'aria-label': 'Without label' }} 
         onChange={event => setCategoryState(event.target.value)}>
-            <option value="" disabled>Category</option>
         {categories && categories.map(category => {
             return (
             <option key={category.id} value={category.id}>{category.category}</option>
