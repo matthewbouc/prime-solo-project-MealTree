@@ -51,7 +51,7 @@ function Favorites() {
     <Button onClick={() => history.goBack()}>Back</Button>
     {favorites && favorites.map((recipe, i) => {     
       return(
-        <Grid key={i} item xs={11}>
+        <Grid key={i} item xs={11} xs={11} sm={7} md={7} lg={7}>
         <Accordion style={{backgroundColor: "#ACC8AB"}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

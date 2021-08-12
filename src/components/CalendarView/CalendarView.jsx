@@ -77,7 +77,7 @@ function CalendarView() {
     <Grid container justifyContent="center" spacing={1}>
       {nextDates && nextDates.map((date, i) => {     
         return(
-          <Grid key={i} item xs={11} >
+          <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
           <Accordion elevation={8} style={{backgroundColor: "#ACC8AB"}}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
