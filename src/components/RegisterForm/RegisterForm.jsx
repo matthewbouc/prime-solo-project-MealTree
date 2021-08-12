@@ -40,28 +40,35 @@ function RegisterForm() {
         <Grid item>
           <TextField
             label="First Name"
-            variant="outlined"
+            variant="filled"
+            color="secondary"
             value={firstName}
+            style={{backgroundColor: "lightgrey"}}
             required
             onChange={(event) => setFirstName(event.target.value)}
           />
         </Grid>
         <Grid item>
 
-                    <TextField
+          <TextField
             label="Last Name"
-            variant="outlined"
+            variant="filled"
+            color="secondary"
             value={lastName}
+            style={{backgroundColor: "lightgrey"}}
+
             required
             onChange={(event) => setLastName(event.target.value)}
           />
           </Grid>
           <Grid item>
 
-                    <TextField
+            <TextField
             label="Email"
-            variant="outlined"
+            variant="filled"
+            color="secondary"
             value={email}
+            style={{backgroundColor: "lightgrey"}}
             required
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -70,8 +77,11 @@ function RegisterForm() {
 
           <TextField
             label="Username"
-            variant="outlined"
+            variant="filled"
+            color="secondary"
             value={username}
+            style={{backgroundColor: "lightgrey"}}
+
             required
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -80,14 +90,17 @@ function RegisterForm() {
 
           <TextField
             label="Password"
-            variant="outlined"
+            variant="filled"
+            color="secondary"
+            type="password"
             value={password}
+            style={{backgroundColor: "lightgrey"}}
             required
             onChange={(event) => setPassword(event.target.value)}
           />
         </Grid>
       <Grid item>
-        <Button type="submit" color="primary" variant="contained">Sign up</Button>
+        <Button type="submit" color="primary" variant="outlined">Sign up</Button>
       </Grid>
       </Grid>
 
