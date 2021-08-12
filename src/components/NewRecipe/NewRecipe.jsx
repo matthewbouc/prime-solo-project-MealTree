@@ -8,12 +8,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
 import { Grid, Typography } from '@material-ui/core';
 import './NewRecipe.css'
+import '../App/App.css';
 
 
 const useStyles = makeStyles((theme) => ({
   textHeader: {
     textAlign: "center",
-    color: "#442603"
+    color: "#442603",
+    paddingTop: "10%",
+    paddingBottom: "20px",
   }
 }));
 
@@ -29,7 +32,7 @@ function NewRecipe() {
   }
 
   return (
-    <>
+    <div className='standardBackground'>
     <Typography variant="h3" className={classes.textHeader}>Add New Recipe</Typography>
       <form className="form" autoComplete="off" onSubmit={handleAddRecipe}>
       <Grid container spacing={3} justifyContent="center">
@@ -81,7 +84,7 @@ function NewRecipe() {
       </Grid>
       </Grid>
       </form>
-    </>
+    </div>
   );
 }
 

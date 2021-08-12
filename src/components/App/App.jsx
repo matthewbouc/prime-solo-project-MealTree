@@ -29,11 +29,17 @@ import './App.css';
 import FooterNav from '../Footer/FooterNav';
 import RecipeView from '../RecipeView/RecipeView';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import { makeStyles } from '@material-ui/core';
 
-
+const useStyles = makeStyles(theme => ({
+  innerPages: {
+    paddingBottom: "65px",
+    paddingTop: "10px",
+  }
+}))
 
 function App() {
-
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +48,7 @@ function App() {
 
   return (
     <Router >
-      <div className='standardBackground'>
+      
         {/* <Nav />           REFERENCE THIS FOR THE MENU BUTTON ON WHICH PAGES TO USE*/}
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -92,7 +98,6 @@ function App() {
               <FooterNav />
             </ProtectedRoute>
           {/* </Switch> */}
-
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
@@ -145,7 +150,6 @@ function App() {
         </Switch>
         {/* <Footer /> */}
         
-      </div>
     </Router>
   );
 }

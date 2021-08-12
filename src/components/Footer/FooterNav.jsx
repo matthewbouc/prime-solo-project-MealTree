@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       position: 'fixed',
       bottom: 0,
-      // marginTop: 'calc(5%+60px)',
       backgroundColor: '#4B6F44',
     },
     avatar: {
