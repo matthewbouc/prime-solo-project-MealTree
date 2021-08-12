@@ -107,9 +107,9 @@ function FooterNav() {
 
       <BottomNavigation position="absolute" className={classes.bottomNav}>
         <BottomNavigationAction label="Menu" value="menu" icon={<MenuIcon fontSize="large" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>} />
-        <BottomNavigationAction label="Search" value="search" onClick={ () => history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
-        <BottomNavigationAction label="Calendar" value="calendar" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
-        <BottomNavigationAction label="Favorites" value="favorites" onClick={ () => history.push("/favorites")} icon={<FavoriteIcon fontSize="large" />} />
+        <BottomNavigationAction label="Search" value="search" onClick={()=> history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
+        <BottomNavigationAction label="Calendar" value="calendar" onClick={()=> history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
+        <BottomNavigationAction label="Favorites" value="favorites" onClick={()=> history.push("/favorites")} icon={<FavoriteIcon fontSize="large" />} />
         <BottomNavigationAction label="Add New" value="addNew" onClick={()=> history.push("/newRecipe")} icon={<AddCircleOutlineIcon fontSize="large" />} />
         {/* <BottomNavigationAction label="Folder" value="folder" icon={<AccountCircleIcon fontSize="large" />} /> */}
       </BottomNavigation>
@@ -121,14 +121,17 @@ function FooterNav() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-          {/* <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle> */}
+          {/* Switched from Dialog to a menu.. below should all be converted to Menu Items*/}
           <List>
               <LogOutButton />
               <ListItem button onClick={()=> history.push("/newRecipe")}>
-                  <ListItemText primary="Add Recipe" />
+                  <ListItemText primary="Profile Page" />
               </ListItem>
-              <ListItem button onClick={ () => history.push("/searchApi")}>
-                  <ListItemText primary="Search New" />
+              <ListItem button onClick={()=> history.push("/searchApi")}>
+                  <ListItemText primary="Calendar List" />
+              </ListItem>
+              <ListItem button onClick={()=> history.push("/searchApi")}>
+                  <ListItemText primary="Planned Meals" />
               </ListItem>
           </List>
       </Menu>
