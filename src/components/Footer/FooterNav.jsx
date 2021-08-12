@@ -29,6 +29,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import TodayIcon from '@material-ui/icons/Today';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { CallReceived } from '@material-ui/icons';
+import { Drawer, Menu } from '@material-ui/core';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,14 +78,14 @@ function FooterNav() {
   const history = useHistory();
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClickOpen = () => {
-  setOpen(true);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-  setOpen(false);
+    setAnchorEl(null);
   };
 
   return (
@@ -104,22 +106,24 @@ function FooterNav() {
       </AppBar> */}
 
       <BottomNavigation position="absolute" className={classes.bottomNav}>
-        <BottomNavigationAction label="Recents" value="recents" icon={<MenuIcon fontSize="large" />} />
-        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
-        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
-        <BottomNavigationAction label="Nearby" value="nearby" onClick={ () => history.push("/favorites")} icon={<FavoriteIcon fontSize="large" />} />
-        <BottomNavigationAction label="Favorites" value="favorites" onClick={handleClickOpen} icon={<AddCircleOutlineIcon fontSize="large" />} />
-
-        <BottomNavigationAction label="Favorites" value="favorites" onClick={handleClickOpen} icon={<AddCircleOutlineIcon fontSize="large" />} />
+        <BottomNavigationAction label="Menu" value="menu" icon={<MenuIcon fontSize="large" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>} />
+        <BottomNavigationAction label="Search" value="search" onClick={ () => history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
+        <BottomNavigationAction label="Calendar" value="calendar" onClick={ () => history.push("/calendar")} icon={<TodayIcon fontSize="large" />} />
+        <BottomNavigationAction label="Favorites" value="favorites" onClick={ () => history.push("/favorites")} icon={<FavoriteIcon fontSize="large" />} />
+        <BottomNavigationAction label="Add New" value="addNew" onClick={()=> history.push("/newRecipe")} icon={<AddCircleOutlineIcon fontSize="large" />} />
         {/* <BottomNavigationAction label="Folder" value="folder" icon={<AccountCircleIcon fontSize="large" />} /> */}
       </BottomNavigation>
 
-      <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
           {/* <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle> */}
           <List>
-              <ListItem button onClick={()=>history.push("/favorites")}>
-                  <ListItemText primary="Favorites" />
-              </ListItem>
+              <LogOutButton />
               <ListItem button onClick={()=> history.push("/newRecipe")}>
                   <ListItemText primary="Add Recipe" />
               </ListItem>
@@ -127,7 +131,7 @@ function FooterNav() {
                   <ListItemText primary="Search New" />
               </ListItem>
           </List>
-      </Dialog>
+      </Menu>
     </>
   );
 }

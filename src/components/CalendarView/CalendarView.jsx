@@ -78,7 +78,7 @@ function CalendarView() {
     <Grid container justifyContent="center" spacing={1}>
       {nextDates && nextDates.map((date, i) => {     
         return(
-          <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
+          <Grid key={i} item xs={10} sm={7} md={7} lg={7}>
           <Accordion elevation={8} style={{backgroundColor: "#ACC8AB"}}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -88,13 +88,11 @@ function CalendarView() {
             >
               <Typography>{date.getDate()} {weekDays[nextDays[i]]}</Typography>
             </AccordionSummary>
-            
             <AccordionDetails>
             <Box display="flex"
               flexWrap="wrap"
               p={1}
               m={1}
-
             >
               {weekPlan && recipeDisplay(date).map(meal=>{
                 return (
