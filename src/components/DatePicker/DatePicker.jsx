@@ -101,7 +101,11 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
         })}
         </NativeSelect>
         </FormControl>
-        {isEdit ? <Button onClick={handleEditMeal}>Edit Meal</Button> : <Button onClick={handlePlanMeal}>Plan Meal</Button>}
+        {isEdit ? <>
+          <Button variant="contained" color="primary" onClick={handleEditMeal}>Edit Meal</Button>
+          <Button variant="contained" color="secondary" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button> </>
+        : 
+          <Button onClick={handlePlanMeal}>Plan Meal</Button>}
 
     </Dialog>
   )

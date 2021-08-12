@@ -8,7 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
 import DatePicker from '../DatePicker/DatePicker';
-import { Card, Grid, ThemeProvider } from '@material-ui/core';
+import { Card, Grid, Box } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 function CalendarView() {
@@ -87,20 +88,33 @@ function CalendarView() {
             >
               <Typography>{date.getDate()} {weekDays[nextDays[i]]}</Typography>
             </AccordionSummary>
+            
             <AccordionDetails>
+            <Box display="flex"
+              flexWrap="wrap"
+              p={1}
+              m={1}
+
+            >
               {weekPlan && recipeDisplay(date).map(meal=>{
                 return (
-                  <div key={meal.id}>
-                  <Card style={{backgroundColor: "#ACC8AB"}}>
-                  <p>{meal.category}</p>
-                  <p>{meal.name}</p>
+                  
+                  <Grid key={meal.id} container justifyContent="center">
+                  <Grid item >
+                  <Typography>{meal.category} : {meal.name}</Typography>
+                  </Grid>
+                  <Grid item xs={12} container justifyContent="center">
                   <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>
+                  </Grid>
+ 
+                  <Grid item >
                   <Button variant="contained" color="secondary" onClick={() => handleEdit(meal.id, meal.calendar_id, meal.category)}>Edit</Button>
-                  <Button variant="contained" color="secondary" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}>Delete Icon</Button>
-                  </Card>
-                  </div>
+                  <Button variant="contained" color="secondary" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}><DeleteIcon /></Button>
+                  </Grid>
+                  </Grid>
                 )
               })}
+              </Box>
             </AccordionDetails>
           </Accordion>
           </Grid>
