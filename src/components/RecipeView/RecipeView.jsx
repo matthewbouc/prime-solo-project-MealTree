@@ -70,7 +70,8 @@ function RecipeView() {
     }
     return (
     <div className='standardBackground'>
-        {/* <Button variant="contained" onClick={() => history.goBack()}>Back</Button> */}
+    {/* Can access recipe view from multiple pages, a back button returns to previous view */}
+        <Button variant="outlined" color="secondary" onClick={() => history.goBack()}>Back</Button>
         
             <Box className="form">
                 <Grid direction="column" container spacing={2} justifyContent="center">
