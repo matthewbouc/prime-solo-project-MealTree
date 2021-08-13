@@ -12,7 +12,6 @@ const router = express.Router();
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
     const userId = req.user.id;
-    const now = new Date();
 
     const queryText = `
     SELECT meal_plan.id AS id, meal_plan.calendar_id, meal_plan.date, recipes.id AS recipe_id, recipes.name, recipes.picture, recipes.api_id, categories.category FROM meal_plan

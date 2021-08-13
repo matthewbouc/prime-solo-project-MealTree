@@ -29,7 +29,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import TodayIcon from '@material-ui/icons/Today';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { CallReceived } from '@material-ui/icons';
-import { Drawer, Menu } from '@material-ui/core';
+import { Drawer, Menu, MenuItem } from '@material-ui/core';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
 
@@ -77,21 +77,21 @@ function FooterNav() {
   const history = useHistory();
   const classes = useStyles();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = (pushTo) => {
-    setAnchorEl(null);
+    setAnchorEl(false);
     if (pushTo) {
-      history.push(`/${pushTo}`);
+      history.push(`/${pushTo}`)
     }
-  };
+  }
 
   return (
-  <>
+    <div>
       <BottomNavigation position="absolute" className={classes.bottomNav}>
         <BottomNavigationAction label="Menu" value="menu" icon={<MenuIcon fontSize="large" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>} />
         <BottomNavigationAction label="Search" value="search" onClick={()=> history.push("/searchApi")} icon={<SearchIcon fontSize="large" />} />
@@ -106,24 +106,15 @@ function FooterNav() {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-          {/* Switched from Dialog to a menu.. below should all be converted to Menu Items*/}
-          <List>
+        onClose={()=>{handleClose(null)}}
+        >
               <LogOutButton />
-              <ListItem button onClick={()=> handleClose('newRecipe')}>
-                  <ListItemText primary="Profile Page" />
-              </ListItem>
-              <ListItem button onClick={()=> handleClose('searchApi')}>
-                  <ListItemText primary="Calendar List" />
-              </ListItem>
-              <ListItem button onClick={()=> handleClose('fullCalendar')}>
-                  <ListItemText primary="Planned Meals" />
-              </ListItem>
-          </List>
+              <MenuItem onClick={()=> handleClose('newRecipe')}>Profile Page</MenuItem>
+              <MenuItem onClick={()=> handleClose('searchApi')}>Calendar List</MenuItem>
+              <MenuItem onClick={()=> handleClose('fullCalendar')}>Planned Meals</MenuItem>
       </Menu>
-    </>
-  );
+    </div>
+  )
 }
 
 export default FooterNav;
