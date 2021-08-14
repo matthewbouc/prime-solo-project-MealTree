@@ -66,7 +66,7 @@ function NewRecipe() {
         aria-label="minimum height"  */}
         <TextField
         value={recipe.procedure} 
-        label="Procedure"
+        label="Directions"
         variant="filled"
         color="secondary"
         style={{backgroundColor: "lightgrey"}} 

@@ -123,7 +123,7 @@ function RecipeView() {
                 <TextField value={newRecipe.ingredients || recipe.ingredients} label="Ingredients" variant="filled" onChange={(event)=> setNewRecipe({...newRecipe, ingredients: event.target.value})} />
             </Grid>
             <Grid item>
-                <TextField value={newRecipe.procedure || recipe.procedure} label="Procedure" variant="filled" onChange={(event)=> setNewRecipe({...newRecipe, procedure: event.target.value})} />
+                <TextField value={newRecipe.procedure || recipe.procedure} label="Directions" variant="filled" onChange={(event)=> setNewRecipe({...newRecipe, procedure: event.target.value})} />
             </Grid>
             <Grid item container justifyContent="center">
                 <Button variant="contained" color="secondary" type="submit" >Confirm</Button>
