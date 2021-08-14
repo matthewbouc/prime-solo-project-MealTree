@@ -166,4 +166,22 @@ router.put('/:calendarId', rejectUnauthenticated, (req, res) => {
 });
 
 
+/**
+ * DELETE calendar from calendars table
+ */
+router.delete('/delete/:calendarId', rejectUnauthenticated, (req, res) => {
+  const calendarId = req.params.calendarId;
+  const owner = req.user.id;
+
+  const queryText = `DELETE FROM calendars WHERE id = $1 AND owner_id=$2;`;
+  pool.query(queryText, [calendarId, owner])
+  .then(() => {
+    console.log('Success DELETing calendar');
+    res.sendStatus(200);
+  }).catch(error => {
+    console.log('Error DELETing calendar', error);
+    res.sendStatus(500);
+  });
+});
+
 module.exports = router;

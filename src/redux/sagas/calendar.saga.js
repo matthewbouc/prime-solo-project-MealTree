@@ -7,6 +7,7 @@ function* calendarSaga() {
     yield takeLatest('CREATE_NEW_CALENDAR', createCalendar);
     yield takeLatest('ADD_USER_TO_CALENDAR', addUserCalendar);
     yield takeEvery('DELETE_CALENDAR', deleteCalendar);
+    yield takeLatest('SET_NEW_DEFAULT', setDefaultCalendar);
 }
 
 function* addUserCalendar(action) {
@@ -27,11 +28,11 @@ function* createCalendar() {
     }
 }
 
-function deleteCalendar() {
+function* deleteCalendar(action) {
     try{
-        yield axios.delete('/api/calendar');
+        yield axios.delete(`/api/calendar/delete/${action.payload}`);
         yield put({type: 'GET_CALENDAR_LIST'})
-    } catch(error) {
+    } catch (error) {
         console.log('Error deleting calendar', error);
     }
 }
@@ -42,6 +43,15 @@ function* getCalendars() {
       yield put({type: 'SET_CALENDAR_LIST', payload: calendarList.data});
     } catch (error) {
         console.log('Error setting calendar reducer', error);
+    }
+}
+
+function* setDefaultCalendar(action) {
+    try{
+        yield axios.put(`/api/calendar/default`, {default: action.payload});
+        yield put({type: 'GET_CALENDAR_LIST'})
+    } catch(error){
+        console.log('Error PUTting default calendar');
     }
 }
 
