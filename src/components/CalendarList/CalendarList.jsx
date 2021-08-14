@@ -6,13 +6,15 @@ import '../App/App.css';
 
 import { Grid, Button, Typography, Dialog, DialogTitle, DialogContent, TextField } from "@material-ui/core"
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function CalendarList () {
     const history = useHistory();
     const dispatch = useDispatch();
 
     const calendars = useSelector(store => store.calendars);
-    const [editPerson, setEditPerson] = useState(false);
+    const [addPersonDialog, setAddPersonDialog] = useState(false);
+    const [deleteCalendarDialog, setDeleteCalendarDialog] = useState(false);
     const [calendarName, setCalendarName] = useState('');
     const [calendarId, setCalendarId] = useState('');
     const [username, setUsername] = useState('');
@@ -21,21 +23,53 @@ function CalendarList () {
         dispatch({type: 'GET_CALENDAR_LIST'})
     },[])
 
-    const handleClosePerson = () => {
-        setEditPerson(false);
+    const handleCloseDialog = (dialog) => {
+        switch (dialog) {
+            case 'addPerson':
+                setAddPersonDialog(false);
+                break;
+            case 'deleteCalendar':
+                setDeleteCalendarDialog(false);
+                break;
+            default:
+                alert('error closing dialog')
+                break;
+        }
     };
-    const handleOpenPerson = () => {
-        setEditPerson(true);
+    const handleOpenDialog = (dialog) => {
+        switch (dialog) {
+            case 'addPerson':
+                setAddPersonDialog(true);
+                break;
+            case 'deleteCalendar':
+                setDeleteCalendarDialog(true);
+                break;
+            default:
+                alert('error closing dialog')
+                break;
+        }
     };
 
-    const handleAddPersonIcon = (calendarName, calendarId) => {
+    const handleClickAddPersonIcon = (calendarName, calendarId) => {
         setCalendarName(calendarName);
         setCalendarId(calendarId);
-        handleOpenPerson();
+        handleOpenDialog('addPerson');
+    }
+
+    const handleTrashIcon = (calendarName, calendarId) => {
+        setCalendarName(calendarName);
+        setCalendarId(calendarId);
+        handleOpenDialog('deleteCalendar');
+    }
+
+    const handleDeleteCalendar = () => {
+        dispatch({type: 'DELETE_CALENDAR', payload: calendarId})
     }
 
     const handleAddUsername = () => {
         dispatch({type: 'ADD_USER_TO_CALENDAR', payload: {username, calendarId}})
+        handleCloseDialog();
+        setUsername('');
     }
 
     return(
@@ -50,7 +84,9 @@ function CalendarList () {
                 <Typography>{calendar.name}</Typography>
                 </Grid>
                 <Grid item>
-                    <GroupAddIcon onClick={() => handleAddPersonIcon(calendar.name, calendar.calendar_id)}/>
+                    <GroupAddIcon onClick={() => handleClickAddPersonIcon(calendar.name, calendar.calendar_id)}/>
+                    <DeleteIcon onClick={() => handleClickTrashIcon(calendar.name, calendar.calendar_id)} />
+
                 </Grid>
             </Grid>
             )
@@ -58,8 +94,8 @@ function CalendarList () {
         </Grid>
 
 
-
-        <Dialog onClose={handleClosePerson} open={editPerson}>
+        {/* Add user Dialog */}
+        <Dialog onClose={()=>handleCloseDialog('addPerson')} open={addPersonDialog}>
             <DialogTitle>
                 Add A Friend To: <br/> {calendarName}
             </DialogTitle>
@@ -71,6 +107,17 @@ function CalendarList () {
         </Dialog>
 
 
+        {/* Delete calendar Dialog */}
+        <Dialog onClose={()=>handleCloseDialog('deleteCalendar')} open={deleteCalendarDialog}>
+            <DialogTitle>
+                Are you sure you want to DELETE: {calendarName}
+            </DialogTitle>
+            <DialogContent>
+                <Typography>Deleting a calendar is permanent and cannot be undone.</Typography>
+                <Button onClick={()=>handleCloseDialog('deleteCalendar')} variant="contained" color="primary">Cancel</Button>
+                <Button onClick={handleDeleteCalendar} variant="contained" style={{backgroundColor: 'red'}}>DELETE</Button>
+            </DialogContent>
+        </Dialog>
 
 
 
