@@ -27,6 +27,7 @@ import FooterNav from '../Footer/FooterNav';
 import RecipeView from '../RecipeView/RecipeView';
 import { makeStyles } from '@material-ui/core';
 import FullCalendar from '../FullCalendar/FullCalendar';
+import CalendarList from '../CalendarList/CalendarList';
 
 
 const useStyles = makeStyles(theme => ({
@@ -93,6 +94,10 @@ function App() {
 
           <ProtectedRoute exact path = "/fullCalendar">
             <FullCalendar />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = "/calendarList">
+            <CalendarList />
           </ProtectedRoute>
 
           <ProtectedRoute

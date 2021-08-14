@@ -39,6 +39,11 @@ function FooterNav() {
     }
   }
 
+  const handleLogOut = () => {
+    dispatch({ type: 'LOGOUT' })
+    history.push('/login');
+  }
+
   return (
     <div>
       <BottomNavigation position="absolute" className={classes.bottomNav}>
@@ -57,9 +62,9 @@ function FooterNav() {
         open={Boolean(anchorEl)}
         onClose={()=>{handleClose(null)}}
         >
-              <LogOutButton />
+              <MenuItem onClick={handleLogOut}>Log out</MenuItem>
               <MenuItem onClick={()=> handleClose('newRecipe')}>Profile Page</MenuItem>
-              <MenuItem onClick={()=> handleClose('searchApi')}>Calendar List</MenuItem>
+              <MenuItem onClick={()=> handleClose('calendarList')}>Calendar List</MenuItem>
               <MenuItem onClick={()=> handleClose('fullCalendar')}>Planned Meals</MenuItem>
       </Menu>
     </div>
