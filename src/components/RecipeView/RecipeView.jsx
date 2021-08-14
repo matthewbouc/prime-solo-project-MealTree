@@ -44,7 +44,7 @@ function RecipeView() {
         event.preventDefault();
         console.log('newRecipe', newRecipe);
         dispatch({type: 'EDIT_RECIPE', payload: newRecipe})
-        setEditView(!editView)
+        handleCloseEdit();
     }
 
     const handleDelete = () => {
