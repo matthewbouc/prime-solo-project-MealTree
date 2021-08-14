@@ -11,6 +11,7 @@ import TodayIcon from '@material-ui/icons/Today';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { Menu, MenuItem } from '@material-ui/core';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import { useDispatch } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 function FooterNav() {
   const history = useHistory();
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState(false);
 
