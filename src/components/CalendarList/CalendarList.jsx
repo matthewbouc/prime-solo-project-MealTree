@@ -14,7 +14,8 @@ function CalendarList () {
     const calendars = useSelector(store => store.calendars);
     const [editPerson, setEditPerson] = useState(false);
     const [calendarName, setCalendarName] = useState('');
-    const [addUsername, setAddUsername] = useState('');
+    const [calendarId, setCalendarId] = useState('');
+    const [username, setUsername] = useState('');
 
     useEffect(()=>{
         dispatch({type: 'GET_CALENDAR_LIST'})
@@ -27,13 +28,14 @@ function CalendarList () {
         setEditPerson(true);
     };
 
-    const handleAddPersonIcon = (calendarName) => {
+    const handleAddPersonIcon = (calendarName, calendarId) => {
         setCalendarName(calendarName);
+        setCalendarId(calendarId);
         handleOpenPerson();
     }
 
     const handleAddUsername = () => {
-        dispatch({})
+        dispatch({type: 'ADD_USER_TO_CALENDAR', payload: {username, calendarId}})
     }
 
     return(
@@ -48,7 +50,7 @@ function CalendarList () {
                 <Typography>{calendar.name}</Typography>
                 </Grid>
                 <Grid item>
-                    <GroupAddIcon onClick={() => handleAddPersonIcon(calendar.name)}/>
+                    <GroupAddIcon onClick={() => handleAddPersonIcon(calendar.name, calendar.calendar_id)}/>
                 </Grid>
             </Grid>
             )
@@ -62,7 +64,7 @@ function CalendarList () {
                 Add A Friend To: <br/> {calendarName}
             </DialogTitle>
             <DialogContent>
-                <TextField label="Username" value={addUsername} variant="filled" onChange={(event) => setAddUsername(event.target.value)}></TextField>
+                <TextField label="Username" value={username} variant="filled" onChange={(event) => setUsername(event.target.value)}></TextField>
                 <br/><br/>
                 <Button onClick={handleAddUsername} variant="contained" color="primary">Add User</Button>
             </DialogContent>

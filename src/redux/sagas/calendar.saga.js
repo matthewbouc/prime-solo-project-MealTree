@@ -5,6 +5,16 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 function* calendarSaga() {
     yield takeLatest('GET_CALENDAR_LIST', getCalendars);
     yield takeLatest('CREATE_NEW_CALENDAR', createCalendar);
+    yield takeLatest('ADD_USER_TO_CALENDAR', addUserCalendar);
+}
+
+function* addUserCalendar(action) {
+    try{
+        console.log(action.payload);
+        yield axios.post(`/api/calendar/${action.payload.calendarId}`, action.payload);
+    }catch(error){
+        console.log('Error adding a user to calendar', error);
+    }
 }
 
 function* createCalendar() {
