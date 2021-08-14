@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 
-// NOT CURRENTLY CALLED ANYWHERE.  MOVED FUNCTIONALITY TO MENU NAVIGATION IN NavFooter.jsx
+// NOT CURRENTLY CALLED ANYWHERE.  MOVED FUNCTIONALITY TO MENU NAVIGATION IN FooterNav.jsx
 
 // This button shows up in multiple locations and is styled differently
 // because it's styled differently depending on where it is used, the className
