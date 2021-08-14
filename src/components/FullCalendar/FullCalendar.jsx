@@ -31,7 +31,7 @@ function FullCalendar() {
          {weekPlan[0] && weekPlan.map((meal, i) => {
             return(
                 <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
-                    <Accordion onClick={() => history.push(`/recipe/${meal.recipe_id}`)}>
+                    <Accordion onClick={() => history.push(`/recipe/${meal.recipe_id}`)} style={{backgroundColor: "#ACC8AB"}}>
                         <AccordionSummary >
                         <Typography>{
                             new Date(meal.date).toDateString()} 
