@@ -114,7 +114,7 @@ router.put('/default', rejectUnauthenticated, (req, res) => {
  */
  router.post('/', rejectUnauthenticated, (req, res) => {
   const owner = req.user.id;
-  const calendarName = req.body.name;
+  const calendarName = req.body.name || 'New Calendar';
   console.log('req.user.id', owner);
   const queryText = `
     WITH newPost as (
