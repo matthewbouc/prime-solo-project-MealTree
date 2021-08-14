@@ -30,6 +30,8 @@ function CalendarList () {
     const [addPersonDialog, setAddPersonDialog] = useState(false);
     const [deleteCalendarDialog, setDeleteCalendarDialog] = useState(false);
     const [defaultCalendarDialog, setDefaultCalendarDialog] = useState(false);
+    const [calendarNameDialog, setCalendarNameDialog] = useState(false);
+
     const [calendarName, setCalendarName] = useState('');
     const [calendarId, setCalendarId] = useState('');
     const [username, setUsername] = useState('');
@@ -49,6 +51,9 @@ function CalendarList () {
             case 'defaultCalendar':
                 setDefaultCalendarDialog(false);
                 break;
+            case 'calendarName':
+                setCalendarNameDialog(false);
+                break;
             default:
                 alert('error closing dialog')
                 break;
@@ -64,6 +69,9 @@ function CalendarList () {
                 break;
             case 'defaultCalendar':
                 setDefaultCalendarDialog(true);
+                break;
+            case 'calendarName':
+                setCalendarNameDialog(true);
                 break;
             default:
                 alert('error closing dialog')
@@ -82,12 +90,13 @@ function CalendarList () {
         setCalendarId(calendarId);
         handleOpenDialog('deleteCalendar');
     }
-
+    // Uses Dialog to confirm changing the default calendar
     const handleNewDefaultCalendar = (calendarId) => {
         setCalendarId(calendarId);
-        handleOpenDialog('defaultCalendar');
+        dispatch({type: 'SET_NEW_DEFAULT', payload: calendarId}) // Not required if using Dialog
+        // handleOpenDialog('defaultCalendar'); //Uses Dialog Option
     }
-
+    // NOT CURRENTLY IN USE - Linked to handleNewDefaultCalendar and Dialog option
     const handleSetDefaultCalendar = () => {
         dispatch({type: 'SET_NEW_DEFAULT', payload: calendarId})
         handleCloseDialog('defaultCalendar')
@@ -102,6 +111,24 @@ function CalendarList () {
         dispatch({type: 'ADD_USER_TO_CALENDAR', payload: {username, calendarId}})
         handleCloseDialog('addPerson');
         setUsername('');
+    }
+
+    const handleChangeCalendarName = (calendarId) => {
+        setCalendarName('');
+        setCalendarId(calendarId);
+        handleOpenDialog('calendarName');
+    }
+
+    const updateCalendarName = () => {
+        dispatch({
+            type: 'UPDATE_CALENDAR_NAME',
+            payload: {
+                id: calendarId,
+                name: calendarName
+            }
+        });
+        handleCloseDialog('calendarName')
+        setCalendarName('');
     }
 
     return(
@@ -119,10 +146,14 @@ function CalendarList () {
         {calendars.map((calendar, i) => {
             return(
             <Grid key={i} item xs={10} container className={classes.calendarItem} alignContent="center" justifyContent="center">
-                <Grid item xs={2}>
-                {calendar.default_calendar && <CheckBoxOutlinedIcon /> || <CheckBoxOutlineBlankIcon onClick={() => handleNewDefaultCalendar(calendar.calendar_id)}/>}
+                <Grid item xs={1}>
+                    {
+                        calendar.default_calendar && <CheckBoxOutlinedIcon /> 
+                        || 
+                        <CheckBoxOutlineBlankIcon onClick={() => handleNewDefaultCalendar(calendar.calendar_id)}/>
+                    }
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={7} onClick={()=>handleChangeCalendarName(calendar.calendar_id)}>
                 <Typography>{calendar.name}</Typography>
                 </Grid>
                 <Grid item xs={2}>
@@ -140,7 +171,7 @@ function CalendarList () {
         {/* Add user Dialog */}
         <Dialog onClose={()=>handleCloseDialog('addPerson')} open={addPersonDialog}>
             <DialogTitle>
-                Add A Friend To: <br/> {calendarName}
+                Add A Friend To <br/> {calendarName}
             </DialogTitle>
             <DialogContent>
                 <TextField label="Username" value={username} variant="filled" onChange={(event) => setUsername(event.target.value)}></TextField>
@@ -170,7 +201,19 @@ function CalendarList () {
                 <Typography>This will change the calendar you see on your home page.</Typography>
                 <Button onClick={()=>handleCloseDialog('defaultCalendar')} variant="contained" color="primary">Cancel</Button>
                 <Button onClick={handleSetDefaultCalendar} variant="contained" color="secondary">Update</Button>
+            </DialogContent>
+        </Dialog>
 
+        <Dialog onClose={()=>handleCloseDialog('calendarName')} open={calendarNameDialog}>
+            <DialogTitle>
+                Change Calendar Name?
+            </DialogTitle>
+            <DialogContent>
+                <TextField variant="filled" label="Calendar Name" style={{width: "250px"}} value={calendarName} onChange={(event)=> setCalendarName(event.target.value)} />
+                <br/>
+                <br/>
+                <Button onClick={()=>handleCloseDialog('calendarName')} variant="contained" color="primary">Cancel</Button>
+                <Button onClick={updateCalendarName} variant="contained" color="secondary">Update</Button>
             </DialogContent>
         </Dialog>
 
