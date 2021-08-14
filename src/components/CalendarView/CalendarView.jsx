@@ -65,10 +65,8 @@ function CalendarView() {
 
   const recipeDisplay = (accordionDate) => {
     const dateMealArray = []
-    // console.log('recipe display accordion date', accordionDate);
     for (const meal of weekPlan){
       let newFormat = new Date(meal.date);
-      // console.log('meal.date', newFormat, accordionDate);
       if (newFormat.valueOf() == accordionDate.valueOf()){
         dateMealArray.push(meal);
       }
@@ -103,7 +101,7 @@ function CalendarView() {
                   
                   <Grid key={meal.id} container justifyContent="center">
                   <Grid item >
-                  <Typography variant="h6">{meal.category}: {meal.name}</Typography>
+                  <Typography variant="h6" onClick={()=>history.push(`/recipe/${meal.recipe_id}`)}>{meal.category}: {meal.name}</Typography>
                   </Grid>
                   <Grid item xs={12} container justifyContent="center">
                   <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>

@@ -24,6 +24,7 @@ function FullCalendar() {
         dispatch({type: 'GET_WEEK_PLAN'})
     },[]);
 
+    // NO longer using accordion functionality, should be switched out
     return (
         <div className='standardBackground'>
         <Grid container justifyContent="center" spacing={1}>
@@ -39,9 +40,6 @@ function FullCalendar() {
                             <ChevronRightIcon fontSize="small"/>
                             {meal.name}</Typography>
                         </AccordionSummary>
-                        {/* <AccordionDetails>
-                          <img src={meal.picture} width="75px"/>
-                        </AccordionDetails> */}
                     </Accordion>
                 </Grid>
                 

@@ -7,8 +7,6 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DatePicker from '../DatePicker/DatePicker';
 import { Box, Grid } from '@material-ui/core';
 import '../App/App.css';
@@ -53,11 +51,11 @@ function Favorites() {
     <Grid item>
       <Typography style={{color: "#442603"}} variant="h4">Favorite Recipes</Typography>
     </Grid>
-    <Grid item xs={11}>
+    <Grid item container xs={11}>
     {/* <Button onClick={() => history.goBack()}>Back</Button> */}
     {favorites && favorites.map((recipe, i) => {     
       return(
-        <Accordion style={{backgroundColor: "#ACC8AB"}}>
+        <Accordion key={i} style={{backgroundColor: "#ACC8AB"}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-label="Expand"
@@ -71,14 +69,14 @@ function Favorites() {
             m={1}
           >
             <Grid item container spacing={2}>
-            <Grid item xs={12} container justifyContent="center">
+            <Grid item xs={12} container justifyContent="center" onClick={(event) => handleViewRecipe(event, recipe.id)}>
             <Typography>{recipe.name}</Typography>
             </Grid>     
-            <Grid item xs={12} container justifyContent="center">
+            <Grid item xs={12} container justifyContent="center" onClick={(event) => handleViewRecipe(event, recipe.id)}>
             <img
             src={recipe.picture}
             width="150px"
-            onClick={(event) => handleViewRecipe(event, recipe.id)}
+            border="1px"
             />
             </Grid>
             <Grid item xs={12} container justifyContent="center">

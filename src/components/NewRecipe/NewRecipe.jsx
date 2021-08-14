@@ -26,9 +26,11 @@ function NewRecipe() {
   const classes = useStyles();
   const [recipe, setRecipe] = useState({name: '', ingredients: '', procedure: '', picture: ''});
   
-  const handleAddRecipe = () => {
+  const handleAddRecipe = (event) => {
+    event.preventDefault();
     console.log('recipe', recipe);
     dispatch({type: 'ADD_NEW_RECIPE', payload: recipe})
+    setRecipe({name: '', ingredients: '', procedure: '', picture: ''});
   }
 
   return (

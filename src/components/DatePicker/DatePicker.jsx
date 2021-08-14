@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import FormControl from '@material-ui/core/FormControl';
+import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
+
+// imports for the date picker calendar
 import 'date-fns';
 import LuxonUtils from '@date-io/luxon';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { useHistory } from 'react-router-dom';
-import { FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, NativeSelect, Select } from '@material-ui/core';
-import { DialogContent, Grid } from '@material-ui/core';
 
 function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCategory, isEdit}) {
 
@@ -26,7 +30,11 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
     dispatch({type: 'GET_CALENDAR_LIST'});
   }, [])
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // selectedDate default value is current day.  Using getFullYear(), getMonth(), getDate()
+  // to prevent useState value from being rounded up to the next day based on the hours
+  const now = new Date();
+  const [selectedDate, setSelectedDate] = useState(new Date(now.getFullYear(), now.getMonth(), now.getDate()));
+  
   const [categoryState, setCategoryState] = useState('');
   const [calendarId, setCalendarId] = useState('');
   

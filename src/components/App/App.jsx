@@ -8,9 +8,6 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
@@ -28,7 +25,6 @@ import UserPage from '../UserPage/UserPage'; // Took this out for now
 import './App.css';
 import FooterNav from '../Footer/FooterNav';
 import RecipeView from '../RecipeView/RecipeView';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import { makeStyles } from '@material-ui/core';
 import FullCalendar from '../FullCalendar/FullCalendar';
 
