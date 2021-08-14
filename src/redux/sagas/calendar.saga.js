@@ -6,6 +6,7 @@ function* calendarSaga() {
     yield takeLatest('GET_CALENDAR_LIST', getCalendars);
     yield takeLatest('CREATE_NEW_CALENDAR', createCalendar);
     yield takeLatest('ADD_USER_TO_CALENDAR', addUserCalendar);
+    yield takeEvery('DELETE_CALENDAR', deleteCalendar);
 }
 
 function* addUserCalendar(action) {
@@ -23,6 +24,15 @@ function* createCalendar() {
         yield put({type: 'GET_CALENDAR_LIST'})
     } catch(error){
         console.log('Error creating new calendar', error);
+    }
+}
+
+function deleteCalendar() {
+    try{
+        yield axios.delete('/api/calendar');
+        yield put({type: 'GET_CALENDAR_LIST'})
+    } catch(error) {
+        console.log('Error deleting calendar', error);
     }
 }
 
