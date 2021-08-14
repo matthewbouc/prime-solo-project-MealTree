@@ -99,7 +99,7 @@ function RegisterForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Grid>
-      <Grid item>
+      <Grid item xs={12}>
         <Button type="submit" color="primary" variant="outlined">Sign up</Button>
       </Grid>
       </Grid>
