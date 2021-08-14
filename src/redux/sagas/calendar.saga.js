@@ -8,6 +8,7 @@ function* calendarSaga() {
     yield takeLatest('ADD_USER_TO_CALENDAR', addUserCalendar);
     yield takeEvery('DELETE_CALENDAR', deleteCalendar);
     yield takeLatest('SET_NEW_DEFAULT', setDefaultCalendar);
+    yield takeLatest('UPDATE_CALENDAR_NAME', setCalendarName);
 }
 
 function* addUserCalendar(action) {
@@ -52,6 +53,15 @@ function* setDefaultCalendar(action) {
         yield put({type: 'GET_CALENDAR_LIST'})
     } catch(error){
         console.log('Error PUTting default calendar');
+    }
+}
+
+function* setCalendarName(action){
+    try{
+        yield axios.put(`/api/calendar/${action.payload.id}`, {calendarName: action.payload.name});
+        yield put({type: 'GET_CALENDAR_LIST'})
+    } catch(error) {
+        console.log('Error updating calendar name', error);
     }
 }
 
