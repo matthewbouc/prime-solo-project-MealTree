@@ -47,7 +47,7 @@ function Favorites() {
   
   return (
     <div className='standardBackground'>
-    <Grid container spacing={1} justifyContent="center">
+    <Grid container justifyContent="center">
     <Grid item>
       <Typography variant="h6">Favorite Recipes</Typography>
     </Grid>
@@ -55,37 +55,28 @@ function Favorites() {
     {/* <Button onClick={() => history.goBack()}>Back</Button> */}
     {favorites && favorites.map((recipe, i) => {     
       return(
-        <Accordion key={i} style={{backgroundColor: "#ACC8AB"}}>
+        <Accordion key={i} style={{backgroundColor: "#ACC8AB", marginBottom: "10px"}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-label="Expand"
             aria-controls="additional-actions1-content"
             id="additional-actions1-header"
           >
-          <Box
-            display="flex"
-            flexWrap="wrap"
-            p={1}
-            m={1}
-          >
-            <Grid item container spacing={2}>
-            <Grid item xs={12} container justifyContent="center" onClick={(event) => handleViewRecipe(event, recipe.id)}>
-            <Typography>{recipe.name}</Typography>
-            </Grid>     
-            <Grid item xs={12} container justifyContent="center" onClick={(event) => handleViewRecipe(event, recipe.id)}>
-            <img
-            src={recipe.picture}
-            width="150px"
-            border="1px"
-            />
+            <Grid item container>
+            <Grid item xs={4} onClick={(event) => handleViewRecipe(event, recipe.id)}>
+              <img src={recipe.picture} width="100px" />
             </Grid>
-            <Grid item xs={12} container justifyContent="center">
+            <Grid item xs={5} container style={{paddingLeft: "8px", paddingRight: "8px"}} alignContent="center" onClick={(event) => handleViewRecipe(event, recipe.id)}>
+            <Typography>{recipe.name}</Typography>
+            </Grid>
+            <Grid item xs={3} container alignContent="center">
             <Button
             onClick={(event) => handlePlanIt(event, recipe.id)}
             onFocus={(event) => event.stopPropagation()}
             variant="contained"
             color="secondary"
-            >Plan It</Button>
+            style={{maxWidth: "60px"}}
+            >Plan</Button>
             {/* <Button
             onFocus={(event) => event.stopPropagation()}
             variant="contained"
@@ -93,7 +84,6 @@ function Favorites() {
               >View Recipe</Button> */}
             </Grid>
             </Grid>
-          </Box>
 
           </AccordionSummary>
           <AccordionDetails>
