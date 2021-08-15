@@ -1,15 +1,14 @@
-import { TextField } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid } from '@material-ui/core';
-
+import { TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Button, Grid } from "@material-ui/core";
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -17,7 +16,7 @@ function RegisterForm() {
     event.preventDefault();
 
     dispatch({
-      type: 'REGISTER',
+      type: "REGISTER",
       payload: {
         first_name: firstName,
         last_name: lastName,
@@ -43,67 +42,62 @@ function RegisterForm() {
             variant="filled"
             color="secondary"
             value={firstName}
-            style={{backgroundColor: "lightgrey"}}
+            style={{ backgroundColor: "lightgrey" }}
             required
             onChange={(event) => setFirstName(event.target.value)}
           />
         </Grid>
         <Grid item>
-
           <TextField
             label="Last Name"
             variant="filled"
             color="secondary"
             value={lastName}
-            style={{backgroundColor: "lightgrey"}}
-
+            style={{ backgroundColor: "lightgrey" }}
             required
             onChange={(event) => setLastName(event.target.value)}
           />
-          </Grid>
-          <Grid item>
-
-            <TextField
+        </Grid>
+        <Grid item>
+          <TextField
             label="Email"
             variant="filled"
             color="secondary"
             value={email}
-            style={{backgroundColor: "lightgrey"}}
+            style={{ backgroundColor: "lightgrey" }}
             required
             onChange={(event) => setEmail(event.target.value)}
           />
-          </Grid>
-          <Grid item>
-
+        </Grid>
+        <Grid item>
           <TextField
             label="Username"
             variant="filled"
             color="secondary"
             value={username}
-            style={{backgroundColor: "lightgrey"}}
-
+            style={{ backgroundColor: "lightgrey" }}
             required
             onChange={(event) => setUsername(event.target.value)}
           />
-          </Grid>
-          <Grid item>
-
+        </Grid>
+        <Grid item>
           <TextField
             label="Password"
             variant="filled"
             color="secondary"
             type="password"
             value={password}
-            style={{backgroundColor: "lightgrey"}}
+            style={{ backgroundColor: "lightgrey" }}
             required
             onChange={(event) => setPassword(event.target.value)}
           />
         </Grid>
-      <Grid item xs={12}>
-        <Button type="submit" color="primary" variant="outlined">Sign up</Button>
+        <Grid item xs={12}>
+          <Button type="submit" color="primary" variant="outlined">
+            Sign up
+          </Button>
+        </Grid>
       </Grid>
-      </Grid>
-
     </form>
   );
 }
