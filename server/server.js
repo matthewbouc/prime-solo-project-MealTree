@@ -12,6 +12,7 @@ const userRouter = require("./routes/user.router");
 const calendarRouter = require("./routes/calendar.router");
 const mealPlanRouter = require("./routes/meal.plan.router");
 const recipesRouter = require("./routes/recipes.router");
+const spoonacularRouter = require('./routes/spoonacular.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +30,8 @@ app.use("/api/user", userRouter);
 app.use("/api/calendar", calendarRouter);
 app.use("/api/mealPlan", mealPlanRouter);
 app.use("/api/recipes", recipesRouter);
+app.use('/api/spoonacular', spoonacularRouter);
+
 
 // Serve static files
 app.use(express.static("build"));

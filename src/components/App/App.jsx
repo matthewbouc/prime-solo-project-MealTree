@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import AboutPage from "../AboutPage/AboutPage";
 import CalendarView from "../CalendarView/CalendarView";
 import CalendarList from "../CalendarList/CalendarList";
 import Favorites from "../Favorites/Favorites";
@@ -20,7 +19,7 @@ import NewRecipe from "../NewRecipe/NewRecipe";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import RecipeView from "../RecipeView/RecipeView";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import SearchApi from "../Search/SearchAPI";
+import SearchApi from "../SpoonacularAPI/SearchAPI";
 import "./App.css";
 
 function App() {
@@ -38,14 +37,6 @@ function App() {
         {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
         <Redirect exact from="/" to="/home" />
 
-        {/* Visiting localhost:3000/about will show the about page. */}
-        <Route
-          // shows AboutPage at all times (logged in or not)
-          exact
-          path="/about"
-        >
-          <AboutPage />
-        </Route>
 
         {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

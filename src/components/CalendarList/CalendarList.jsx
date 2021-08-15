@@ -139,22 +139,22 @@ function CalendarList() {
   };
 
   return (
-    <div className="standardBackground">
-      <Grid container justifyContent="center">
-        <Typography variant="h6">All Calendars</Typography>
+    <div className='standardBackground'>
+      <Grid container justifyContent='center'>
+        <Typography variant='h6'>All Calendars</Typography>
       </Grid>
       <Grid container>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
           <AddCircleOutlinedIcon
-            color="secondary"
-            fontSize="large"
+            color='secondary'
+            fontSize='large'
             style={{ marginBottom: "10px" }}
             onClick={() => dispatch({ type: "CREATE_NEW_CALENDAR" })}
           />
         </Grid>
       </Grid>
-      <Grid container spacing={1} justifyContent="center">
+      <Grid container spacing={1} justifyContent='center'>
         {calendars.map((calendar, i) => {
           return (
             <Grid
@@ -163,8 +163,8 @@ function CalendarList() {
               xs={10}
               container
               className={classes.calendarItem}
-              alignContent="center"
-              justifyContent="center"
+              alignContent='center'
+              justifyContent='center'
             >
               <Grid item xs={1}>
                 {(calendar.default_calendar && <CheckBoxOutlinedIcon />) || (
@@ -214,17 +214,17 @@ function CalendarList() {
         </DialogTitle>
         <DialogContent>
           <TextField
-            label="Username"
+            label='Username'
             value={username}
-            variant="filled"
+            variant='filled'
             onChange={(event) => setUsername(event.target.value)}
           ></TextField>
           <br />
           <br />
           <Button
             onClick={handleAddUsername}
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
           >
             Add User
           </Button>
@@ -243,14 +243,14 @@ function CalendarList() {
           </Typography>
           <Button
             onClick={() => handleCloseDialog("deleteCalendar")}
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
           >
             Cancel
           </Button>
           <Button
             onClick={handleDeleteCalendar}
-            variant="contained"
+            variant='contained'
             style={{ backgroundColor: "red" }}
           >
             DELETE
@@ -269,15 +269,15 @@ function CalendarList() {
           </Typography>
           <Button
             onClick={() => handleCloseDialog("defaultCalendar")}
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
           >
             Cancel
           </Button>
           <Button
             onClick={handleSetDefaultCalendar}
-            variant="contained"
-            color="secondary"
+            variant='contained'
+            color='secondary'
           >
             Update
           </Button>
@@ -291,8 +291,8 @@ function CalendarList() {
         <DialogTitle>Change Calendar Name?</DialogTitle>
         <DialogContent>
           <TextField
-            variant="filled"
-            label="Calendar Name"
+            variant='filled'
+            label='Calendar Name'
             style={{ width: "250px" }}
             value={calendarName}
             onChange={(event) => setCalendarName(event.target.value)}
@@ -301,15 +301,15 @@ function CalendarList() {
           <br />
           <Button
             onClick={() => handleCloseDialog("calendarName")}
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
           >
             Cancel
           </Button>
           <Button
             onClick={updateCalendarName}
-            variant="contained"
-            color="secondary"
+            variant='contained'
+            color='secondary'
           >
             Update
           </Button>
