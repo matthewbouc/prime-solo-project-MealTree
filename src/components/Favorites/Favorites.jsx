@@ -48,14 +48,14 @@ function Favorites() {
   return (
     <div className='standardBackground'>
     <Grid container justifyContent="center">
-    <Grid item>
       <Typography variant="h6">Favorite Recipes</Typography>
     </Grid>
-    <Grid item container xs={11}>
+    <Grid container justifyContent="center">
     {/* <Button onClick={() => history.goBack()}>Back</Button> */}
     {favorites && favorites.map((recipe, i) => {     
       return(
-        <Accordion key={i} style={{backgroundColor: "#ACC8AB", marginBottom: "10px"}}>
+        <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
+        <Accordion elevation={8} style={{backgroundColor: "#ACC8AB", marginBottom: "10px"}}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-label="Expand"
@@ -90,11 +90,11 @@ function Favorites() {
               <Typography>Ingredients: {recipe.ingredients}</Typography>
           </AccordionDetails>
         </Accordion>
+        </Grid>
       )
     })}
 
     <DatePicker open={open} setOpen={setOpen} recipeId={recipeId}/>
-  </Grid>
   </Grid>
   </div>
   );
