@@ -65,11 +65,11 @@ function RecipeView() {
     });
   };
 
-  ///////////////CHECK THIS OUT ///////////////////////
-  const handlePlanIt = (event, id) => {
+  const handlePlanIt = (event) => {
     event.stopPropagation();
     handleClickOpen();
   };
+
   return (
     <div className='standardBackground'>
       {/* Can access recipe view from multiple pages, a back button returns to previous view */}

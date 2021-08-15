@@ -49,12 +49,12 @@ router.post("/new", rejectUnauthenticated, (req, res) => {
   console.log(req.user.id);
   const addRecipeQuery = `
         WITH newRecipe as (
-            INSERT INTO recipes (name, ingredients, procedure, picture)
-            VALUES ($1, $2, $3, $4) RETURNING id
+            INSERT INTO recipes (name, ingredients, procedure, picture, api_id)
+            VALUES ($1, $2, $3, $4, $5) RETURNING id
         )
-        INSERT INTO users_recipes (owner_id, recipe_id) VALUES ($5, (SELECT id FROM newRecipe));`;
+        INSERT INTO users_recipes (owner_id, recipe_id) VALUES ($6, (SELECT id FROM newRecipe));`;
   pool
-    .query(addRecipeQuery, [name, ingredients, procedure, picture, req.user.id])
+    .query(addRecipeQuery, [name, ingredients, procedure, picture, api_id, req.user.id])
     .then(() => {
       console.log("Success POSTing new recipe");
       res.sendStatus(201);

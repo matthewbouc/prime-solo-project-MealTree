@@ -60,12 +60,16 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   const mealDate = req.body.date;
   const mealCategory = req.body.category;
   const recipeId = req.body.recipeId;
+  const apiId = req.body.apiId;
   let isVerified;
 
   console.log("what is body", req.body);
 
+  
+
+
   const verifyUserQuery = `SELECT calendar_id FROM calendar_shared_users WHERE shared_user_id = $1;`;
-  const postNewMeal = `INSERT INTO "meal_plan" ("calendar_id", "date", "category_id", "recipe_id") VALUES ($1, $2, $3, $4);`;
+  const postNewMeal = `INSERT INTO "meal_plan" ("calendar_id", "date", "category_id", "recipe_id", "api_id") VALUES ($1, $2, $3, $4, $5);`;
   await pool
     .query(verifyUserQuery, [userId])
     .then((result) => {
@@ -83,7 +87,7 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
 
   if (isVerified) {
     pool
-      .query(postNewMeal, [calendarId, mealDate, mealCategory, recipeId])
+      .query(postNewMeal, [calendarId, mealDate, mealCategory, recipeId, apiId])
       .then(() => {
         console.log("Success POSTing meal_plan");
         res.sendStatus(201);

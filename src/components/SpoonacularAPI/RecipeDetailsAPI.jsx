@@ -6,10 +6,10 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import DatePicker from "../DatePicker/DatePicker";
-import TextField from "@material-ui/core/TextField";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import "../App/App.css";
 import { Grid, Dialog, DialogContent, makeStyles } from "@material-ui/core";
+import FavoriteBorderSharpIcon from '@material-ui/icons/FavoriteBorderSharp';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles ({
     gridBackground: {        
@@ -25,9 +25,24 @@ function RecipeDetailsAPI() {
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
-    const { recipeId } = useParams();
+    const { apiId } = useParams();
     const recipeIdDetails = useSelector(store => store.spoon.recipeIdDetails);
-   
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClickPlan = () => {
+        console.log('API ID IS', apiId);
+        dispatch({ type: 'ADD_NEW_RECIPE', payload: {
+            name: recipeIdDetails.title,
+            picture: recipeIdDetails.image,
+            api_id: apiId,
+        }})
+        handleClickOpen();
+    }
+
     return(
         <div className='standardBackground'>
         <Grid container justifyContent='center'>
@@ -37,21 +52,14 @@ function RecipeDetailsAPI() {
             variant='text'
             color='secondary'
             onClick={() => history.goBack()}
-        >
-        Back
+        >Back
         </Button>
         </Grid>
-        <Grid item xs={8} container justifyContent="center" style={{marginTop: '20px'}}>
+        <Grid item xs={8} container justifyContent="center" style={{marginTop: '30px'}}>
         <Typography variant="h6">{recipeIdDetails.title}</Typography>
         </Grid>
-        <Grid item xs={2}>
-        <Button
-            variant='text'
-            color='secondary'
-            onClick={() => history.goBack()}
-        >
-        Plan
-        </Button>
+        <Grid item xs={1} style={{marginTop: '6px'}}>
+        {!open && <FavoriteBorderSharpIcon onClick={handleClickPlan} /> || <FavoriteIcon onClick={handleClickOpen} />}
         </Grid>
         <Grid item xs={10} style={{marginTop: '15px'}}>
         <img src={recipeIdDetails.image} border="1px" />
@@ -71,7 +79,7 @@ function RecipeDetailsAPI() {
         })}
         </ul>
         </Grid>
-        <Grid item container xs={10} alignContent="flex-start" style={{marginTop: '15px', marginBottom: '-10px'}}>
+        <Grid item container xs={10} alignContent="flex-start" style={{marginTop: '15px'}}>
         <Typography style={{fontWeight: '600'}}>Directions:</Typography>
         <Grid item xs={1}></Grid>
         </Grid>
@@ -81,7 +89,12 @@ function RecipeDetailsAPI() {
         <Grid item xs={1}></Grid>
         </Grid>
         </Grid>
+
+        {/* <DatePicker open={open} setOpen={setOpen} apiId={apiId} /> */}
+
+
         </div>
+        
     )
 }
 

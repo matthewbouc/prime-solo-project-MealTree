@@ -22,7 +22,7 @@ function DatePicker({
   setOpen,
   recipeId,
   mealPlanId,
-  calendar_id,
+  apiId,
   mealCategory,
   isEdit,
 }) {
@@ -60,8 +60,9 @@ function DatePicker({
       payload: {
         date: selectedDate,
         category: categoryState || categories[0].id,
-        recipeId: recipeId,
+        recipeId: recipeId || null,
         calendarId: calendarId || calendars[0].calendar_id,
+        apiId: apiId || null,
       },
     });
     setOpen(false);
