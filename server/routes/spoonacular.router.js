@@ -8,7 +8,7 @@ router.get("/textSearch", (req, res) => {
   console.log("searching for,", search);
   axios
     .get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.spoon_Key}&query=${search}&number=3`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.spoon_Key}&query=${search}&number=10`
     )
     .then((results) => {
       console.log("Spoonacular querySearch results", results.data);
