@@ -99,10 +99,11 @@ router.put('/default', rejectUnauthenticated, (req, res) => {
       .then(result => {
         console.log(result.rows);
         const addedUserId = result.rows[0].id;
+        if (addedUserId != requesterId){
         pool.query(postQuery, [calendarId, addedUserId])
         .then(response => {
           res.sendStatus(201);
-        })
+        })}
       })
     } else {
       res.sendStatus(403);
