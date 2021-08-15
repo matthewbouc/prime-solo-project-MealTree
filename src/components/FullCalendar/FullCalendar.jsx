@@ -26,7 +26,7 @@ function FullCalendar() {
         dispatch({type: 'GET_WEEK_PLAN'})
     },[]);
 
-    // NO longer using accordion functionality, should be switched out
+    // NO longer using accordion functionality, should be switched out to just plain Grid styling like CalendarList.jsx
     return (
         <div className='standardBackground'>
         <Grid container justifyContent="center">
@@ -38,12 +38,22 @@ function FullCalendar() {
                 <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
                     <Accordion onClick={() => history.push(`/recipe/${meal.recipe_id}`)} style={{backgroundColor: "#ACC8AB"}}>
                         <AccordionSummary >
-                        <Typography>{
-                            new Date(meal.date).toDateString()} 
+                        <Grid container>
+                            <Grid item container>
+                            <Grid item xs={5}>
+                            <Typography>{new Date(meal.date).toDateString()}</Typography>
+                            </Grid>
+                            <Grid item xs={2}>
                             <ChevronRightIcon fontSize="small"/> 
-                            {meal.category} 
-                            <ChevronRightIcon fontSize="small"/>
-                            {meal.name}</Typography>
+                            </Grid>
+                            <Grid item xs={5}>
+                            <Typography>{meal.category}</Typography>
+                            </Grid>
+                            </Grid>
+                            <Grid item container>
+                            <Typography style={{fontWeight: '600'}}>{meal.name}</Typography>
+                            </Grid>
+                            </Grid>
                         </AccordionSummary>
                     </Accordion>
                 </Grid>
