@@ -5,38 +5,25 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
-
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import AboutPage from "../AboutPage/AboutPage";
 import CalendarView from "../CalendarView/CalendarView";
+import CalendarList from "../CalendarList/CalendarList";
+import Favorites from "../Favorites/Favorites";
+import FooterNav from "../Footer/FooterNav";
+import FullCalendar from "../FullCalendar/FullCalendar";
 import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
-import Favorites from "../Favorites/Favorites";
 import NewRecipe from "../NewRecipe/NewRecipe";
-import SearchApi from "../Search/SearchAPI";
-import UserPage from "../UserPage/UserPage"; // Took this out for now
-
-import "./App.css";
-import FooterNav from "../Footer/FooterNav";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import RecipeView from "../RecipeView/RecipeView";
-import { makeStyles } from "@material-ui/core";
-import FullCalendar from "../FullCalendar/FullCalendar";
-import CalendarList from "../CalendarList/CalendarList";
-
-const useStyles = makeStyles((theme) => ({
-  innerPages: {
-    paddingBottom: "65px",
-    paddingTop: "10px",
-  },
-}));
+import RegisterPage from "../RegisterPage/RegisterPage";
+import SearchApi from "../Search/SearchAPI";
+import "./App.css";
 
 function App() {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
@@ -47,7 +34,6 @@ function App() {
 
   return (
     <Router>
-      {/* <Nav />           REFERENCE THIS FOR THE MENU BUTTON ON WHICH PAGES TO USE*/}
       <Switch>
         {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
         <Redirect exact from="/" to="/home" />
@@ -146,8 +132,8 @@ function App() {
           <h1>404</h1>
         </Route>
       </Switch>
+      {/* Only show FooterNav when a user is logged in */}
       {user.id && <FooterNav />}
-      {/* <Footer /> */}
     </Router>
   );
 }

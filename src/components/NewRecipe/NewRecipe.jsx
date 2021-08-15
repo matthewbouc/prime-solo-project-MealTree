@@ -37,19 +37,19 @@ function NewRecipe() {
   };
 
   return (
-    <div className="standardBackground">
-      <Typography variant="h6" className={classes.textHeader}>
+    <div className='standardBackground'>
+      <Typography variant='h6' className={classes.textHeader}>
         Add New Recipe
       </Typography>
-      <form className="formNew" autoComplete="off" onSubmit={handleAddRecipe}>
-        <Grid container spacing={3} justifyContent="center">
+      <form className='formNew' autoComplete='off' onSubmit={handleAddRecipe}>
+        <Grid container spacing={3} justifyContent='center'>
           <Grid item>
             <TextField
               required
               value={recipe.name}
-              label="Recipe Name"
-              variant="filled"
-              color="secondary"
+              label='Recipe Name'
+              variant='filled'
+              color='secondary'
               style={{ backgroundColor: "lightgrey" }}
               onChange={(event) =>
                 setRecipe({ ...recipe, name: event.target.value })
@@ -62,9 +62,9 @@ function NewRecipe() {
             {/* aria-label="minimum height"  */}
             <TextField
               value={recipe.ingredients}
-              label="Ingredients"
-              variant="filled"
-              color="secondary"
+              label='Ingredients'
+              variant='filled'
+              color='secondary'
               style={{ backgroundColor: "lightgrey" }}
               onChange={(event) =>
                 setRecipe({ ...recipe, ingredients: event.target.value })
@@ -77,9 +77,9 @@ function NewRecipe() {
         aria-label="minimum height"  */}
             <TextField
               value={recipe.procedure}
-              label="Directions"
-              variant="filled"
-              color="secondary"
+              label='Directions'
+              variant='filled'
+              color='secondary'
               style={{ backgroundColor: "lightgrey" }}
               onChange={(event) =>
                 setRecipe({ ...recipe, procedure: event.target.value })
@@ -89,17 +89,17 @@ function NewRecipe() {
           <Grid item>
             <TextField
               value={recipe.picture}
-              label="Picture URL"
-              variant="filled"
-              color="secondary"
+              label='Picture URL'
+              variant='filled'
+              color='secondary'
               style={{ backgroundColor: "lightgrey" }}
               onChange={(event) =>
                 setRecipe({ ...recipe, picture: event.target.value })
               }
             />
           </Grid>
-          <Grid item container xs={12} justifyContent="center">
-            <Button color="primary" variant="contained" type="submit">
+          <Grid item container xs={12} justifyContent='center'>
+            <Button color='primary' variant='contained' type='submit'>
               Add Recipe
             </Button>
           </Grid>

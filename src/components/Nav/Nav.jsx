@@ -27,11 +27,11 @@ function Nav() {
   };
 
   return (
-    <Grid container className="background" justifyContent="center">
-      <Grid item xs={6} container justifyContent="center">
+    <Grid container className='background' justifyContent='center'>
+      <Grid item xs={6} container justifyContent='center'>
         <img
           src={mealTree}
-          height="45px"
+          height='45px'
           onClick={() => history.push("/home")}
         />
       </Grid>
@@ -39,16 +39,16 @@ function Nav() {
         item
         xs={6}
         container
-        justifyContent="center"
-        alignContent="space-between"
+        justifyContent='center'
+        alignContent='space-between'
       >
         <Grid item xs={3}>
-          <Button color="primary" onClick={onLogin}>
+          <Button color='primary' onClick={onLogin}>
             Sign in
           </Button>
         </Grid>
         <Grid item xs={3}>
-          <Button color="primary" variant="outlined" onClick={onSignUp}>
+          <Button color='primary' variant='outlined' onClick={onSignUp}>
             Sign up
           </Button>
         </Grid>

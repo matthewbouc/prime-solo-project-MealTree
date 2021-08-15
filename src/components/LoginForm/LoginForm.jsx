@@ -26,19 +26,19 @@ function LoginForm() {
   }; // end login
 
   return (
-    <form className="formPanel" onSubmit={login}>
+    <form className='formPanel' onSubmit={login}>
       <h2>Login</h2>
       {errors.loginMessage && (
-        <h3 className="alert" role="alert">
+        <h3 className='alert' role='alert'>
           {errors.loginMessage}
         </h3>
       )}
       <Grid container spacing={1}>
         <Grid item>
           <TextField
-            label="Username"
-            variant="filled"
-            color="secondary"
+            label='Username'
+            variant='filled'
+            color='secondary'
             style={{ backgroundColor: "lightgrey" }}
             required
             value={username}
@@ -47,10 +47,10 @@ function LoginForm() {
         </Grid>
         <Grid item>
           <TextField
-            type="password"
-            label="password"
-            variant="filled"
-            color="secondary"
+            type='password'
+            label='password'
+            variant='filled'
+            color='secondary'
             style={{ backgroundColor: "lightgrey" }}
             required
             value={password}
@@ -58,7 +58,7 @@ function LoginForm() {
           />
         </Grid>
         <Grid item>
-          <Button variant="outlined" color="primary" type="submit">
+          <Button variant='outlined' color='primary' type='submit'>
             Sign In
           </Button>
         </Grid>
