@@ -10,10 +10,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import TodayIcon from "@material-ui/icons/Today";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import { Menu, MenuItem } from "@material-ui/core";
-import LogOutButton from "../LogOutButton/LogOutButton";
 import { useDispatch } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   bottomNav: {
     width: "100%",
     position: "fixed",
@@ -27,7 +26,7 @@ function FooterNav() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [anchorEl, setAnchorEl] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,9 +39,9 @@ function FooterNav() {
     }
   };
 
+  // logout and provide history.push functionality to saga
   const handleLogOut = () => {
-    dispatch({ type: "LOGOUT" });
-    history.push("/login");
+    dispatch({ type: "LOGOUT", push: history.push });
   };
 
   return (
