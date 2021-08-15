@@ -77,11 +77,6 @@ function Favorites() {
             color="secondary"
             style={{maxWidth: "60px"}}
             >Plan</Button>
-            {/* <Button
-            onFocus={(event) => event.stopPropagation()}
-            variant="contained"
-            color="secondary"
-              >View Recipe</Button> */}
             </Grid>
             </Grid>
 

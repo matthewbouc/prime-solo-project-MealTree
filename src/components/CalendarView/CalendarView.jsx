@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useHistory } from 'react-router-dom';
 import DatePicker from '../DatePicker/DatePicker';
 import { Card, Grid, Box } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 import DeleteIcon from '@material-ui/icons/Delete';
 import '../App/App.css';
 
@@ -18,7 +19,7 @@ function CalendarView() {
   const dispatch = useDispatch();
   
   const weekPlan = useSelector((store) => store.weekPlan);
-  const calendar = useSelector(store => store.calendars[0])
+  const calendars = useSelector(store => store.calendars)
 
   const [nextDays, setNextDays] = useState([]);
   const [nextDates, setNextDates] = useState([]);
@@ -82,7 +83,7 @@ function CalendarView() {
   return (
     <div className='standardBackground'>
     <Grid container justifyContent="center">
-    <Typography variant="h6">{calendar.name}</Typography>
+    {calendars[0] && <Typography variant="h6">{calendars[0].name}</Typography>}
     </Grid>
     <Grid container justifyContent="center" spacing={1}>
       {nextDates && nextDates.map((date, i) => {     
@@ -99,25 +100,30 @@ function CalendarView() {
             </AccordionSummary>
             <AccordionDetails>
             <Box
-              display="flex"
-              flexWrap="wrap"
-              p={1}
-              m={1}
+            display="flex"
+            flexWrap="wrap"
             >
               {weekPlan && recipeDisplay(date).map(meal=>{
                 return (
-                  
-                  <Grid key={meal.id} container justifyContent="center">
-                  <Grid item >
-                  <Typography variant="h6" onClick={()=>history.push(`/recipe/${meal.recipe_id}`)}>{meal.category}: {meal.name}</Typography>
+                  <Grid key={meal.id} container style={{marginBottom: '5px'}} justifyContent="center">
+                  <Grid item xs={4}>
+                  <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="100px"/>
                   </Grid>
-                  <Grid item xs={12} container justifyContent="center">
-                  <img onClick={()=>history.push(`/recipe/${meal.recipe_id}`)} src={meal.picture} width="150px"/>
+                  <Grid item xs={5} container alignContent="center" style={{paddingRight: '8px'}}>
+                  <Grid item>
+                    <Typography style={{fontWeight: '600'}}>{meal.category}</Typography>
                   </Grid>
- 
-                  <Grid item >
-                  <Button variant="contained" color="secondary" onClick={() => handleEdit(meal.id, meal.calendar_id, meal.category)}>Edit</Button>
+                  <Grid item>
+                  <Typography onClick={()=>history.push(`/recipe/${meal.recipe_id}`)}>{meal.name}</Typography>
+                  </Grid>
+                  </Grid>
+                  <Grid item xs={3} container alignContent="center">
+                  <Grid item>
+                  <Button variant="contained" color="secondary" style={{marginBottom: '5px'}} onClick={() => handleEdit(meal.id, meal.calendar_id, meal.category)}>Edit</Button>
+                  </Grid>
+                  <Grid item>
                   <Button variant="contained" color="secondary" onClick={() => handleDeleteRecipe(meal.id, meal.calendar_id)}><DeleteIcon /></Button>
+                  </Grid>
                   </Grid>
                   </Grid>
                 )
