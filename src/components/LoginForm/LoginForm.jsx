@@ -25,9 +25,17 @@ function LoginForm() {
     }
   }; // end login
 
+  const loginMatt = () => {
+    setUsername('boucgm');
+    setPassword('matt');
+  }
+  const loginOther = () => {
+    setUsername('morganrose');
+    setPassword('morgan');
+  }
   return (
     <form className='formPanel' onSubmit={login}>
-      <h2>Login</h2>
+      <h2 onClick={()=>loginMatt()}>Login</h2>
       {errors.loginMessage && (
         <h3 className='alert' role='alert'>
           {errors.loginMessage}
@@ -57,10 +65,13 @@ function LoginForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Grid>
-        <Grid item>
+        <Grid container>
+        <Grid item xs={4}>
           <Button variant='outlined' color='primary' type='submit'>
             Sign In
           </Button>
+        </Grid>
+        <Grid item xs={6} onClick={()=>loginOther()}></Grid>
         </Grid>
       </Grid>
     </form>
