@@ -74,7 +74,7 @@ function SearchAPI() {
     <Grid container justifyContent='center'>
     <Grid container item className={classes.searchArea}>
       <Grid container justifyContent='center' style={{marginBottom: '20px'}}>
-        <Typography variant='h6'>Spoonacular</Typography>
+        <Typography variant='h6' onClick={()=>setSearchQuery('egg bake')}>Spoonacular</Typography>
       </Grid>
       <Grid container justifyContent="center">
       <Grid item>

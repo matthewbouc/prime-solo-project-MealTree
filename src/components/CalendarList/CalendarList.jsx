@@ -209,7 +209,7 @@ function CalendarList() {
         onClose={() => handleCloseDialog("addPerson")}
         open={addPersonDialog}
       >
-        <DialogTitle>
+        <DialogTitle onClick={()=>setUsername('morganrose')}>
           Add A Friend To <br /> {calendarName}
         </DialogTitle>
         <DialogContent>
@@ -288,7 +288,7 @@ function CalendarList() {
         onClose={() => handleCloseDialog("calendarName")}
         open={calendarNameDialog}
       >
-        <DialogTitle>Change Calendar Name?</DialogTitle>
+        <DialogTitle onClick={()=> setCalendarName('Labor Day Weekend')}>Change Calendar Name?</DialogTitle>
         <DialogContent>
           <TextField
             variant='filled'
