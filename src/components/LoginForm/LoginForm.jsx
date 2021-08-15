@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
-import { Button, Grid, TextField } from '@material-ui/core';
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { Button, Grid, TextField } from "@material-ui/core";
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
   const login = (event) => {
@@ -15,14 +14,14 @@ function LoginForm() {
 
     if (username && password) {
       dispatch({
-        type: 'LOGIN',
+        type: "LOGIN",
         payload: {
           username: username,
           password: password,
         },
       });
     } else {
-      dispatch({ type: 'LOGIN_INPUT_ERROR' });
+      dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
   }; // end login
 
@@ -40,28 +39,30 @@ function LoginForm() {
             label="Username"
             variant="filled"
             color="secondary"
-            style={{backgroundColor: "lightgrey"}}
+            style={{ backgroundColor: "lightgrey" }}
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
-      </Grid>
-      <Grid item>
+        </Grid>
+        <Grid item>
           <TextField
             type="password"
             label="password"
             variant="filled"
             color="secondary"
-            style={{backgroundColor: "lightgrey"}}
+            style={{ backgroundColor: "lightgrey" }}
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
+        </Grid>
+        <Grid item>
+          <Button variant="outlined" color="primary" type="submit">
+            Sign In
+          </Button>
+        </Grid>
       </Grid>
-      <Grid item>
-        <Button variant="outlined" color="primary" type="submit">Sign In</Button>
-      </Grid>
-    </Grid>
     </form>
   );
 }

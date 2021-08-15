@@ -1,12 +1,12 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
-import weekPlan from './week.plan.reducer';
-import newMealPlan from './meal.plan.reducer';
-import favoritesList from './favorites.reducer';
-import categories from './categories.reducer';
-import calendars from './calendar.list.reducer';
-import recipe from './recipe.reducer';
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
+import weekPlan from "./week.plan.reducer";
+import newMealPlan from "./meal.plan.reducer";
+import favoritesList from "./favorites.reducer";
+import categories from "./categories.reducer";
+import calendars from "./calendar.list.reducer";
+import recipe from "./recipe.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
