@@ -21,6 +21,7 @@ import RecipeView from "../RecipeView/RecipeView";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import SearchApi from "../SpoonacularAPI/SearchAPI";
 import "./App.css";
+import RecipeDetailsAPI from "../SpoonacularAPI/RecipeDetailsAPI";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,6 +61,10 @@ function App() {
 
         <ProtectedRoute exact path="/searchApi">
           <SearchApi />
+        </ProtectedRoute>
+
+        <ProtectedRoute exact path="/apiRecipe/:recipeId">
+          <RecipeDetailsAPI />
         </ProtectedRoute>
 
         <ProtectedRoute exact path="/recipe/:recipeId">

@@ -123,9 +123,7 @@ function CalendarView() {
                             >
                               <Grid item xs={4}>
                                 <img
-                                  onClick={() =>
-                                    history.push(`/recipe/${meal.recipe_id}`)
-                                  }
+                                  onClick={() => history.push(`/recipe/${meal.recipe_id}`)}
                                   src={meal.picture}
                                   width="100px"
                                 />

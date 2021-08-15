@@ -110,7 +110,7 @@ function RecipeView() {
               variant='contained'
               onClick={(event) => handlePlanIt(event, recipe.id)}
             >
-              Plan It
+              Plan
             </Button>
           </Grid>
           <Grid item item xs={12} container justifyContent='center'>
