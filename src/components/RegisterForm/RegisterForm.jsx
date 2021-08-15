@@ -28,19 +28,19 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
+    <form className='formPanel' onSubmit={registerUser}>
       <h2>Register User</h2>
       {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
+        <h3 className='alert' role='alert'>
           {errors.registrationMessage}
         </h3>
       )}
       <Grid container spacing={1}>
         <Grid item>
           <TextField
-            label="First Name"
-            variant="filled"
-            color="secondary"
+            label='First Name'
+            variant='filled'
+            color='secondary'
             value={firstName}
             style={{ backgroundColor: "lightgrey" }}
             required
@@ -49,9 +49,9 @@ function RegisterForm() {
         </Grid>
         <Grid item>
           <TextField
-            label="Last Name"
-            variant="filled"
-            color="secondary"
+            label='Last Name'
+            variant='filled'
+            color='secondary'
             value={lastName}
             style={{ backgroundColor: "lightgrey" }}
             required
@@ -60,9 +60,9 @@ function RegisterForm() {
         </Grid>
         <Grid item>
           <TextField
-            label="Email"
-            variant="filled"
-            color="secondary"
+            label='Email'
+            variant='filled'
+            color='secondary'
             value={email}
             style={{ backgroundColor: "lightgrey" }}
             required
@@ -71,9 +71,9 @@ function RegisterForm() {
         </Grid>
         <Grid item>
           <TextField
-            label="Username"
-            variant="filled"
-            color="secondary"
+            label='Username'
+            variant='filled'
+            color='secondary'
             value={username}
             style={{ backgroundColor: "lightgrey" }}
             required
@@ -82,10 +82,10 @@ function RegisterForm() {
         </Grid>
         <Grid item>
           <TextField
-            label="Password"
-            variant="filled"
-            color="secondary"
-            type="password"
+            label='Password'
+            variant='filled'
+            color='secondary'
+            type='password'
             value={password}
             style={{ backgroundColor: "lightgrey" }}
             required
@@ -93,7 +93,7 @@ function RegisterForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" color="primary" variant="outlined">
+          <Button type='submit' color='primary' variant='outlined'>
             Sign up
           </Button>
         </Grid>

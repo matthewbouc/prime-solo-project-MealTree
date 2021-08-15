@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import "../App/App.css";
+import { makeStyles } from "@material-ui/core";
 
-import {
-  Grid,
-  Button,
-  Typography,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  makeStyles,
-} from "@material-ui/core";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import DeleteIcon from "@material-ui/icons/Delete";
+import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
+import Button from "@material-ui/core/Button";
 import CheckBoxOutlinedIcon from "@material-ui/icons/CheckBoxOutlined";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import AddCircleOutlinedIcon from "@material-ui/icons/AddCircleOutlined";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Grid from "@material-ui/core/Grid";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import "../App/App.css";
 
 const useStyles = makeStyles({
   calendarItem: {
@@ -30,7 +27,6 @@ const useStyles = makeStyles({
 });
 
 function CalendarList() {
-  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
 

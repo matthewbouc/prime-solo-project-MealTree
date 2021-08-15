@@ -71,50 +71,50 @@ function RecipeView() {
     handleClickOpen();
   };
   return (
-    <div className="standardBackground">
+    <div className='standardBackground'>
       {/* Can access recipe view from multiple pages, a back button returns to previous view */}
       <Button
-        variant="outlined"
-        color="secondary"
+        variant='outlined'
+        color='secondary'
         onClick={() => history.goBack()}
       >
         Back
       </Button>
 
-      <Box className="form">
-        <Grid direction="column" container spacing={2} justifyContent="center">
-          <Grid item xs={12} container justifyContent="center">
-            <Typography variant="h4">{recipe.name}</Typography>
+      <Box className='form'>
+        <Grid direction='column' container spacing={2} justifyContent='center'>
+          <Grid item xs={12} container justifyContent='center'>
+            <Typography variant='h4'>{recipe.name}</Typography>
           </Grid>
-          <Grid item xs={12} container justifyContent="center">
-            <img border="2px" src={recipe.picture} width="400px" />
+          <Grid item xs={12} container justifyContent='center'>
+            <img border='2px' src={recipe.picture} width='400px' />
           </Grid>
-          <Grid item xs={12} container justifyContent="center">
+          <Grid item xs={12} container justifyContent='center'>
             <Grid item xs={12}>
-              <Typography variant="h5">Ingredients</Typography>
+              <Typography variant='h5'>Ingredients</Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography>{recipe.ingredients}</Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12} container justifyContent="center">
+          <Grid item xs={12} container justifyContent='center'>
             <Grid item xs={12}>
-              <Typography variant="h5">Directions</Typography>
+              <Typography variant='h5'>Directions</Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography>{recipe.procedure}</Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12} container justifyContent="center">
+          <Grid item xs={12} container justifyContent='center'>
             <Button
-              variant="contained"
+              variant='contained'
               onClick={(event) => handlePlanIt(event, recipe.id)}
             >
               Plan It
             </Button>
           </Grid>
-          <Grid item item xs={12} container justifyContent="center">
-            <Button variant="contained" onClick={() => handleOpenEdit()}>
+          <Grid item item xs={12} container justifyContent='center'>
+            <Button variant='contained' onClick={() => handleOpenEdit()}>
               Edit Recipe
             </Button>
           </Grid>
@@ -124,17 +124,17 @@ function RecipeView() {
       <Dialog onClose={handleCloseEdit} open={editOpen}>
         {/* <Button variant="contained" onClick={() => handleCloseEdit()}>Cancel</Button> */}
         <DialogContent>
-          <Grid container direction="column">
+          <Grid container direction='column'>
             <form
-              autoComplete="off"
+              autoComplete='off'
               onSubmit={(event) => handleConfirmEdit(event)}
             >
               <Grid item>
                 <TextField
                   required
                   value={newRecipe.name || recipe.name}
-                  label="Recipe Name"
-                  variant="filled"
+                  label='Recipe Name'
+                  variant='filled'
                   onChange={(event) =>
                     setNewRecipe({ ...newRecipe, name: event.target.value })
                   }
@@ -143,8 +143,8 @@ function RecipeView() {
               <Grid item>
                 <TextField
                   value={newRecipe.picture || recipe.picture}
-                  label="Picture URL"
-                  variant="filled"
+                  label='Picture URL'
+                  variant='filled'
                   onChange={(event) =>
                     setNewRecipe({ ...newRecipe, picture: event.target.value })
                   }
@@ -153,8 +153,8 @@ function RecipeView() {
               <Grid item>
                 <TextField
                   value={newRecipe.ingredients || recipe.ingredients}
-                  label="Ingredients"
-                  variant="filled"
+                  label='Ingredients'
+                  variant='filled'
                   onChange={(event) =>
                     setNewRecipe({
                       ...newRecipe,
@@ -166,8 +166,8 @@ function RecipeView() {
               <Grid item>
                 <TextField
                   value={newRecipe.procedure || recipe.procedure}
-                  label="Directions"
-                  variant="filled"
+                  label='Directions'
+                  variant='filled'
                   onChange={(event) =>
                     setNewRecipe({
                       ...newRecipe,
@@ -176,15 +176,15 @@ function RecipeView() {
                   }
                 />
               </Grid>
-              <Grid item container justifyContent="center">
-                <Button variant="contained" color="secondary" type="submit">
+              <Grid item container justifyContent='center'>
+                <Button variant='contained' color='secondary' type='submit'>
                   Confirm
                 </Button>
               </Grid>
-              <Grid item container justifyContent="center">
+              <Grid item container justifyContent='center'>
                 <Button
-                  variant="contained"
-                  color="secondary"
+                  variant='contained'
+                  color='secondary'
                   onClick={() => handleDelete()}
                 >
                   Delete Recipe
