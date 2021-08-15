@@ -13,12 +13,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import '../App/App.css';
+import calendarSaga from '../../redux/sagas/calendar.saga';
 
 
 function FullCalendar() {
     const history = useHistory();
     const dispatch = useDispatch();
     const weekPlan = useSelector(store => store.weekPlan);
+    const calendar = useSelector(store => store.calendars[0])
 
     useEffect(()=>{
         dispatch({type: 'GET_WEEK_PLAN'})
@@ -27,6 +29,9 @@ function FullCalendar() {
     // NO longer using accordion functionality, should be switched out
     return (
         <div className='standardBackground'>
+        <Grid container justifyContent="center">
+            <Typography variant="h6">{calendar.name} Full Calendar</Typography>
+        </Grid>
         <Grid container justifyContent="center" spacing={1}>
          {weekPlan[0] && weekPlan.map((meal, i) => {
             return(

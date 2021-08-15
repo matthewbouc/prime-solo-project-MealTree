@@ -60,7 +60,7 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
     dispatch({type:'EDIT_MEAL_PLAN', payload: {
       date: selectedDate,
       category: categoryState || mealCategory,
-      calendarId: calendar_id,
+      calendarId: calendarId || calendars[0].calendar_id,
       mealPlanId: mealPlanId
     }});
     setOpen(false);
@@ -69,19 +69,20 @@ function DatePicker({open, setOpen, recipeId, mealPlanId, calendar_id, mealCateg
   return(
 
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-  {/* MAYBE GO BACK TO NATIVE SELECT  */}
       <DialogContent>
         <Grid container direction="column">
         {calendars[0] && <FormControl>
           <NativeSelect 
           variant="filled"
-          value={calendarId || calendars[0].name}
+          value={calendarId || calendars[0].calendar_id}
           onChange={event => setCalendarId(event.target.value)}>
-            {calendars && calendars.map(calendar => {
+          <option key={calendars[0].calendar_id} value={calendars[0].calendar_id}>{calendars[0].name}</option>
+
+            {/* {calendars && calendars.map(calendar => {
             return (
                 <option key={calendar.calendar_id} value={calendar.calendar_id}>{calendar.name}</option>
             )
-            })}
+            })} */}
         </NativeSelect>
         </FormControl>}
         <MuiPickersUtilsProvider utils={LuxonUtils}>
