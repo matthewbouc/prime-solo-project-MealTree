@@ -134,7 +134,7 @@ router.delete('/', rejectUnauthenticated, async (req,res) => { // QUERY (calenda
 
 
 /**
- * PUT to update meal_plan row
+ * PUT to update meal_plan row - only allows user to update within the same calendar
  */
 router.put('/', rejectUnauthenticated, async (req, res) => { // BODY  /// This can be updated to be a single query
     console.log('In router.put for mealplan')
@@ -146,7 +146,7 @@ router.put('/', rejectUnauthenticated, async (req, res) => { // BODY  /// This c
     const calendarId = req.body.calendarId;
     const mealPlanId = req.body.mealPlanId;
     let isVerified;
-
+    console.log(req.body);
     await pool.query(verifyUserQuery, [req.user.id])
     .then(result => {
         console.log('result rows:', result.rows);

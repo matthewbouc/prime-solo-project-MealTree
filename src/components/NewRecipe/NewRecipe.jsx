@@ -14,8 +14,8 @@ import '../App/App.css';
 const useStyles = makeStyles((theme) => ({
   textHeader: {
     textAlign: "center",
-    color: "#442603",
-    paddingTop: "10%",
+    // color: "#442603",
+    // paddingTop: "5%",
     paddingBottom: "20px",
   }
 }));
@@ -35,7 +35,7 @@ function NewRecipe() {
 
   return (
     <div className='standardBackground'>
-    <Typography variant="h3" className={classes.textHeader}>Add New Recipe</Typography>
+    <Typography variant="h6" className={classes.textHeader}>Add New Recipe</Typography>
       <form className="formNew" autoComplete="off" onSubmit={handleAddRecipe}>
       <Grid container spacing={3} justifyContent="center">
       <Grid item >

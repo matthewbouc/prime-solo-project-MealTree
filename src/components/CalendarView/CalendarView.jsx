@@ -16,11 +16,16 @@ import '../App/App.css';
 function CalendarView() {
   const history = useHistory();
   const dispatch = useDispatch();
+  
   const weekPlan = useSelector((store) => store.weekPlan);
-  const currentTime= new Date();
+  const calendar = useSelector(store => store.calendars[0])
+
   const [nextDays, setNextDays] = useState([]);
   const [nextDates, setNextDates] = useState([]);
+
   const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const currentTime= new Date();
+
 
 
   useEffect(()=>{
@@ -76,6 +81,9 @@ function CalendarView() {
 
   return (
     <div className='standardBackground'>
+    <Grid container justifyContent="center">
+    <Typography variant="h6">{calendar.name}</Typography>
+    </Grid>
     <Grid container justifyContent="center" spacing={1}>
       {nextDates && nextDates.map((date, i) => {     
         return(

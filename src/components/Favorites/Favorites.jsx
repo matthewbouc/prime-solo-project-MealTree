@@ -49,7 +49,7 @@ function Favorites() {
     <div className='standardBackground'>
     <Grid container spacing={1} justifyContent="center">
     <Grid item>
-      <Typography style={{color: "#442603"}} variant="h4">Favorite Recipes</Typography>
+      <Typography variant="h6">Favorite Recipes</Typography>
     </Grid>
     <Grid item container xs={11}>
     {/* <Button onClick={() => history.goBack()}>Back</Button> */}
