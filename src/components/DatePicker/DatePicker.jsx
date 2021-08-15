@@ -55,14 +55,15 @@ function DatePicker({
   };
 
   const handlePlanMeal = () => {
+    console.log('datepicker ids', recipeId, apiId);
     dispatch({
       type: "SET_NEW_MEAL_PLAN",
       payload: {
         date: selectedDate,
         category: categoryState || categories[0].id,
-        recipeId: recipeId || null,
+        recipeId: recipeId,
         calendarId: calendarId || calendars[0].calendar_id,
-        apiId: apiId || null,
+        apiId: apiId,
       },
     });
     setOpen(false);

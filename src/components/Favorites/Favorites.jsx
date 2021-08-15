@@ -21,15 +21,18 @@ function Favorites() {
   }, []);
 
   const [recipeId, setRecipeId] = useState("");
+  const [apiId, setApiId] = useState('');
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handlePlanIt = (event, id) => {
+  const handlePlanIt = (event, id, api_id) => {
     event.stopPropagation();
-    handleClickOpen();
     setRecipeId(id);
+    setApiId(api_id);
+    console.log('Ids are as follows', id, api_id);
+    handleClickOpen();
   };
 
   const handleViewRecipe = (event, id, apiId) => {
@@ -70,7 +73,9 @@ function Favorites() {
                     <Grid item container>
                       <Grid
                         item
+                        container
                         xs={4}
+                        alignContent="center"
                         onClick={(event) => handleViewRecipe(event, recipe.id, recipe.api_id)}
                       >
                         <img src={recipe.picture} width="100px" />
@@ -87,7 +92,7 @@ function Favorites() {
                       </Grid>
                       <Grid item xs={3} container alignContent="center">
                         <Button
-                          onClick={(event) => handlePlanIt(event, recipe.id)}
+                          onClick={(event) => handlePlanIt(event, recipe.id, recipe.api_id)}
                           onFocus={(event) => event.stopPropagation()}
                           variant="contained"
                           color="secondary"
@@ -106,7 +111,7 @@ function Favorites() {
             );
           })}
 
-        <DatePicker open={open} setOpen={setOpen} recipeId={recipeId} />
+        <DatePicker open={open} setOpen={setOpen} recipeId={recipeId} apiId={apiId} />
       </Grid>
     </div>
   );
