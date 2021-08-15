@@ -63,7 +63,7 @@ function App() {
           <SearchApi />
         </ProtectedRoute>
 
-        <ProtectedRoute exact path="/apiRecipe/:recipeId">
+        <ProtectedRoute exact path="/apiRecipe/:apiId">
           <RecipeDetailsAPI />
         </ProtectedRoute>
 

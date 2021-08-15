@@ -87,6 +87,20 @@ function CalendarView() {
     return dateMealArray;
   };
 
+  const handleViewRecipe = (event, id, apiId) => {
+    event.stopPropagation();
+    dispatch({
+      type: "GET_RECIPE_DETAILS",
+      payload: {
+        id: id,
+        api_id: apiId
+      },
+      push: history.push,
+      isFavorites: true,
+    });
+    // history.push(`/recipe/${id}`);
+  };
+
   return (
     <div className="standardBackground">
       <Grid container justifyContent="center">
@@ -123,7 +137,7 @@ function CalendarView() {
                             >
                               <Grid item xs={4}>
                                 <img
-                                  onClick={() => history.push(`/recipe/${meal.recipe_id}`)}
+                                  onClick={() => handleViewRecipe(event, meal.recipe_id, meal.api_id)}
                                   src={meal.picture}
                                   width="100px"
                                 />

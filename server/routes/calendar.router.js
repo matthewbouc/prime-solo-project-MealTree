@@ -132,15 +132,19 @@ router.post("/", rejectUnauthenticated, (req, res) => {
       INSERT INTO calendars (owner_id, name)
       VALUES ($1, $2) RETURNING id, owner_id
     )
-    INSERT INTO calendar_shared_users (calendar_id, shared_user_id)
-      SELECT id, owner_id
-      FROM newPost
+    INSERT INTO calendar_shared_users (calendar_id, shared_user_id, default_calendar)
+      VALUES ((SELECT id FROM newPost), (SELECT owner_id FROM newPost), true)
     ;`;
-  pool
-    .query(queryText, [owner, calendarName])
+
+  const removeDefaultQuery = `UPDATE calendar_shared_users SET default_calendar = false WHERE shared_user_id = $1;`;
+  
+  pool.query(removeDefaultQuery, [owner])
     .then(() => {
+      pool.query(queryText, [owner, calendarName])
+      .then(() => {
       console.log("New Calendar created");
       res.sendStatus(201);
+      })
     })
     .catch((error) => {
       console.log("New calendar failed", error);

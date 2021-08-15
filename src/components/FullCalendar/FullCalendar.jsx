@@ -29,7 +29,7 @@ function FullCalendar() {
   return (
     <div className="standardBackground">
       <Grid container justifyContent="center">
-        <Typography variant="h6">{calendar.name} Full Calendar</Typography>
+        <Typography variant="h6">{calendar.name} History</Typography>
       </Grid>
       <Grid container justifyContent="center" spacing={1}>
         {weekPlan[0] &&

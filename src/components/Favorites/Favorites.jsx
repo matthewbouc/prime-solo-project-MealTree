@@ -32,11 +32,14 @@ function Favorites() {
     setRecipeId(id);
   };
 
-  const handleViewRecipe = (event, id) => {
+  const handleViewRecipe = (event, id, apiId) => {
     event.stopPropagation();
     dispatch({
       type: "GET_RECIPE_DETAILS",
-      payload: id,
+      payload: {
+        id: id,
+        api_id: apiId
+      },
       push: history.push,
       isFavorites: true,
     });
@@ -68,7 +71,7 @@ function Favorites() {
                       <Grid
                         item
                         xs={4}
-                        onClick={(event) => handleViewRecipe(event, recipe.id)}
+                        onClick={(event) => handleViewRecipe(event, recipe.id, recipe.api_id)}
                       >
                         <img src={recipe.picture} width="100px" />
                       </Grid>

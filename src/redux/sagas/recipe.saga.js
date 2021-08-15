@@ -20,12 +20,16 @@ function* deleteRecipe(action) {
 function* getRecipeDetails(action) {
   try {
     console.log("actionpayload", action.payload);
-    const recipeDetails = yield axios.get(
-      `/api/recipes?recipeId=${action.payload}`
-    );
-    yield put({ type: "SET_RECIPE_DETAILS", payload: recipeDetails.data[0] });
-    if (action.isFavorites) {
-      yield put(action.push(`/recipe/${action.payload}`));
+    if (action.payload.api_id){
+      const recipeDetails = yield axios.get(`/api/spoonacular/recipe/${action.payload.api_id}`)
+      yield put({ type: 'SET_SPOON_ID', payload: recipeDetails.data});
+      yield put(action.push(`/apiRecipe/${action.payload.api_id}`))
+    } else {
+      const recipeDetails = yield axios.get(`/api/recipes?recipeId=${action.payload}`);
+      yield put({ type: "SET_RECIPE_DETAILS", payload: recipeDetails.data[0] });
+      if (action.isFavorites) {
+        yield put(action.push(`/recipe/${action.payload.id}`));
+      }
     }
   } catch (error) {
     console.log("Error GETting recipe details", error);
