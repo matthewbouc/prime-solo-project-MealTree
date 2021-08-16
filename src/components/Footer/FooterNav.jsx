@@ -96,7 +96,7 @@ function FooterNav() {
         }}
       >
         <MenuItem onClick={handleLogOut}>Log out</MenuItem>
-        <MenuItem onClick={() => handleClose("newRecipe")}>
+        <MenuItem >
           Profile Page
         </MenuItem>
         <MenuItem onClick={() => handleClose("calendarList")}>
