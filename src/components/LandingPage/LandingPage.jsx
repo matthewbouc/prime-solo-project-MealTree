@@ -1,24 +1,27 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import './LandingPage.css';
-import background from '../../images/landingPage.jpeg';
-import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
-
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import background from "../../images/landingPage.jpeg";
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
+import RegisterForm from "../RegisterForm/RegisterForm";
 
 // CUSTOM COMPONENTS
 
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+import Nav from "../Nav/Nav";
+import Footer from "../Footer/Footer";
 
 const useStyles = makeStyles((theme) => ({
   backgroundImage: {
     backgroundImage: `url(${background})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover', 
-    backgroundRepeat: 'no-repeat',
-    backgroundAttachment: 'fixed',
-    minHeight: '100vh',
-  }
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
+    minHeight: "125vh",
+  },
+  welcomeText: {
+    marginTop: "40px",
+    backgroundColor: "#ACC8AB",
+  },
 }));
 
 function LandingPage() {
@@ -28,14 +31,44 @@ function LandingPage() {
     <>
       <Nav />
       <Grid container className={classes.backgroundImage} alignItems="center">
-        <Grid container direction="column" spacing={4} justifyContent="center" alignItems="center">
-          <Grid item xs={12} container justifyContent="center">
-            <Typography color="error">Throw Some text or maybe pictures here</Typography>
+        <Grid
+          container
+          direction="column"
+          spacing={4}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid
+            item
+            xs={10}
+            container
+            justifyContent="center"
+            className={classes.welcomeText}
+          >
+            <Typography variant="h4">Welcome to MealTree</Typography>
+            <Typography>
+              Create and share meal planning calendars with friends and family.
+            </Typography>
+          </Grid>
+
+          <Grid item xs={11} container justifyContent="center">
+            <RegisterForm />
           </Grid>
           <Grid item xs={12} container justifyContent="center">
-            <Typography>MORE TEXT OR IMAGES HERE</Typography>
+            <Typography>Already a user?</Typography>
+            <Grid item xs={12} container justifyContent="center">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                Sign in
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={9} >
+          <Grid item xs={9}>
             <Footer />
           </Grid>
         </Grid>

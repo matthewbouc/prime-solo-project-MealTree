@@ -1,17 +1,18 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-require('dotenv').config();
+const express = require("express");
+const bodyParser = require("body-parser");
+require("dotenv").config();
 
 const app = express();
 
-const sessionMiddleware = require('./modules/session-middleware');
-const passport = require('./strategies/user.strategy');
+const sessionMiddleware = require("./modules/session-middleware");
+const passport = require("./strategies/user.strategy");
 
 // Route includes
-const userRouter = require('./routes/user.router');
-const calendarRouter = require('./routes/calendar.router');
-const mealPlanRouter = require('./routes/meal.plan.router');
-const recipesRouter = require('./routes/recipes.router');
+const userRouter = require("./routes/user.router");
+const calendarRouter = require("./routes/calendar.router");
+const mealPlanRouter = require("./routes/meal.plan.router");
+const recipesRouter = require("./routes/recipes.router");
+const spoonacularRouter = require('./routes/spoonacular.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -25,13 +26,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Routes */
-app.use('/api/user', userRouter);
-app.use('/api/calendar', calendarRouter);
-app.use('/api/mealPlan', mealPlanRouter);
-app.use('/api/recipes', recipesRouter);
+app.use("/api/user", userRouter);
+app.use("/api/calendar", calendarRouter);
+app.use("/api/mealPlan", mealPlanRouter);
+app.use("/api/recipes", recipesRouter);
+app.use('/api/spoonacular', spoonacularRouter);
+
 
 // Serve static files
-app.use(express.static('build'));
+app.use(express.static("build"));
 
 // App Set //
 const PORT = process.env.PORT || 5000;
