@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   welcomeText: {
     marginTop: "40px",
     backgroundColor: "#ACC8AB",
+    maxWidth: "700px",
   },
 }));
 
@@ -45,7 +46,9 @@ function LandingPage() {
             justifyContent="center"
             className={classes.welcomeText}
           >
+            <Grid item container justifyContent="center">
             <Typography variant="h4">Welcome to MealTree</Typography>
+            </Grid>
             <Typography>
               Create and share meal planning calendars with friends and family.
             </Typography>
@@ -54,6 +57,7 @@ function LandingPage() {
           <Grid item xs={11} container justifyContent="center">
             <RegisterForm />
           </Grid>
+          <Grid item className={classes.welcomeText}>
           <Grid item xs={12} container justifyContent="center">
             <Typography>Already a user?</Typography>
             <Grid item xs={12} container justifyContent="center">
@@ -66,6 +70,7 @@ function LandingPage() {
               >
                 Sign in
               </Button>
+            </Grid>
             </Grid>
           </Grid>
           <Grid item xs={9}>

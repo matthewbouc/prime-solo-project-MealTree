@@ -30,7 +30,7 @@ function LoginForm() {
     setPassword('matt');
   }
   const loginOther = () => {
-    setUsername('morganrose');
+    setUsername('morgan');
     setPassword('morgan');
   }
   return (
