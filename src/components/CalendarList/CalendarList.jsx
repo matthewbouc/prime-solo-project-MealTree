@@ -209,7 +209,7 @@ function CalendarList() {
         onClose={() => handleCloseDialog("addPerson")}
         open={addPersonDialog}
       >
-        <DialogTitle onClick={()=>setUsername('morganrose')}>
+        <DialogTitle onClick={()=>setUsername('morgan')}>
           Add A Friend To <br /> {calendarName}
         </DialogTitle>
         <DialogContent>
