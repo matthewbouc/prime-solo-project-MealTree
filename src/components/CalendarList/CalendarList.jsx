@@ -26,11 +26,16 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * path = /calendarList (ProtectedRoute)
+ */
 function CalendarList() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const calendars = useSelector((store) => store.calendars);
+  const calendars = useSelector(store => store.calendars);
+  // There are multiple Dialog modals in this component.  The following useStates tell which dialog is open/closed.
+
   const [addPersonDialog, setAddPersonDialog] = useState(false);
   const [deleteCalendarDialog, setDeleteCalendarDialog] = useState(false);
   const [defaultCalendarDialog, setDefaultCalendarDialog] = useState(false);
@@ -39,49 +44,46 @@ function CalendarList() {
   const [calendarName, setCalendarName] = useState("");
   const [calendarId, setCalendarId] = useState("");
   const [username, setUsername] = useState("");
-
+  
+  // GET request to update calendar reducer
   useEffect(() => {
     dispatch({ type: "GET_CALENDAR_LIST" });
   }, []);
 
-  const handleCloseDialog = (dialog) => {
-    switch (dialog) {
-      case "addPerson":
+  /**
+   * Close all Dialogs.  Multiple dialogs can't be open at once, therefore, we can set all to closed whenever one is closed.
+   */
+  const handleCloseDialog = () => {
         setAddPersonDialog(false);
-        break;
-      case "deleteCalendar":
-        setDeleteCalendarDialog(false);
-        break;
-      case "defaultCalendar":
-        setDefaultCalendarDialog(false);
-        break;
-      case "calendarName":
         setCalendarNameDialog(false);
-        break;
-      default:
-        alert("error closing dialog");
-        break;
-    }
+        setDeleteCalendarDialog(false);
   };
+
+  /**
+   * Open desired Dialog based onClick.  Preset string is entered as parameter and run through switch case to open specific Dialog.
+   */
+
   const handleOpenDialog = (dialog) => {
     switch (dialog) {
       case "addPerson":
         setAddPersonDialog(true);
         break;
-      case "deleteCalendar":
-        setDeleteCalendarDialog(true);
-        break;
-      case "defaultCalendar":
-        setDefaultCalendarDialog(true);
-        break;
       case "calendarName":
         setCalendarNameDialog(true);
         break;
+      case "deleteCalendar":
+        setDeleteCalendarDialog(true);
+        break;  
       default:
-        alert("error closing dialog");
+        alert("error opening dialog");
+
         break;
     }
   };
+
+  /**
+   * Opens Dialog to add user to a calendar.  Sets useStates of calendarName and calendarId so they can be used in Dialog
+   */
 
   const handleClickAddPersonIcon = (calendarName, calendarId) => {
     setCalendarName(calendarName);
@@ -89,28 +91,10 @@ function CalendarList() {
     handleOpenDialog("addPerson");
   };
 
-  const handleClickTrashIcon = (calendarName, calendarId) => {
-    setCalendarName(calendarName);
-    setCalendarId(calendarId);
-    handleOpenDialog("deleteCalendar");
-  };
-  // Uses Dialog to confirm changing the default calendar
-  const handleNewDefaultCalendar = (calendarId) => {
-    setCalendarId(calendarId);
-    dispatch({ type: "SET_NEW_DEFAULT", payload: calendarId }); // Not required if using Dialog
-    // handleOpenDialog('defaultCalendar'); //Uses Dialog Option
-  };
-  // NOT CURRENTLY IN USE - Linked to handleNewDefaultCalendar and Dialog option
-  const handleSetDefaultCalendar = () => {
-    dispatch({ type: "SET_NEW_DEFAULT", payload: calendarId });
-    handleCloseDialog("defaultCalendar");
-  };
-
-  const handleDeleteCalendar = () => {
-    dispatch({ type: "DELETE_CALENDAR", payload: calendarId });
-    handleCloseDialog("deleteCalendar");
-  };
-
+  
+  /**
+   * Dispatches to add new user to a calendar, from inside Dialog
+   */
   const handleAddUsername = () => {
     dispatch({
       type: "ADD_USER_TO_CALENDAR",
@@ -120,12 +104,55 @@ function CalendarList() {
     setUsername("");
   };
 
+
+
+  /**
+   * Dispatches to update the primary (default) calendar onClick of box
+   */
+  const handleNewDefaultCalendar = (calendarId) => {
+    setCalendarId(calendarId);
+    dispatch({ type: "SET_NEW_DEFAULT", payload: calendarId });
+  };
+
+
+
+  /**
+   * Opens Dialog to delete a calendar.  Sets useStates of calendarName and calendarId so they can be used in Dialog
+   */
+
+  const handleClickTrashIcon = (calendarName, calendarId) => {
+    setCalendarName(calendarName);
+    setCalendarId(calendarId);
+    handleOpenDialog("deleteCalendar");
+  };
+
+  /**
+   * Performs delete dispatch, comes from inside Dialog
+   */
+
+  const handleDeleteCalendar = () => {
+    dispatch({ type: "DELETE_CALENDAR", payload: calendarId });
+    handleCloseDialog("deleteCalendar");
+  };
+
+
+  
+  /**
+   * Opens edit name Dialog 
+   */
+
+  
   const handleChangeCalendarName = (calendarId) => {
     setCalendarName("");
     setCalendarId(calendarId);
     handleOpenDialog("calendarName");
   };
 
+  /**
+   * Dispatches new calendar name, comes from inside Dialog
+   */
+
+  
   const updateCalendarName = () => {
     dispatch({
       type: "UPDATE_CALENDAR_NAME",
@@ -138,6 +165,8 @@ function CalendarList() {
     setCalendarName("");
   };
 
+
+  
   return (
     <div className='standardBackground'>
       <Grid container justifyContent='center'>
@@ -146,6 +175,7 @@ function CalendarList() {
       <Grid container>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
+  {/* Add button to create new calendar */}
           <AddCircleOutlinedIcon
             color='secondary'
             fontSize='large'
@@ -154,6 +184,7 @@ function CalendarList() {
           />
         </Grid>
       </Grid>
+  {/* List of all the calendars the user is attached to */}
       <Grid container spacing={1} justifyContent='center'>
         {calendars.map((calendar, i) => {
           return (
@@ -167,6 +198,7 @@ function CalendarList() {
               justifyContent='center'
             >
               <Grid item xs={1}>
+  {/* Check if calendar is default or not, change whether box is checked or not */}
                 {(calendar.default_calendar && <CheckBoxOutlinedIcon />) || (
                   <CheckBoxOutlineBlankIcon
                     onClick={() =>
@@ -204,9 +236,10 @@ function CalendarList() {
         })}
       </Grid>
 
-      {/* Add user Dialog */}
+
+    {/* Add user to a calendar Dialog */}
       <Dialog
-        onClose={() => handleCloseDialog("addPerson")}
+        onClose={() => handleCloseDialog()}
         open={addPersonDialog}
       >
         <DialogTitle onClick={()=>setUsername('morgan')}>
@@ -231,9 +264,10 @@ function CalendarList() {
         </DialogContent>
       </Dialog>
 
-      {/* Delete calendar Dialog */}
+
+{/* Delete calendar Dialog */}
       <Dialog
-        onClose={() => handleCloseDialog("deleteCalendar")}
+        onClose={() => handleCloseDialog()}
         open={deleteCalendarDialog}
       >
         <DialogTitle>Delete {calendarName}?</DialogTitle>
@@ -242,7 +276,7 @@ function CalendarList() {
             Deleting a calendar is permanent and cannot be undone.
           </Typography>
           <Button
-            onClick={() => handleCloseDialog("deleteCalendar")}
+            onClick={() => handleCloseDialog()}
             variant='contained'
             color='primary'
           >
@@ -258,34 +292,11 @@ function CalendarList() {
         </DialogContent>
       </Dialog>
 
-      <Dialog
-        onClose={() => handleCloseDialog("defaultCalendar")}
-        open={defaultCalendarDialog}
-      >
-        <DialogTitle>Change Primary Calendar?</DialogTitle>
-        <DialogContent>
-          <Typography>
-            This will change the calendar you see on your home page.
-          </Typography>
-          <Button
-            onClick={() => handleCloseDialog("defaultCalendar")}
-            variant='contained'
-            color='primary'
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleSetDefaultCalendar}
-            variant='contained'
-            color='secondary'
-          >
-            Update
-          </Button>
-        </DialogContent>
-      </Dialog>
 
+{/* Dialog to edit the calendar name */}
       <Dialog
-        onClose={() => handleCloseDialog("calendarName")}
+        onClose={() => handleCloseDialog()}
+
         open={calendarNameDialog}
       >
         <DialogTitle onClick={()=> setCalendarName('Labor Day Weekend')}>Change Calendar Name?</DialogTitle>
@@ -300,7 +311,7 @@ function CalendarList() {
           <br />
           <br />
           <Button
-            onClick={() => handleCloseDialog("calendarName")}
+            onClick={() => handleCloseDialog()}
             variant='contained'
             color='primary'
           >
