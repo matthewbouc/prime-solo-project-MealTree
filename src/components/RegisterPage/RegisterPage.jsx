@@ -6,20 +6,7 @@ import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import Nav from "../Nav/Nav";
 import "./RegisterPage.css";
 
-const useStyles = makeStyles((theme) => ({
-  backgroundImage: {
-    backgroundImage: `url(${background})`,
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundAttachment: "fixed",
-    height: "100vh",
-    paddingTop: "50px",
-  },
-}));
-
 function RegisterPage() {
-  const classes = useStyles();
   const history = useHistory();
 
   return (

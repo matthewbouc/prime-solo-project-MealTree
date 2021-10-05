@@ -8,7 +8,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import DatePicker from "../DatePicker/DatePicker";
-import { Box, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import "../App/App.css";
 
 function Favorites() {
@@ -46,7 +46,6 @@ function Favorites() {
       push: history.push,
       isFavorites: true,
     });
-    // history.push(`/recipe/${id}`);
   };
 
   return (
@@ -55,7 +54,6 @@ function Favorites() {
         <Typography variant="h6">Favorite Recipes</Typography>
       </Grid>
       <Grid container justifyContent="center">
-        {/* <Button onClick={() => history.goBack()}>Back</Button> */}
         {favorites &&
           favorites.map((recipe, i) => {
             return (
@@ -86,7 +84,7 @@ function Favorites() {
                         container
                         style={{ paddingLeft: "8px", paddingRight: "8px" }}
                         alignContent="center"
-                        onClick={(event) => handleViewRecipe(event, recipe.id)}
+                        onClick={(event) => handleViewRecipe(event, recipe.id, recipe.api_id)}
                       >
                         <Typography>{recipe.name}</Typography>
                       </Grid>

@@ -63,11 +63,6 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   const apiId = req.body.apiId;
   let isVerified;
 
-  console.log("what is body", req.body);
-
-  
-
-
   const verifyUserQuery = `SELECT calendar_id FROM calendar_shared_users WHERE shared_user_id = $1;`;
   const postNewMeal = `INSERT INTO "meal_plan" ("calendar_id", "date", "category_id", "recipe_id", "api_id") VALUES ($1, $2, $3, $4, $5);`;
   await pool

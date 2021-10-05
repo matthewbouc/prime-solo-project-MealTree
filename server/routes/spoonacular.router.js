@@ -5,7 +5,6 @@ require("dotenv").config();
 
 router.get("/textSearch", (req, res) => {
   const search = req.query.q;
-  console.log("searching for,", search);
   axios
     .get(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.spoon_Key}&query=${search}&number=10`
@@ -22,7 +21,6 @@ router.get("/textSearch", (req, res) => {
 
 router.get("/recipe/:id", (req, res) => {
   const recipeId = req.params.id;
-
   axios
     .get(
       `https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=false&apiKey=${process.env.spoon_Key}`

@@ -108,7 +108,6 @@ function CalendarView() {
       push: history.push,
       isFavorites: true,
     });
-    // history.push(`/recipe/${id}`);
   };
 
   return (
@@ -138,7 +137,7 @@ function CalendarView() {
                           return (
                             <Grid key={meal.id} container style={{ marginBottom: "5px" }} justifyContent="center" >
                               <Grid item xs={4}>
-                                <img src={meal.picture} onClick={() => handleViewRecipe(event, meal.recipe_id, meal.api_id)} width="100px" />
+                                <img src={meal.picture} onClick={(event) => handleViewRecipe(event, meal.recipe_id, meal.api_id)} width="100px" />
                               </Grid>
                               <Grid item xs={5} container alignContent="center" style={{ paddingRight: "8px" }} >
                                 <Grid item>

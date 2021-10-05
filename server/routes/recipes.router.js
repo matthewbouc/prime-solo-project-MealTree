@@ -16,8 +16,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
         JOIN recipes ON recipe_id = recipes.id
         WHERE owner_id = $1`;
   if (req.query.recipeId) {
-    console.log("queryParams", queryParameters);
-    console.log("recipeId req.query", req.query.recipeId);
     queryText += ` AND recipe_id = $2 ORDER BY name;`;
     queryParameters.push(req.query.recipeId);
   } else {
@@ -40,13 +38,11 @@ router.get("/", rejectUnauthenticated, (req, res) => {
  * POST add new recipe to database
  */
 router.post("/new", rejectUnauthenticated, (req, res) => {
-  console.log("req.body", req.body);
   const name = req.body.name;
   const ingredients = req.body.ingredients;
   const procedure = req.body.procedure;
   const picture = req.body.picture;
   const api_id = req.body.api_id; // THIS WILL NEED TO BE ADDRESSED ONCE API IS INTRODUCED.  Will have  to rework queryText
-  console.log(req.user.id);
   const addRecipeQuery = `
         WITH newRecipe as (
             INSERT INTO recipes (name, ingredients, procedure, picture, api_id)
@@ -70,7 +66,6 @@ router.post("/new", rejectUnauthenticated, (req, res) => {
  */
 router.delete("/:recipeId", rejectUnauthenticated, (req, res) => {
   const recipeId = req.params.recipeId;
-  console.log(req.user.id);
   const deleteQuery = `
     DELETE FROM recipes 
         USING users_recipes
@@ -95,8 +90,6 @@ router.delete("/:recipeId", rejectUnauthenticated, (req, res) => {
  */
 router.put("/", rejectUnauthenticated, (req, res) => {
   const recipe = req.body;
-  console.log("recipe", recipe);
-
   const updateQuery = `
     UPDATE recipes SET name = $1, ingredients = $2, procedure = $3, picture = $4 
         FROM users_recipes

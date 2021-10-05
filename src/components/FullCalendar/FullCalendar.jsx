@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { useHistory } from "react-router-dom";
-import DatePicker from "../DatePicker/DatePicker";
-import { Card, Grid, Box } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import "../App/App.css";
-import calendarSaga from "../../redux/sagas/calendar.saga";
 
 function FullCalendar() {
   const history = useHistory();
@@ -24,6 +17,20 @@ function FullCalendar() {
   useEffect(() => {
     dispatch({ type: "GET_WEEK_PLAN" });
   }, []);
+
+  // dispatches to get/set recipe details.  dispatch pushes the user to the recipe details page.
+  const handleViewRecipe = (event, id, apiId) => {
+    event.stopPropagation();
+    dispatch({
+      type: "GET_RECIPE_DETAILS",
+      payload: {
+        id: id,
+        api_id: apiId
+      },
+      push: history.push,
+      isFavorites: true,
+    });
+  };
 
   // NO longer using accordion functionality, should be switched out to just plain Grid styling like CalendarList.jsx
   return (
@@ -36,8 +43,9 @@ function FullCalendar() {
           weekPlan.map((meal, i) => {
             return (
               <Grid key={i} item xs={11} sm={7} md={7} lg={7}>
+              {/* Get rid of accordion and go Grid */}
                 <Accordion
-                  onClick={() => history.push(`/recipe/${meal.recipe_id}`)}
+                  onClick={(event) => handleViewRecipe(event, meal.recipe_id, meal.api_id)}
                   style={{ backgroundColor: "#ACC8AB" }}
                 >
                   <AccordionSummary>

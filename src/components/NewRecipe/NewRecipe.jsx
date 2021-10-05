@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import FormControl from "@material-ui/core/FormControl";
-import Box from "@material-ui/core/Box";
 import { Grid, Typography } from "@material-ui/core";
 import "./NewRecipe.css";
 import "../App/App.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   textHeader: {
     textAlign: "center",
-    // color: "#442603",
-    // paddingTop: "5%",
     paddingBottom: "20px",
   },
 }));

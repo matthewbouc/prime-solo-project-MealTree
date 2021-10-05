@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import background from "../../images/landingPage.jpeg";
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import RegisterForm from "../RegisterForm/RegisterForm";
@@ -9,7 +8,7 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   backgroundImage: {
     backgroundImage: `url(${background})`,
     backgroundPosition: "center",

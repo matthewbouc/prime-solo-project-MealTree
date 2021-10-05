@@ -85,8 +85,6 @@ router.post("/:calendarId", rejectUnauthenticated, (req, res) => {
   const calendarId = req.params.calendarId;
   const requesterId = req.user.id;
   const addedUser = req.body.username;
-  console.log("req.body", req.body.username);
-  console.log("3times log here", calendarId, requesterId, addedUser);
 
   const calendarOwner = "SELECT owner_id FROM calendars WHERE id = $1";
   const selectQuery = 'SELECT id FROM "user" WHERE username=$1;';
@@ -126,7 +124,6 @@ router.post("/:calendarId", rejectUnauthenticated, (req, res) => {
 router.post("/", rejectUnauthenticated, (req, res) => {
   const owner = req.user.id;
   const calendarName = req.body.name || "New Calendar";
-  console.log("req.user.id", owner);
   const queryText = `
     WITH newPost as (
       INSERT INTO calendars (owner_id, name)
@@ -159,7 +156,6 @@ router.put("/:calendarId", rejectUnauthenticated, (req, res) => {
   const calendarId = req.params.calendarId;
   const requesterId = req.user.id;
   const newName = req.body.calendarName;
-  console.log(newName);
 
   const queryText = `UPDATE calendars SET name = $1 WHERE owner_id = $2 AND id =$3;`;
   pool
